@@ -200,7 +200,7 @@ class VideoFFmpeg:
 		self.deinterlace = True
 	
 	# Functions
-	def play():
+	def play(self):
 		"""Play (restart) video.
 
 		Returns:
@@ -210,7 +210,7 @@ class VideoFFmpeg:
 		bool"""
 		return True
 		
-	def pause():
+	def pause(self):
 		"""Pause video.
 
 		Returns:
@@ -220,7 +220,7 @@ class VideoFFmpeg:
 		bool"""
 		return True
 		
-	def stop():
+	def stop(self):
 		"""Stop video (play will replay it from start).
 
 		Returns:	
@@ -230,7 +230,7 @@ class VideoFFmpeg:
 		bool"""
 		return True
 		
-	def refresh(buffer=None, format="RGBA", timestamp=-1.0):
+	def refresh(self, buffer=None, format="RGBA", timestamp=-1.0):
 		"""Refresh video - get its status.
 
 		Value:
@@ -257,7 +257,7 @@ class VideoDeckLink:
 		self.flip = False
 		self.filter = None
 		
-	def play():
+	def play(self):
 		"""Kick-off the capture after creation of the object.
 		
 		Returns:
@@ -267,7 +267,7 @@ class VideoDeckLink:
 		bool"""
 		return True
 		
-	def pause():
+	def pause(self):
 		"""Temporary stops the capture. Use play() to restart it.
 		
 		Returns:
@@ -277,7 +277,7 @@ class VideoDeckLink:
 		bool"""
 		return True
 		
-	def pause():
+	def pause(self):
 		"""Stops the capture.
 		
 		Returns:
@@ -303,7 +303,7 @@ class ImageFFmpeg:
 		self.flip = True
 		self.filter = None
 		
-	def refresh():
+	def refresh(self):
 		"""Refresh image, i.e. load it.
 
 		Value:
@@ -313,7 +313,7 @@ class ImageFFmpeg:
 		int"""
 		return 0
 		
-	def reload():
+	def reload(self):
 		"""Reload image, i.e. reopen it.
 
 		Parameters:
@@ -339,7 +339,7 @@ class ImageBuff:
 		self.size = (0,0)
 		self.valid = True
 	
-	def load(imageBuffer, width, height):
+	def load(self, imageBuffer, width, height):
 		"""Load image from buffer.
 
 		Parameters:
@@ -348,7 +348,7 @@ class ImageBuff:
 		height (int) - Height of the image to load."""
 		pass
 		
-	def plot(imageBuffer, width, height, positionX, positionY, mode=IMB_BLEND_COPY):
+	def plot(self, imageBuffer, width, height, positionX, positionY, mode=IMB_BLEND_COPY):
 		"""Update image buffer.
 
 		Parameters:
@@ -384,7 +384,7 @@ class ImageMirror:
 		self.valid = True
 		self.whole = True
 		
-	def refresh(buffer=None, format="RGBA"):
+	def refresh(self, buffer=None, format="RGBA"):
 		"""Refresh image - invalidate its current content."""
 		pass
 
@@ -401,7 +401,7 @@ class ImageMix:
 		self.size = (0,0)
 		self.valid = True
 		
-	def getSource(id):
+	def getSource(self, id):
 		"""Get image source.
 
 		Parameters:
@@ -421,7 +421,7 @@ class ImageMix:
 		ImageViewport"""
 		pass
 		
-	def getWeight(id):
+	def getWeight(self, id):
 		"""Get image source weight.
 
 		Parameters:
@@ -434,11 +434,11 @@ class ImageMix:
 		int"""
 		return 0
 		
-	def refresh(buffer=None, format="RGBA"):
+	def refresh(self, buffer=None, format="RGBA"):
 		"""Refresh image - invalidate its current content."""
 		pass
 		
-	def setSource(id, image):
+	def setSource(self, id, image):
 		"""Set image source - all sources must have the same size.
 
 		Parameters:
@@ -454,7 +454,7 @@ class ImageMix:
 		ImageViewport"""
 		pass
 		
-	def setWeight(id, weight):
+	def setWeight(self, id, weight):
 		"""Set image source weight - the sum of the weights should be 256 to get full color intensity in the output.
 
 		Parameters:
@@ -489,7 +489,7 @@ class ImageRender:
 		self.depth = True
 		self.zbuff = True
 		
-	def render():
+	def render(self):
 		"""Render the scene but do not extract the pixels yet. The function returns as soon as the render commands have been send to the GPU. The render will proceed asynchronously in the GPU while the host can perform other tasks. To complete the render, you can either call refresh() directly of refresh the texture of which this object is the source. This method is useful to implement asynchronous render for optimal performance: call render() on frame n and refresh() on frame n+1 to give as much as time as possible to the GPU to render the frame while the game engine can perform other tasks.
 
 		Returns:
@@ -499,7 +499,7 @@ class ImageRender:
 		bool"""
 		return True
 		
-	def refresh(buffer, format="RGBA"):
+	def refresh(self, buffer, format="RGBA"):
 		"""Refresh video - render and optionally copy the image to an external buffer then invalidate its current content. The render may have been started earlier with the render() method, in which case this function simply waits for the render operations to complete. When called without argument, the pixels are not extracted but the render is guaranteed to be completed when the function returns. This only makes sense with offscreen render on texture target (see bge.render.offScreenCreate()).
 		
 		Parameters:
@@ -531,7 +531,7 @@ class ImageViewport:
 		self.depth = True
 		self.zbuff = True
 		
-	def refresh(buffer=None, format="RGBA"):
+	def refresh(self, buffer=None, format="RGBA"):
 		"""Refresh video - copy the viewport to an external buffer (optional) then invalidate its current content.
 		
 		Parameters:
@@ -556,11 +556,11 @@ class Texture:
 		self.mipmap = True
 		self.source = None
 	
-	def close():
+	def close(self):
 		"""Close dynamic texture and restore original."""
 		pass
 		
-	def refresh(refresh_source, timestamp=-1.0):
+	def refresh(self, refresh_source, timestamp=-1.0):
 		"""Refresh texture from source.
 
 		Parameters:
@@ -569,7 +569,6 @@ class Texture:
 		pass
 
 	pass
-
 
 class DeckLink:
 	"""Certain DeckLink devices can be used to playback video: the host sends video frames regularly for immediate or scheduled playback. The video feed is outputted on HDMI or SDI interfaces. This class supports the immediate playback mode: it has a source attribute that is assigned one of the source object in the bge.texture module. Refreshing the DeckLink object causes the image source to be computed and sent to the DeckLink device for immediate transmission on the output interfaces. Keying is supported: it allows to composite the frame with an input video feed that transits through the DeckLink card.
@@ -585,11 +584,11 @@ class DeckLink:
 		level = 0
 		extend = False
 		
-	def close():
+	def close(self):
 		"""Close the DeckLink device and release all resources. After calling this method, the object cannot be reactivated, it must be destroyed and a new DeckLink object created from fresh to restart the output."""
 		pass
 		
-	def refresh(refresh_source, ts):
+	def refresh(self, refresh_source, ts):
 		"""This method must be called frequently to update the output frame in the DeckLink device.
 
 		Parameters:

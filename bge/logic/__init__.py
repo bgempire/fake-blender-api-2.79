@@ -322,16 +322,14 @@ def getCurrentController():
 
 	Return type:
 	bge.types.SCA_PythonController"""
-	value = types.SCA_PythonController
-	return value
+	return types.SCA_PythonController()
 	
 def getCurrentScene():
 	"""Gets the current Scene.
 
 	Return type:
 	bge.types.KX_Scene"""
-	value = types.KX_Scene
-	return value
+	return types.KX_Scene()
 	
 def getSceneList():
 	"""Gets a list of the current scenes loaded in the game engine.
@@ -340,7 +338,7 @@ def getSceneList():
 	list of bge.types.KX_Scene
 
 	Note: Scenes in your blend file that have not been converted wont be in this list. This list will only contain scenes such as overlays scenes."""
-	return []
+	return [types.KX_Scene()]
 	
 def loadGlobalDict():
 	"""Loads bge.logic.globalDict from a file."""
@@ -381,8 +379,7 @@ def LibLoad(blend, type, data, load_actions=False, verbose=False, load_scripts=T
 	bge.types.KX_LibLoadStatus
 
 	Note: Asynchronously loaded libraries will not be available immediately after LibLoad() returns. Use the returned KX_LibLoadStatus to figure out when the libraries are ready."""
-	value = types.KX_LibLoadStatus
-	return value
+	return types.KX_LibLoadStatus()
 	
 def LibNew(name, type, data):
 	"""Uses existing datablock data and loads in as a new library.

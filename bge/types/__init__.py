@@ -1,13 +1,14 @@
 """This module contains the classes that appear as instances in the Game Engine. A script must interact with these classes if it is to affect the behaviour of objects in a game."""
 
+__shared__ = {}
+
 class PyObjectPlus:
 	
 	"""class bge.PyObjectPlus
 
 	PyObjectPlus base class of most other types in the Game Engine."""
 
-	def __init__(self):
-		self.invalid = True
+	invalid = bool()
 
 class CValue(PyObjectPlus):
 	
@@ -17,8 +18,7 @@ class CValue(PyObjectPlus):
 
 	This class is a basis for other classes."""
 
-	def __init__(self):
-		self.name = "str"
+	name = str()
 
 class CPropValue(CValue):
 	
@@ -41,48 +41,44 @@ class CListValue(CPropValue):
 
 	Other operations such as len(clist), list(clist), clist[0:10] are also supported."""
 	
-	def append():
+	def append(self):
 		"""Add an item to the list (like pythons append)
 
 		Warning: Appending values to the list can cause crashes when the list is used internally by the game engine."""
 		pass
 		
-	def count():
+	def count(self):
 		"""Count the number of instances of a value in the list.
 
-		Returns:	
-		number of instances
+		Returns:number of instances
 
-		Return type:
-		integer"""
-		return 0
+		Return type: integer"""
+		return int()
 		
-	def index():
+	def index(self):
 		"""Return the index of a value in the list.
 
-		Returns:
-		The index of the value in the list.
+		Returns: The index of the value in the list.
 
-		Return type:
-		integer"""
-		return 0
+		Return type: integer"""
+		return int()
 		
-	def reverse():
+	def reverse(self):
 		"""Reverse the order of the list."""
 		pass
 		
-	def get():
+	def get(self):
 		"""Return the value matching key, or the default value if its not found.
 
 		Returns:	
 		The key value or a default."""
-		pass
+		return CValue()
 		
-	def from_id():
+	def from_id(self):
 		"""This is a funtion especially for the game engine to return a value with a spesific id.
 
 		Since object names are not always unique, the id of an object can be used to get an object from the CValueList."""
-		pass
+		return CValue()
 		
 	pass
 
@@ -111,64 +107,69 @@ class KX_GameObject(SCA_IObject):
 	KX_GameObject can be subclassed to extend functionality."""
 	
 	def __init__(self):
-		self.parent = KX_GameObject
-		self.groupMembers = CListValue
-		self.groupObject = KX_GameObject
-		self.scene = KX_Scene
-		self.children = CListValue
-		self.childrenRecursive = CListValue
-		self.name = "str"
-		self.mass = 0.0
-		self.isSuspendedDynamics = True
-		self.linearDamping = 0.0
-		self.angularDamping = 0.0
-		self.linVelocityMin = 0.0
-		self.linVelocityMax = 0.0
-		self.angularVelocityMin = 0.0
-		self.angularVelocityMax = 0.0
-		self.localInertia = ((0.0,0.0,0.0))
-		self.collisionGroup = 0
-		self.collisionMask = 0
-		self.collisionCallbacks = []
-		self.visible = True
-		self.record_animation = True
-		self.color = [0,0,0,255]
-		self.occlusion = True
-		self.position = [0.0,0.0,0.0]
-		self.orientation = [0.0,0.0,0.0]
-		self.scaling = [0.0,0.0,0.0]
-		self.localOrientation = ([0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0])
-		self.worldOrientation = ([0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0])
-		self.localScale = [0.0,0.0,0.0]
-		self.worldScale = [0.0,0.0,0.0]
-		self.localPosition = [0.0,0.0,0.0]
-		self.worldPosition = [0.0,0.0,0.0]
-		self.localTransform = ([0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0])
-		self.worldTransform = ([0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0],[0.0,0.0,0.0])
-		self.localLinearVelocity = [0.0,0.0,0.0]
-		self.worldLinearVelocity = [0.0,0.0,0.0]
-		self.localAngularVelocity = [0.0,0.0,0.0]
-		self.worldAngularVelocity = [0.0,0.0,0.0]
-		self.timeOffset = 0.0
-		self.state = 0
-		self.meshes = []
-		self.sensors = []
-		self.controllers = []
-		self.actuators = []
-		self.attrDict = {}
-		self.life = 0.0
-		self.debug = True
-		self.debugRecursive = True
-		self.currentLodLevel = 0
-		self.maxJumps = 0
+		from mathutils import Vector, Matrix
 		
-	def endObject():
+		if not "KX_GameObject" in __shared__.keys():
+			__shared__["KX_GameObject"] = None
+			__shared__["KX_GameObject"] = KX_GameObject()
+
+		self.parent = __shared__["KX_GameObject"]
+		self.groupMembers = {"key" : __shared__["KX_GameObject"]}
+		self.groupObject = __shared__["KX_GameObject"]
+		self.children = {"key" : __shared__["KX_GameObject"]}
+		self.childrenRecursive = {"key" : __shared__["KX_GameObject"]}
+		self.scene = KX_Scene()
+		self.name = str()
+		self.mass = float()
+		self.isSuspendedDynamics = bool()
+		self.linearDamping = float()
+		self.angularDamping = float()
+		self.linVelocityMin = float()
+		self.linVelocityMax = float()
+		self.angularVelocityMin = float()
+		self.angularVelocityMax = float()
+		self.localInertia = Vector(None)
+		self.collisionGroup = int()
+		self.collisionMask = int()
+		self.collisionCallbacks = []
+		self.visible = bool()
+		self.record_animation = bool()
+		self.color = Vector(None)
+		self.occlusion = bool()
+		self.position = Vector(None)
+		self.orientation = Matrix(None)
+		self.scaling = Vector(None)
+		self.localOrientation = Matrix(None)
+		self.worldOrientation = Matrix(None)
+		self.localScale = Vector(None)
+		self.worldScale = Vector(None)
+		self.localPosition = Vector(None)
+		self.worldPosition = Vector(None)
+		self.localTransform = Matrix(None)
+		self.worldTransform = Matrix(None)
+		self.localLinearVelocity = Vector(None)
+		self.worldLinearVelocity = Vector(None)
+		self.localAngularVelocity = Vector(None)
+		self.worldAngularVelocity = Vector(None)
+		self.timeOffset = float()
+		self.state = int()
+		self.meshes = {"key" : KX_MeshProxy()}
+		self.sensors = {"key" : SCA_ISensor()}
+		self.controllers = {"key" : SCA_IController()}
+		self.actuators = {"key" : SCA_IActuator()}
+		self.attrDict = dict()
+		self.life = float()
+		self.debug = bool()
+		self.debugRecursive = bool()
+		self.currentLodLevel = int()
+		
+	def endObject(self):
 		"""Delete this object, can be used in place of the EndObject Actuator.
 
 		The actual removal of the object from the scene is delayed."""
 		pass
 		
-	def replaceMesh(mesh, useDisplayMesh=True, usePhysicsMesh=False):
+	def replaceMesh(self, mesh, useDisplayMesh=True, usePhysicsMesh=False):
 		"""Replace the mesh of this object with a new mesh. This works the same was as the actuator.
 
 		Parameters:
@@ -177,7 +178,7 @@ class KX_GameObject(SCA_IObject):
 		usePhysicsMesh (boolean) - when enabled the physics mesh will be replaced (optional argument)."""
 		pass
 		
-	def setVisible(visible, recursive=False):
+	def setVisible(self, visible, recursive=False):
 		"""Sets the game object's visible flag.
 
 		Parameters:
@@ -185,7 +186,7 @@ class KX_GameObject(SCA_IObject):
 		recursive (boolean) - optional argument to set all childrens visibility flag too."""
 		pass
 		
-	def setOcclusion(occlusion, recursive=False):
+	def setOcclusion(self, occlusion, recursive=False):
 		"""Sets the game object's occlusion capability.
 
 		Parameters:
@@ -193,7 +194,7 @@ class KX_GameObject(SCA_IObject):
 		recursive (boolean) - optional argument to set all childrens occlusion flag too."""
 		pass
 		
-	def alignAxisToVect(vect, axis=2, factor=1.0):
+	def alignAxisToVect(self, vect, axis=2, factor=1.0):
 		"""Aligns any of the game object's axis along the given vector.
 
 		Parameters:
@@ -206,20 +207,19 @@ class KX_GameObject(SCA_IObject):
 		factor (float) - Only rotate a feaction of the distance to the target vector (0.0 - 1.0)"""
 		pass
 		
-	def getAxisVect(vect):
+	def getAxisVect(self, vect):
 		"""Returns the axis vector rotates by the objects worldspace orientation. This is the equivalent of multiplying the vector by the orientation matrix.
 
 		Parameters:
 		vect (3D Vector) - a vector to align the axis.
 
-		Returns:	
-		The vector in relation to the objects rotation.
+		Returns: The vector in relation to the objects rotation.
 
-		Return type:
-		3d vector."""
-		return [0.0,0.0,0.0]
+		Return type: 3d vector."""
+		from mathutils import Vector
+		return Vector(None)
 		
-	def applyMovement(movement, local=False):
+	def applyMovement(self, movement, local=False):
 		"""Sets the game object's movement.
 
 		Parameters:
@@ -230,7 +230,7 @@ class KX_GameObject(SCA_IObject):
 		local - boolean"""
 		pass
 		
-	def applyRotation(rotation, local=False):
+	def applyRotation(self, rotation, local=False):
 		"""Sets the game object's rotation.
 
 		Parameters:
@@ -241,7 +241,7 @@ class KX_GameObject(SCA_IObject):
 		local - boolean"""
 		pass
 		
-	def applyForce(force, local=False):
+	def applyForce(self, force, local=False):
 		"""Sets the game object's force.
 
 		This requires a dynamic object.
@@ -253,7 +253,7 @@ class KX_GameObject(SCA_IObject):
 		True: you get the "local" force ie: relative to object orientation."""
 		pass
 		
-	def applyTorque(torque, local=False):
+	def applyTorque(self, torque, local=False):
 		"""Sets the game object's torque.
 
 		This requires a dynamic object.
@@ -265,7 +265,7 @@ class KX_GameObject(SCA_IObject):
 		True: you get the "local" torque ie: relative to object orientation."""
 		pass
 		
-	def getLinearVelocity(local=False):
+	def getLinearVelocity(self, local=False):
 		"""Gets the game object's linear velocity.
 
 		This method returns the game object's velocity through it's centre of mass, ie no angular velocity component.
@@ -274,11 +274,14 @@ class KX_GameObject(SCA_IObject):
 		local (boolean) -
 		False: you get the "global" velocity ie: relative to world orientation.
 		True: you get the "local" velocity ie: relative to object orientation.
-		Returns:	the object's linear velocity.
-		Return type:	Vector((vx, vy, vz))"""
-		return ((0.0,0.0,0.0))
 		
-	def setLinearVelocity(velocity, local=False):
+		Returns: The object's linear velocity.
+		
+		Return type: Vector((vx, vy, vz))"""
+		from mathutils import Vector
+		return Vector(None)
+		
+	def setLinearVelocity(self, velocity, local=False):
 		"""Sets the game object's linear velocity.
 
 		This method sets game object's velocity through it's centre of mass, ie no angular velocity component.
@@ -292,7 +295,7 @@ class KX_GameObject(SCA_IObject):
 		True: you get the "local" velocity ie: relative to object orientation."""
 		pass
 		
-	def getAngularVelocity(local=False):
+	def getAngularVelocity(self, local=False):
 		"""Gets the game object's angular velocity.
 
 		Parameters:
@@ -300,14 +303,13 @@ class KX_GameObject(SCA_IObject):
 		False: you get the "global" velocity ie: relative to world orientation.
 		True: you get the "local" velocity ie: relative to object orientation.
 
-		Returns:	
-		the object's angular velocity.
+		Returns: The object's angular velocity.
 
-		Return type:
-		Vector((vx, vy, vz))"""
-		return ((0.0,0.0,0.0))
+		Return type: Vector((vx, vy, vz))"""
+		from mathutils import Vector
+		return Vector(None)
 		
-	def setAngularVelocity(velocity, local=False):
+	def setAngularVelocity(self, velocity, local=False):
 		"""Sets the game object's angular velocity.
 
 		This requires a dynamic object.
@@ -319,7 +321,7 @@ class KX_GameObject(SCA_IObject):
 		True: you get the "local" velocity ie: relative to object orientation."""
 		pass
 		
-	def getVelocity(point=(0,0,0)):
+	def getVelocity(self, point=(0,0,0)):
 		"""Gets the game object's velocity at the specified point.
 
 		Gets the game object's velocity at the specified point, including angular components.
@@ -327,28 +329,26 @@ class KX_GameObject(SCA_IObject):
 		Parameters:
 		point (3D Vector) - optional point to return the velocity for, in local coordinates.
 
-		Returns:
-		the velocity at the specified point.
+		Returns: The velocity at the specified point.
 
-		Return type:
-		Vector((vx, vy, vz))"""
-		return ((0.0,0.0,0.0))
+		Return type: Vector((vx, vy, vz))"""
+		from mathutils import Vector
+		return Vector(None)
 		
-	def getReactionForce():
+	def getReactionForce(self):
 		"""Gets the game object's reaction force.
 
 		The reaction force is the force applied to this object over the last simulation timestep. This also includes impulses, eg from collisions.
 
-		Returns:	
-		the reaction force of this object.
+		Returns: The reaction force of this object.
 
-		Return type:
-		Vector((fx, fy, fz))
+		Return type: Vector((fx, fy, fz))
 
 		Note: This is not implimented at the moment."""
-		return ((0.0,0.0,0.0))
+		from mathutils import Vector
+		return Vector(None)
 		
-	def applyImpulse(point, impulse, local=False):
+	def applyImpulse(self, point, impulse, local=False):
 		"""Applies an impulse to the game object.
 
 		This will apply the specified impulse to the game object at the specified point. If point != position, applyImpulse will also change the object's angular momentum. Otherwise, only linear momentum will change.
@@ -361,7 +361,7 @@ class KX_GameObject(SCA_IObject):
 		True: you get the "local" impulse ie: relative to local coordinates with object orientation."""
 		pass
 		
-	def setDamping(linear_damping, angular_damping):
+	def setDamping(self, linear_damping, angular_damping):
 		"""Sets both the linearDamping and angularDamping simultaneously. This is more efficient than setting both properties individually.
 
 		Parameters:
@@ -369,18 +369,18 @@ class KX_GameObject(SCA_IObject):
 		angular_damping (float ? [0, 1]) - Angular ("rotational") damping factor."""
 		pass
 	
-	def suspendPhysics(freeConstraints=False):
+	def suspendPhysics(self, freeConstraints=False):
 		"""Suspends physics for this object.
 
 		Parameters:
 		freeConstraints (bool) – When set to True physics constraints used by the object are deleted. Else when False (the default) constraints are restored when restoring physics."""
 		pass
 	
-	def restorePhysics():
+	def restorePhysics(self):
 		"""Resumes physics for this object. Also reinstates collisions."""
 		pass
 	
-	def suspendDynamics(ghost=False):
+	def suspendDynamics(self, ghost=False):
 		"""Suspends physics for this object.
 
 		Parameters:
@@ -389,23 +389,23 @@ class KX_GameObject(SCA_IObject):
 		See also isSuspendDynamics allows you to inspect whether the object is in a suspended state."""
 		pass
 		
-	def restoreDynamics():
+	def restoreDynamics(self):
 		"""Resumes physics for this object. Also reinstates collisions; the object will no longer be a ghost.
 
 		Note: The objects linear velocity will be applied from when the dynamics were suspended."""
 		pass
 		
-	def enableRigidBody():
+	def enableRigidBody(self):
 		"""Enables rigid body physics for this object.
 
 		Rigid body physics allows the object to roll on collisions."""
 		pass
 		
-	def disableRigidBody():
+	def disableRigidBody(self):
 		"""Disables rigid body physics for this object."""
 		pass
 		
-	def setParent(parent, compound=True, ghost=True):
+	def setParent(self, parent, compound=True, ghost=True):
 		"""Sets this object's parent. Control the shape status with the optional compound and ghost parameters:
 
 		In that case you can control if it should be ghost or not:
@@ -424,25 +424,23 @@ class KX_GameObject(SCA_IObject):
 		Note: If the object type is sensor, it stays ghost regardless of ghost parameter"""
 		pass
 		
-	def removeParent():
+	def removeParent(self):
 		"""Removes this objects parent."""
 		pass
 		
-	def getPhysicsId():
+	def getPhysicsId(self):
 		"""Returns the user data object associated with this game object's physics controller."""
-		pass
+		return int()
 		
-	def getPropertyNames():
+	def getPropertyNames(self):
 		"""Gets a list of all property names.
 
-		Returns:	
-		All property names for this object.
+		Returns: All property names for this object.
 
-		Return type:
-		list"""
-		return []
+		Return type: list"""
+		return list()
 		
-	def getDistanceTo():
+	def getDistanceTo(self):
 		"""Parameters:	other (KX_GameObject or list [x, y, z]) - a point or another KX_GameObject to measure the distance to.
 
 		Returns:	
@@ -450,9 +448,9 @@ class KX_GameObject(SCA_IObject):
 
 		Return type:
 		float"""
-		return 0.0
+		return float()
 		
-	def getVectTo(other):
+	def getVectTo(self, other):
 		"""Returns the vector and the distance to another object or point. The vector is normalized unless the distance is 0, in which a zero length vector is returned.
 
 		Parameters:
@@ -463,9 +461,10 @@ class KX_GameObject(SCA_IObject):
 
 		Return type:
 		3-tuple (float, 3-tuple (x, y, z), 3-tuple (x, y, z))"""
-		return (0.0,(0.0,0.0,0.0),(0.0,0.0,0.0))
+		from mathutils import Vector
+		return (float(), Vector(None), Vector(None))
 		
-	def rayCastTo(other, dist=0, prop=""):
+	def rayCastTo(self, other, dist=0, prop=""):
 		"""Look towards another point/object and find first object hit within dist that matches prop.
 
 		The ray is always casted from the center of the object, ignoring the object itself. The ray is casted towards the center of another object or an explicit [x, y, z] point. Use rayCast() if you need to retrieve the hit point
@@ -480,10 +479,9 @@ class KX_GameObject(SCA_IObject):
 
 		Return type:
 		KX_GameObject"""
-		value = KX_GameObject
-		return value
+		return KX_GameObject()
 		
-	def rayCast(objto, objfrom=None, dist=0, prop="", face=False, xray=False, poly=0, mask=0xFFFF):
+	def rayCast(self, objto, objfrom=None, dist=0, prop="", face=False, xray=False, poly=0, mask=0xFFFF):
 		"""Look from a point/object to another point/object and find first object hit within dist that matches prop. if poly is 0, returns a 3-tuple with object reference, hit point and hit normal or (None, None, None) if no hit. if poly is 1, returns a 4-tuple with in addition a KX_PolyProxy as 4th element. if poly is 2, returns a 5-tuple with in addition a 2D vector with the UV mapping of the hit point as 5th element.
 		
 		Return type:
@@ -492,27 +490,10 @@ class KX_GameObject(SCA_IObject):
 		or 5-tuple (KX_GameObject, 3-tuple (x, y, z), 3-tuple (nx, ny, nz), KX_PolyProxy, 2-tuple (u, v))
 
 		Note: The ray ignores the object on which the method is called. It is casted from/to object center or explicit [x, y, z] points."""
-		object = KX_GameObject
-		polyproxy = KX_PolyProxy
-		return (obj,(0.0,0.0,0.0),(0.0,0.0,0.0,),polyproxy,(0,0))
+		from mathutils import Vector
+		return (KX_GameObject(), Vector(None), Vector(None), KX_PolyProxy(), Vector(None))
 	
-	def collide(obj):
-		"""Test if this object collides object obj.
-		
-		Parameters:
-		obj (string or KX_GameObject) – the object to test collision with
-		
-		Returns:
-		(collide, points)
-		collide, True if this object collides object obj
-		points, contact point data of the collision or None
-		
-		Return type:
-		2-tuple (boolean, list of KX_CollisionContactPoint or None)"""
-		
-		return (False, None)
-	
-	def setCollisionMargin(margin):
+	def setCollisionMargin(self, margin):
 		"""Set the objects collision margin.
 
 		Parameters:
@@ -521,7 +502,7 @@ class KX_GameObject(SCA_IObject):
 		Note: If this object has no physics controller (a physics ID of zero), this function will raise RuntimeError."""
 		pass
 		
-	def sendMessage(subject, body="", to=""):
+	def sendMessage(self, subject, body="", to=""):
 		"""Sends a message.
 
 		Parameters:
@@ -530,7 +511,7 @@ class KX_GameObject(SCA_IObject):
 		to (string) - The name of the object to send the message to (optional)"""
 		pass
 		
-	def reinstancePhysicsMesh(gameObject, meshObject, dupli):
+	def reinstancePhysicsMesh(self, gameObject, meshObject, dupli):
 		"""Updates the physics system with the changed mesh.
 
 		If no arguments are given the physics mesh will be re-created from the first mesh assigned to the game object.
@@ -554,21 +535,21 @@ class KX_GameObject(SCA_IObject):
 		Warning: If the object is a part of a combound object it will fail (parent or child)
 
 		Warning: Rebuilding the physics mesh can be slow, running many times per second will give a performance hit."""
-		return True
+		return bool()
 	
-	def replacePhysicsShape(gameObject):
+	def replacePhysicsShape(self, gameObject):
 		"""Replace the current physics shape.
 		
 		Parameters:
 		gameObject (string, KX_GameObject) – set the physics shape from this gameObjets."""
 	
-	def get(key, default=""):
+	def get(self, key, default=""):
 		"""Return the value matching key, or the default value if its not found.
 
 		return: The key value or a default."""
-		pass
+		return CValue()
 		
-	def playAction(name, start_frame, end_frame, layer=0, priority=0, blendin=0, play_mode=1, layer_weight=0.0, ipo_flags=0, speed=1.0, blend_mode=1):
+	def playAction(self, name, start_frame, end_frame, layer=0, priority=0, blendin=0, play_mode=1, layer_weight=0.0, ipo_flags=0, speed=1.0, blend_mode=1):
 		"""Plays an action.
 
 		Parameters:
@@ -585,14 +566,14 @@ class KX_GameObject(SCA_IObject):
 		blend_mode (one of these constants) - how to blend this layer with previous layers"""
 		pass
 		
-	def stopAction(layer=0):
+	def stopAction(self, layer=0):
 		"""Stop playing the action on the given layer.
 
 		Parameters:
 		layer (integer) - The layer to stop playing."""
 		pass
 		
-	def getActionFrame(layer=0):
+	def getActionFrame(self, layer=0):
 		"""Gets the current frame of the action playing in the supplied layer.
 
 		Parameters:
@@ -603,9 +584,9 @@ class KX_GameObject(SCA_IObject):
 
 		Return type:
 		float"""
-		return 0.0
+		return float()
 		
-	def getActionName(layer=0):
+	def getActionName(self, layer=0):
 		"""Gets the name of the current action playing in the supplied layer.
 
 		Parameters:
@@ -616,9 +597,9 @@ class KX_GameObject(SCA_IObject):
 
 		Return type:
 		string"""
-		return "str"
+		return str()
 		
-	def setActionFrame(frame, layer=0):
+	def setActionFrame(self, frame, layer=0):
 		"""Set the current frame of the action playing in the supplied layer.
 
 		Parameters:
@@ -626,7 +607,7 @@ class KX_GameObject(SCA_IObject):
 		frame (float) - The frame to set the action to"""
 		pass
 		
-	def isPlayingAction(layer=0):
+	def isPlayingAction(self, layer=0):
 		"""Checks to see if there is an action playing in the given layer.
 
 		Parameters:
@@ -637,9 +618,9 @@ class KX_GameObject(SCA_IObject):
 
 		Return type:
 		boolean"""
-		return True
+		return bool()
 		
-	def addDebugProperty(name, debug=True):
+	def addDebugProperty(self, name, debug=True):
 		"""Adds a single debug property to the debug list.
 
 		Parameters:
@@ -658,9 +639,9 @@ class SCA_ILogicBrick(CValue):
 	Base class for all logic bricks."""
 	
 	def __init__(self):
-		self.owner = KX_GameObject()
-		self.executePriority = 0
-		self.name = "str"
+		self.executePriority = int()
+		self.name = str()
+		self.owner = KX_GameObject
 
 class SCA_ISensor(SCA_ILogicBrick):
 	
@@ -671,20 +652,20 @@ class SCA_ISensor(SCA_ILogicBrick):
 	Base class for all sensor logic bricks."""
 
 	def __init__(self):
-		self.usePosPulseMode = 0
-		self.useNegPulseMode = 0
-		self.frequency = 0
-		self.skippedTicks = 0
-		self.level = 0
-		self.tap = 0
-		self.invert = 0
-		self.triggered = 0
-		self.positive = 0
-		self.pos_ticks = 0
-		self.neg_ticks = 0
-		self.status = 0
+		self.usePosPulseMode = bool()
+		self.useNegPulseMode = bool()
+		self.frequency = int()
+		self.skippedTicks = int()
+		self.level = bool()
+		self.tap = bool()
+		self.invert = bool()
+		self.triggered = bool()
+		self.positive = bool()
+		self.pos_ticks = int()
+		self.neg_ticks = int()
+		self.status = int()
 		
-	def reset():
+	def reset(self):
 		"""Reset sensor internal state, effect depends on the type of sensor and settings.
 
 		The sensor is put in its initial state as if it was just activated."""
@@ -710,11 +691,10 @@ class SCA_IController(SCA_ILogicBrick):
 
 	Base class for all controller logic bricks."""
 
-	def __init__(self):
-		self.state = 0
-		self.sensors = {"key" : SCA_ISensor()}
-		self.actuators = {"key" : SCA_IActuator()}
-		self.useHighPriority = 0
+	state = int()
+	sensors = {"key" : SCA_ISensor}
+	actuators = {"key" : SCA_IActuator}
+	useHighPriority = bool()
 
 class SCA_2DFilterActuator(SCA_IActuator):
 	
@@ -726,11 +706,11 @@ class SCA_2DFilterActuator(SCA_IActuator):
 	The following properties don't have an immediate effect. You must active the actuator to get the result. The actuator is not persistent: it automatically stops itself after setting up the filter but the filter remains active. To stop a filter you must activate the actuator with 'type' set to RAS_2DFILTER_DISABLED or RAS_2DFILTER_NOFILTER."""
 
 	def __init__(self):
-		self.shaderText = 0
-		self.disableMotionBlur = 0
-		self.mode = 0
-		self.passNumber = 0
-		self.value = 0
+		self.shaderText = str()
+		self.disableMotionBlur = int()
+		self.mode = int()
+		self.passNumber = int()
+		self.value = int()
 
 class SCA_ANDController(SCA_IController):
 	
@@ -753,7 +733,7 @@ class SCA_ActuatorSensor(SCA_ISensor):
 	Actuator sensor detect change in actuator state of the parent object. It generates a positive pulse if the corresponding actuator is activated and a negative pulse if the actuator is deactivated."""
 
 	def __init__(self):
-		self.actuator = 0
+		self.actuator = str()
 
 class SCA_AlwaysSensor(SCA_ISensor):
 	
@@ -780,9 +760,9 @@ class SCA_DelaySensor(SCA_ISensor):
 	Use SCA_ISensor.reset at any time to restart sensor."""
 
 	def __init__(self):
-		self.delay = 0
-		self.duration = 0
-		self.repeat = 0
+		self.delay = int()
+		self.duration = int()
+		self.repeat = int()
 
 class SCA_JoystickSensor(SCA_ISensor):
 	
@@ -793,29 +773,29 @@ class SCA_JoystickSensor(SCA_ISensor):
 	This sensor detects player joystick events."""
 
 	def __init__(self):
-		self.axisValues = 0
-		self.axisSingle = 0
-		self.hatValues = 0
-		self.hatSingle = 0
-		self.numAxis = 0
-		self.numButtons = 0
-		self.numHats = 0
-		self.connected = 0
-		self.index = 0
-		self.threshold = 0
-		self.button = 0
-		self.axis = 0
-		self.hat = 0
+		self.axisValues = [int()]
+		self.axisSingle = int()
+		self.hatValues = [int()]
+		self.hatSingle = int()
+		self.numAxis = int()
+		self.numButtons = int()
+		self.numHats = int()
+		self.connected = bool()
+		self.index = int()
+		self.threshold = int()
+		self.button = int()
+		self.axis = [int(), int()]
+		self.hat = [int(), int()]
 		
-	def getButtonActiveList():
+	def getButtonActiveList(self):
 		"""Returns:	
 		A list containing the indicies of the currently pressed buttons.
 
 		Return type:
 		list"""
-		pass
+		return [int(), int()]
 		
-	def getButtonStatus():
+	def getButtonStatus(self, buttonIndex):
 		"""Parameters:
 		buttonIndex (integer) - the button index, 0=first button
 
@@ -824,7 +804,7 @@ class SCA_JoystickSensor(SCA_ISensor):
 
 		Return type:
 		boolean"""
-		pass
+		return bool()
 
 	pass
 
@@ -839,15 +819,15 @@ class SCA_KeyboardSensor(SCA_ISensor):
 	See module bge.events for keycode values."""
 
 	def __init__(self):
-		self.key = 0
-		self.hold1 = 0
-		self.hold2 = 0
-		self.toggleProperty = 0
-		self.targetProperty = 0
-		self.useAllKeys = 0
-		self.events = 0
+		self.key = int()
+		self.hold1 = int()
+		self.hold2 = int()
+		self.toggleProperty = str()
+		self.targetProperty = str()
+		self.useAllKeys = bool()
+		self.events = [[int(), int()]]
 		
-	def getKeyStatus():
+	def getKeyStatus(self, keycode):
 		"""Get the status of a key.
 
 		Parameters:
@@ -858,7 +838,7 @@ class SCA_KeyboardSensor(SCA_ISensor):
 
 		Return type:
 		int"""
-		pass
+		return int()
 		
 	pass
 
@@ -871,10 +851,10 @@ class SCA_MouseSensor(SCA_ISensor):
 	Mouse Sensor logic brick."""
 
 	def __init__(self):
-		self.position = 0
-		self.mode = 0
+		self.position = [int(), int()]
+		self.mode = int()
 		
-	def getButtonStatus():
+	def getButtonStatus(self):
 		"""Get the mouse button status.
 
 		Parameters:
@@ -885,7 +865,7 @@ class SCA_MouseSensor(SCA_ISensor):
 
 		Return type:
 		int"""
-		pass
+		return int()
 
 	pass
 
@@ -934,9 +914,9 @@ class SCA_PropertyActuator(SCA_IActuator):
 	Property Actuator"""
 
 	def __init__(self):
-		self.propName = 0
-		self.value = 0
-		self.mode = 0
+		self.propName = str()
+		self.value = str()
+		self.mode = int()
 
 class SCA_PropertySensor(SCA_ISensor):
 	
@@ -947,11 +927,11 @@ class SCA_PropertySensor(SCA_ISensor):
 	Activates when the game object property matches."""
 
 	def __init__(self):
-		self.mode = 0
-		self.propName = 0
-		self.value = 0
-		self.min = 0
-		self.max = 0
+		self.mode = int()
+		self.propName = str()
+		self.value = str()
+		self.min = str()
+		self.max = str()
 
 class SCA_PythonController(SCA_IController):
 	
@@ -963,17 +943,17 @@ class SCA_PythonController(SCA_IController):
 
 	def __init__(self):
 		self.owner = KX_GameObject()
-		self.script = ""
-		self.mode = 0
+		self.script = str()
+		self.mode = int()
 		
-	def activate():
+	def activate(self, actuator):
 		"""Activates an actuator attached to this controller.
 
 		Parameters:
 		actuator (actuator or the actuator name as a string) - The actuator to operate on."""
 		pass
 		
-	def deactivate():
+	def deactivate(self, actuator):
 		"""Deactivates an actuator attached to this controller.
 
 		Parameters:
@@ -991,13 +971,13 @@ class SCA_PythonJoystick(PyObjectPlus):
 	A Python interface to a joystick."""
 
 	def __init__(self):
-		self.name = 0
-		self.activeButtons = 0
-		self.axisValues = 0
-		self.hatValues = 0
-		self.numAxis = 0
-		self.numButtons = 0
-		self.numHats = 0
+		self.name = str()
+		self.activeButtons = [int()]
+		self.axisValues = [int()]
+		self.hatValues = [int()]
+		self.numAxis = int()
+		self.numButtons = int()
+		self.numHats = int()
 
 class SCA_PythonKeyboard(PyObjectPlus):
 	
@@ -1008,17 +988,17 @@ class SCA_PythonKeyboard(PyObjectPlus):
 	The current keyboard."""
 
 	def __init__(self):
-		self.events = 0
-		self.active_events = 0
+		self.events = {0 : 0}
+		self.active_events = {0 : 0}
 	
-	def getClipboard():
+	def getClipboard(self, ):
 		"""Gets the clipboard text.
 
 		Return type:
 		string"""
-		pass
+		return str()
 		
-	def setClipboard():
+	def setClipboard(self, text):
 		"""Sets the clipboard text.
 
 		Parameters:
@@ -1036,10 +1016,10 @@ class SCA_PythonMouse(PyObjectPlus):
 	The current mouse."""
 
 	def __init__(self):
-		self.events = 0
-		self.active_events = 0
-		self.position = 0
-		self.visible = 0
+		self.events = {0 : 0}
+		self.active_events = {0 : 0}
+		self.position = (int(), int())
+		self.visible = bool()
 
 class SCA_RandomActuator(SCA_IActuator):
 	
@@ -1050,26 +1030,26 @@ class SCA_RandomActuator(SCA_IActuator):
 	Random Actuator"""
 
 	def __init__(self):
-		self.seed = 0
-		self.para1 = 0
-		self.para2 = 0
-		self.distribution = 0
-		self.propName = 0
+		self.seed = int()
+		self.para1 = float()
+		self.para2 = float()
+		self.distribution = int()
+		self.propName = str()
 		
-	def setBoolConst():
+	def setBoolConst(self, value):
 		"""Sets this generator to produce a constant boolean value.
 
 		Parameters:
 		value (boolean) - The value to return."""
 		pass
 		
-	def setBoolUniform():
+	def setBoolUniform(self, ):
 		"""Sets this generator to produce a uniform boolean distribution.
 
 		The generator will generate True or False with 50% chance."""
 		pass
 		
-	def setBoolBernouilli():
+	def setBoolBernouilli(self, value):
 		"""Sets this generator to produce a Bernouilli distribution.
 
 		Parameters:
@@ -1079,32 +1059,32 @@ class SCA_RandomActuator(SCA_IActuator):
 		1.0: Always generate False"""
 		pass
 		
-	def setIntConst():
+	def setIntConst(self, value):
 		"""Sets this generator to always produce the given value.
 
 		Parameters:
 		value (integer) - the value this generator produces."""
 		pass
 		
-	def setIntUniform():
+	def setIntUniform(self, lower_bound, upper_bound):
 		"""Sets this generator to produce a random value between the given lower and upper bounds (inclusive)."""
 		pass
 		
-	def setIntPoisson():
+	def setIntPoisson(self, value):
 		"""Generate a Poisson-distributed number.
 
 		This performs a series of Bernouilli tests with parameter value. It returns the number of tries needed to achieve succes."""
 		pass
 		
-	def setFloatConst():
+	def setFloatConst(self, value):
 		"""Always generate the given value."""
 		pass
 		
-	def setFloatUniform():
+	def setFloatUniform(self, lower_bound, upper_bound):
 		"""Generates a random float between lower_bound and upper_bound with a uniform distribution."""
 		pass
 		
-	def setFloatNormal():
+	def setFloatNormal(self, mean, standard_deviation):
 		"""Generates a random float from the given normal distribution.
 
 		Parameters:
@@ -1112,7 +1092,7 @@ class SCA_RandomActuator(SCA_IActuator):
 		standard_deviation (float) - The standard deviation of the generated numbers."""
 		pass
 		
-	def setFloatNegativeExponential():
+	def setFloatNegativeExponential(self, half_life):
 		"""Generate negative-exponentially distributed numbers.
 
 		The half-life 'time' is characterized by half_life."""
@@ -1129,8 +1109,8 @@ class SCA_RandomSensor(SCA_ISensor):
 	This sensor activates randomly."""
 
 	def __init__(self):
-		self.lastDraw = 0
-		self.seed = 0
+		self.lastDraw = int()
+		self.seed = int()
 
 class SCA_XNORController(SCA_IController):
 	"""base class - SCA_IController
@@ -1160,17 +1140,17 @@ class BL_ActionActuator(SCA_IActuator):
 	Action Actuators apply an action to an actor."""
 
 	def __init__(self):
-		self.action = 0
-		self.frameStart = 0
-		self.frameEnd = 0
-		self.blendIn = 0
-		self.priority = 0
-		self.frame = 0
-		self.propName = 0
-		self.blendTime = 0
-		self.mode = 0
-		self.useContinue = 0
-		self.framePropName = 0
+		self.action = str()
+		self.frameStart = float()
+		self.frameEnd = float()
+		self.blendIn = float()
+		self.priority = int()
+		self.frame = float()
+		self.propName = str()
+		self.blendTime = float()
+		self.mode = int()
+		self.useContinue = bool()
+		self.framePropName = str()
 
 class BL_ArmatureActuator(SCA_IActuator):
 	"""base class - SCA_IActuator
@@ -1180,12 +1160,12 @@ class BL_ArmatureActuator(SCA_IActuator):
 	Armature Actuators change constraint condition on armatures."""
 
 	def __init__(self):
-		self.type = 0
-		self.constraint = 0
-		self.target = 0
-		self.subtarget = 0
-		self.weight = 0
-		self.influence = 0
+		self.type = int()
+		self.constraint = BL_ArmatureConstraint()
+		self.target = KX_GameObject()
+		self.subtarget = KX_GameObject()
+		self.weight = float()
+		self.influence = float()
 
 class BL_ArmatureBone(PyObjectPlus):
 	"""base class - PyObjectPlus
@@ -1195,21 +1175,23 @@ class BL_ArmatureBone(PyObjectPlus):
 	Proxy to Blender bone structure. All fields are read-only and comply to RNA names. All space attribute correspond to the rest pose."""
 
 	def __init__(self):
-		self.name = 0
-		self.connected = 0
-		self.hinge = 0
-		self.inherit_scale = 0
-		self.bbone_segments = 0
-		self.roll = 0
-		self.head = 0
-		self.tail = 0
-		self.length = 0
-		self.arm_head = 0
-		self.arm_tail = 0
-		self.arm_mat = 0
-		self.bone_mat = 0
-		self.parent = 0
-		self.children = 0
+		from mathutils import Vector, Matrix
+		
+		self.parent = BL_ArmatureBone
+		self.children = [BL_ArmatureBone]
+		self.name = str()
+		self.connected = bool()
+		self.hinge = bool()
+		self.inherit_scale = bool()
+		self.bbone_segments = int()
+		self.roll = float()
+		self.head = Vector(None)
+		self.tail = Vector(None)
+		self.length = float()
+		self.arm_head = Vector(None)
+		self.arm_tail = Vector(None)
+		self.arm_mat = Matrix(None)
+		self.bone_mat = Matrix(None)
 
 class BL_ArmatureChannel(PyObjectPlus):
 	"""base class - PyObjectPlus
@@ -1290,7 +1272,7 @@ class BL_ArmatureObject(KX_GameObject):
 		self.constraints = 0
 		self.channels = 0
 		
-	def update():
+	def update(self):
 		"""Ensures that the armature will be updated on next graphic frame.
 
 		This action is unecessary if a KX_ArmatureActuator with mode run is active or if an action is playing. Use this function in other cases. It must be called on each frame to ensure that the armature is updated continously."""
@@ -1307,7 +1289,7 @@ class BL_Shader(PyObjectPlus):
 
 	TODO - Description"""
 	
-	def setUniformfv():
+	def setUniformfv(self):
 		"""Set a uniform with a list of float values
 
 		Parameters:
@@ -1315,11 +1297,11 @@ class BL_Shader(PyObjectPlus):
 		fList (list[float]) - a list (2, 3 or 4 elements) of float values"""
 		pass
 		
-	def delSource():
+	def delSource(self):
 		"""Clear the shader. Use this method before the source is changed with setSource."""
 		pass
 		
-	def getFragmentProg():
+	def getFragmentProg(self):
 		"""Returns the fragment program.
 
 		Returns:	The fragment program.
@@ -1328,7 +1310,7 @@ class BL_Shader(PyObjectPlus):
 		string"""
 		return "str"
 		
-	def getVertexProg():
+	def getVertexProg(self):
 		"""Get the vertex program.
 
 		Returns: The vertex program.
@@ -1337,7 +1319,7 @@ class BL_Shader(PyObjectPlus):
 		string"""
 		return "str"
 		
-	def isValid():
+	def isValid(self):
 		"""Check if the shader is valid.
 
 		Returns: True if the shader is valid
@@ -1346,21 +1328,21 @@ class BL_Shader(PyObjectPlus):
 		boolean"""
 		return True
 		
-	def setAttrib():
+	def setAttrib(self):
 		"""Set attribute location. (The parameter is ignored a.t.m. and the value of "tangent" is always used.)
 
 		Parameters:
 		enum (integer) - attribute location value"""
 		pass
 		
-	def setNumberOfPasses():
+	def setNumberOfPasses(self):
 		"""Set the maximum number of passes. Not used a.t.m.
 
 		Parameters:
 		max_pass (integer) - the maximum number of passes"""
 		pass
 		
-	def setSampler():
+	def setSampler(self):
 		"""Set uniform texture sample index.
 
 		Parameters:
@@ -1368,7 +1350,7 @@ class BL_Shader(PyObjectPlus):
 		index (integer) - Texture sample index."""
 		pass
 		
-	def setSource():
+	def setSource(self):
 		"""Set the vertex and fragment programs
 
 		Parameters:
@@ -1376,7 +1358,7 @@ class BL_Shader(PyObjectPlus):
 		fragmentProgram (string) - Fragment program"""
 		pass
 		
-	def setUniform1f():
+	def setUniform1f(self):
 		"""Set a uniform with 1 float value.
 
 		Parameters:
@@ -1384,7 +1366,7 @@ class BL_Shader(PyObjectPlus):
 		fx (float) - Uniform value"""
 		pass
 		
-	def setUniform1i():
+	def setUniform1i(self):
 		"""Set a uniform with an integer value.
 
 		Parameters:
@@ -1392,7 +1374,7 @@ class BL_Shader(PyObjectPlus):
 		ix (integer) - the uniform value"""
 		pass
 		
-	def setUniform2f():
+	def setUniform2f(self):
 		"""Set a uniform with 2 float values
 
 		Parameters:
@@ -1401,7 +1383,7 @@ class BL_Shader(PyObjectPlus):
 		fy (float) - second float value"""
 		pass
 		
-	def setUniform2i():
+	def setUniform2i(self):
 		"""Set a uniform with 2 integer values
 
 		Parameters:
@@ -1410,7 +1392,7 @@ class BL_Shader(PyObjectPlus):
 		iy (integer) - second integer value"""
 		pass
 		
-	def setUniform3f():
+	def setUniform3f(self):
 		"""Set a uniform with 3 float values.
 
 		Parameters:
@@ -1420,7 +1402,7 @@ class BL_Shader(PyObjectPlus):
 		fz (float) - third float value"""
 		pass
 		
-	def setUniform3i():
+	def setUniform3i(self):
 		"""Set a uniform with 3 integer values
 
 		Parameters:
@@ -1430,7 +1412,7 @@ class BL_Shader(PyObjectPlus):
 		iz (integer) - third integer value"""
 		pass
 		
-	def setUniform4f():
+	def setUniform4f(self):
 		"""Set a uniform with 4 float values.
 
 		Parameters:
@@ -1441,7 +1423,7 @@ class BL_Shader(PyObjectPlus):
 		fw (float) - fourth float value"""
 		pass
 		
-	def setUniform4i():
+	def setUniform4i(self):
 		"""Set a uniform with 4 integer values
 
 		Parameters:
@@ -1452,7 +1434,7 @@ class BL_Shader(PyObjectPlus):
 		iw (integer) - fourth integer value"""
 		pass
 		
-	def setUniformDef():
+	def setUniformDef(self):
 		"""Define a new uniform
 
 		Parameters:
@@ -1460,7 +1442,7 @@ class BL_Shader(PyObjectPlus):
 		type (UNI_NONE, UNI_INT, UNI_FLOAT, UNI_INT2, UNI_FLOAT2, UNI_INT3, UNI_FLOAT3, UNI_INT4, UNI_FLOAT4, UNI_MAT3, UNI_MAT4, UNI_MAX) - uniform type"""
 		pass
 		
-	def setUniformMatrix3():
+	def setUniformMatrix3(self):
 		"""Set a uniform with a 3x3 matrix value
 
 		Parameters:
@@ -1469,7 +1451,7 @@ class BL_Shader(PyObjectPlus):
 		transpose (boolean) - set to True to transpose the matrix"""
 		pass
 		
-	def setUniformMatrix4():
+	def setUniformMatrix4(self):
 		"""Set a uniform with a 4x4 matrix value
 
 		Parameters:
@@ -1478,7 +1460,7 @@ class BL_Shader(PyObjectPlus):
 		transpose (boolean) - set to True to transpose the matrix"""
 		pass
 		
-	def setUniformv():
+	def setUniformv(self):
 		"""Set a uniform with a list of integer values
 
 		Parameters:
@@ -1486,7 +1468,7 @@ class BL_Shader(PyObjectPlus):
 		iList (list[integer]) - a list (2, 3 or 4 elements) of integer values"""
 		pass
 		
-	def validate():
+	def validate(self):
 		"""Validate the shader object."""
 		pass
 
@@ -1558,7 +1540,7 @@ class KX_BlenderMaterial(PyObjectPlus):
 		self.specularColor = 0
 		self.diffuseColor = 0
 		
-	def getShader():
+	def getShader(self):
 		"""Returns the material's shader.
 
 		Returns:	
@@ -1569,7 +1551,7 @@ class KX_BlenderMaterial(PyObjectPlus):
 		value = BL_Shader
 		return value
 		
-	def setBlending():
+	def setBlending(self):
 		"""Set the pixel color arithmetic functions.
 
 		Parameters:	
@@ -1602,7 +1584,7 @@ class KX_BlenderMaterial(PyObjectPlus):
 		GL_SRC_ALPHA_SATURATE"""
 		pass
 		
-	def getMaterialIndex():
+	def getMaterialIndex(self):
 		"""Returns the material's index.
 
 		Returns:	
@@ -1644,7 +1626,7 @@ class KX_Camera(KX_GameObject):
 		self.world_to_camera = ((0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0))
 		self.useViewPort = False
 	
-	def sphereInsideFrustum(centre, radius):
+	def sphereInsideFrustum(self, centre, radius):
 		"""Tests the given sphere against the view frustum.
 
 		Parameters:
@@ -1660,7 +1642,7 @@ class KX_Camera(KX_GameObject):
 		Note: When the camera is first initialized the result will be invalid because the projection matrix has not been set."""
 		return 0
 		
-	def boxInsideFrustum(box):
+	def boxInsideFrustum(self, box):
 		"""Tests the given box against the view frustum.
 
 		Parameters:
@@ -1672,7 +1654,7 @@ class KX_Camera(KX_GameObject):
 		Note: When the camera is first initialized the result will be invalid because the projection matrix has not been set."""
 		return 0
 		
-	def pointInsideFrustum(point):
+	def pointInsideFrustum(self, point):
 		"""Tests the given point against the view frustum.
 
 		Parameters:
@@ -1687,7 +1669,7 @@ class KX_Camera(KX_GameObject):
 		Note: When the camera is first initialized the result will be invalid because the projection matrix has not been set."""
 		return True
 		
-	def getCameraToWorld():
+	def getCameraToWorld(self):
 		"""Returns the camera-to-world transform.
 
 		Returns: the camera-to-world transform matrix.
@@ -1696,7 +1678,7 @@ class KX_Camera(KX_GameObject):
 		matrix (4x4 list)"""
 		return [(0.0,0.0,0.0),(0.0,0.0,0.0),(0.0,0.0,0.0),(0.0,0.0,0.0)]
 		
-	def getWorldToCamera():
+	def getWorldToCamera(self):
 		"""Returns the world-to-camera transform.
 
 		This returns the inverse matrix of getCameraToWorld().
@@ -1707,11 +1689,11 @@ class KX_Camera(KX_GameObject):
 		matrix (4x4 list)"""
 		return [(0.0,0.0,0.0),(0.0,0.0,0.0),(0.0,0.0,0.0),(0.0,0.0,0.0)]
 		
-	def setOnTop():
+	def setOnTop(self):
 		"""Set this cameras viewport ontop of all other viewport."""
 		pass
 		
-	def setViewport(left, bottom, right, top):
+	def setViewport(self, left, bottom, right, top):
 		"""Sets the region of this viewport on the screen in pixels.
 
 		Use bge.render.getWindowHeight and bge.render.getWindowWidth to calculate values relative to the entire display.
@@ -1723,7 +1705,7 @@ class KX_Camera(KX_GameObject):
 		top (integer) - top pixel coordinate of this viewport"""
 		pass
 		
-	def getScreenPosition(object):
+	def getScreenPosition(self, object):
 		"""Gets the position of an object projected on screen space.
 
 		# For an object in the middle of the screen, coord = [0.5, 0.5]
@@ -1739,7 +1721,7 @@ class KX_Camera(KX_GameObject):
 		list [x, y]"""
 		return [0,0]
 		
-	def getScreenVect(x, y):
+	def getScreenVect(self, x, y):
 		"""Gets the vector from the camera position in the screen coordinate direction.
 
 		Parameters:
@@ -1754,9 +1736,10 @@ class KX_Camera(KX_GameObject):
 
 		# Gets the vector of the camera front direction:
 		m_vect = camera.getScreenVect(0.5, 0.5)"""
-		return (0.0,0.0,0.0)
+		from mathutils import Vector
+		return Vector(None)
 		
-	def getScreenRay(x, y, dist=999.0, property=None):
+	def getScreenRay(self, x, y, dist=999.0, property=None):
 		"""Look towards a screen coordinate (x, y) and find first object hit within dist that matches prop. The ray is similar to KX_GameObject->rayCastTo.
 
 		Parameters:
@@ -1807,8 +1790,7 @@ class KX_CharacterWrapper(PyObjectPlus):
 		self.jumpCount = 0
 		self.walkDirection = 0
 
-	
-	def jump():
+	def jump(self):
 		"""The character jumps based on it's jump speed."""
 		pass
 
@@ -1845,7 +1827,7 @@ class KX_ConstraintWrapper(PyObjectPlus):
 		self.constraint_id = 0
 		self.constraint_type = 0
 		
-	def getConstraintId():
+	def getConstraintId(self):
 		"""Returns the contraint ID
 
 		Returns:	
@@ -1854,7 +1836,7 @@ class KX_ConstraintWrapper(PyObjectPlus):
 		Return type:
 		integer"""
 		return 0
-	def setParam():
+	def setParam(self):
 		"""Set the contraint limits
 
 		Parameters:
@@ -1862,7 +1844,7 @@ class KX_ConstraintWrapper(PyObjectPlus):
 		value0 - Set the minimum limit of the axis
 		value1 - Set the maximum limit of the axis"""
 		pass
-	def getParam():
+	def getParam(self):
 		"""Get the contraint position or euler angle of a generic 6DOF constraint
 
 		Parameters:
@@ -1982,21 +1964,21 @@ class KX_LightObject(KX_GameObject):
 	light.color = [1.0, 0.0, 0.0]"""
 
 	# Constants
-	SPOT = 1
-	SUN = 2
-	NORMAL = 0
-	HEMI = 3
+	SPOT = int()
+	SUN = int()
+	NORMAL = int()
+	HEMI = int()
 
 	def __init__(self):
-		self.type = 0
-		self.layer = 0
-		self.energy = 0
-		self.distance = 0
-		self.color = 0
-		self.lin_attenuation = 0
-		self.quad_attenuation = 0
-		self.spotsize = 0
-		self.spotblend = 0
+		self.type = int()
+		self.layer = int()
+		self.energy = float()
+		self.distance = float()
+		self.color = [1.0, 1.0, 1.0]
+		self.lin_attenuation = float()
+		self.quad_attenuation = float()
+		self.spotsize = float()
+		self.spotblend = float()
 
 class KX_MeshProxy(SCA_IObject):
 	"""base class - SCA_IObject
@@ -2020,7 +2002,7 @@ class KX_MeshProxy(SCA_IObject):
 		self.numPolygons = 0
 		self.numMaterials = 0
 		
-	def getMaterialName():
+	def getMaterialName(self):
 		"""Gets the name of the specified material.
 
 		Parameters:
@@ -2033,7 +2015,7 @@ class KX_MeshProxy(SCA_IObject):
 		string"""
 		return "str"
 		
-	def getTextureName():
+	def getTextureName(self):
 		"""Gets the name of the specified material's texture.
 
 		Parameters:
@@ -2046,7 +2028,7 @@ class KX_MeshProxy(SCA_IObject):
 		string"""
 		return "str"
 		
-	def getVertexArray():
+	def getVertexArray(self):
 		"""Gets the length of the vertex array associated with the specified material.
 
 		There is one vertex array for each material.
@@ -2061,7 +2043,7 @@ class KX_MeshProxy(SCA_IObject):
 		integer"""
 		return 0
 		
-	def getVertex():
+	def getVertex(self):
 		"""Gets the specified vertex from the mesh object.
 
 		Parameters:
@@ -2076,7 +2058,7 @@ class KX_MeshProxy(SCA_IObject):
 		value = KX_PolyProxy
 		return value
 		
-	def getPolygon():
+	def getPolygon(self):
 		"""Gets the specified polygon from the mesh.
 
 		Parameters:
@@ -2090,7 +2072,7 @@ class KX_MeshProxy(SCA_IObject):
 		value = KX_PolyProxy
 		return value
 		
-	def transform():
+	def transform(self):
 		"""Transforms the vertices of a mesh.
 
 		Parameters:
@@ -2098,7 +2080,7 @@ class KX_MeshProxy(SCA_IObject):
 		matrix (4x4 matrix [[float]]) - transformation matrix."""
 		pass
 		
-	def transformUV():
+	def transformUV(self):
 		"""Transforms the vertices UV's of a mesh.
 
 		Parameters:
@@ -2132,7 +2114,7 @@ class KX_MouseActuator(SCA_IActuator):
 		self.limit_y = 0
 		self.angle = 0
 	
-	def reset():
+	def reset(self):
 		"""Undoes the rotation caused by the mouse actuator."""
 		pass
 
@@ -2168,7 +2150,7 @@ class KX_NavMeshObject(KX_GameObject):
 
 	Python interface for using and controlling navigation meshes."""
 	
-	def findPath():
+	def findPath(self):
 		"""Finds the path from start to goal points.
 
 		Parameters:
@@ -2184,7 +2166,7 @@ class KX_NavMeshObject(KX_GameObject):
 		list of points"""
 		return []
 		
-	def raycast():
+	def raycast(self):
 		"""Raycast from start to goal points.
 
 		Parameters:
@@ -2200,7 +2182,7 @@ class KX_NavMeshObject(KX_GameObject):
 		float"""
 		return 0.0
 		
-	def draw():
+	def draw(self):
 		"""Draws a debug mesh for the navigation mesh.
 
 		Parameters:
@@ -2211,7 +2193,7 @@ class KX_NavMeshObject(KX_GameObject):
 		None"""
 		return None
 		
-	def rebuild():
+	def rebuild(self):
 		"""Rebuild the navigation mesh.
 
 		Returns: None"""
@@ -2320,7 +2302,7 @@ class KX_PolyProxy(SCA_IObject):
 		self.visible = 0
 		self.collide = 0
 	
-	def getMaterialName():
+	def getMaterialName(self):
 		"""Returns the polygon material name with MA prefix
 
 		Returns:	
@@ -2329,7 +2311,8 @@ class KX_PolyProxy(SCA_IObject):
 		Return type:
 		string"""
 		return "str"
-	def getMaterial():
+
+	def getMaterial(self):
 		"""Returns:	
 		The polygon material
 
@@ -2337,14 +2320,16 @@ class KX_PolyProxy(SCA_IObject):
 		KX_BlenderMaterial"""
 		value = KX_BlenderMaterial
 		return value
-	def getTextureName():
+
+	def getTextureName(self):
 		"""Returns:	
 		The texture name
 
 		Return type:
 		string"""
 		return "str"
-	def getMaterialIndex():
+
+	def getMaterialIndex(self):
 		"""Returns the material bucket index of the polygon. This index and the ones returned by getVertexIndex() are needed to retrieve the vertex proxy from MeshProxy.
 
 		Returns:	
@@ -2353,7 +2338,8 @@ class KX_PolyProxy(SCA_IObject):
 		Return type:
 		integer"""
 		return 0
-	def getNumVertex():
+
+	def getNumVertex(self):
 		"""Returns the number of vertex of the polygon.
 
 		Returns:	
@@ -2362,7 +2348,8 @@ class KX_PolyProxy(SCA_IObject):
 		Return type:
 		integer"""
 		return 0
-	def isVisible():
+
+	def isVisible(self):
 		"""Returns whether the polygon is visible or not
 
 		Returns:	
@@ -2371,7 +2358,8 @@ class KX_PolyProxy(SCA_IObject):
 		Return type:
 		boolean"""
 		return 0
-	def isCollider():
+
+	def isCollider(self):
 		"""Returns whether the polygon is receives collision or not
 
 		Returns: 0=collision free, 1=receives collision
@@ -2379,7 +2367,8 @@ class KX_PolyProxy(SCA_IObject):
 		Return type:
 		integer"""
 		return 0
-	def getVertexIndex():
+
+	def getVertexIndex(self):
 		"""Returns the mesh vertex index of a polygon vertex This index and the one returned by getMaterialIndex() are needed to retrieve the vertex proxy from MeshProxy.
 
 		Parameters:
@@ -2392,7 +2381,8 @@ class KX_PolyProxy(SCA_IObject):
 		Return type:
 		integer"""
 		return 0
-	def getMesh():
+
+	def getMesh(self):
 		"""Returns a mesh proxy
 
 		Returns:	
@@ -2456,7 +2446,7 @@ class KX_SCA_AddObjectActuator(SCA_IActuator):
 		self.linearVelocity = 0
 		self.angularVelocity = 0
 	
-	def instantAddObject():
+	def instantAddObject(self):
 		"""Adds the object without needing to calling SCA_PythonController.activate()
 
 		Note: Use objectLastCreated to get the newly created object."""
@@ -2502,7 +2492,7 @@ class KX_SCA_ReplaceMeshActuator(SCA_IActuator):
 		self.useDisplayMesh = 0
 		self.usePhysicsMesh = 0
 	
-	def instantReplaceMesh():
+	def instantReplaceMesh(self):
 		pass
 
 	pass
@@ -2517,23 +2507,26 @@ class KX_Scene(PyObjectPlus):
 	The activity culling stuff is supposed to disable logic bricks when their owner gets too far from the active camera. It was taken from some code lurking at the back of KX_Scene - who knows what it does!"""
 
 	def __init__(self):
-		self.name = 0
-		self.objects = 0
-		self.objectsInactive = 0
-		self.lights = 0
-		self.cameras = 0
-		self.active_camera = 0
-		self.world = 0
-		self.suspended = 0
-		self.activity_culling = 0
-		self.activity_culling_radius = 0
-		self.dbvt_culling = 0
-		self.pre_draw = 0
-		self.post_draw = 0
-		self.pre_draw_setup = 0
-		self.gravity = 0
+		from mathutils import Vector
+		
+		gameObj = __shared__["KX_GameObject"]
+		self.name = str()
+		self.objects = {"key" : gameObj}
+		self.objectsInactive = {"key" : gameObj}
+		self.lights = {"key" : KX_LightObject()}
+		self.cameras = {"key" : KX_Camera()}
+		self.active_camera = KX_Camera()
+		self.world = KX_WorldInfo()
+		self.suspended = bool()
+		self.activity_culling = bool()
+		self.activity_culling_radius = float()
+		self.dbvt_culling = bool()
+		self.pre_draw = list()
+		self.post_draw = list()
+		self.pre_draw_setup = list()
+		self.gravity = Vector(None)
 	
-	def addObject():
+	def addObject(self, object, reference, time=0):
 		"""Adds an object to the scene like the Add Object Actuator would.
 
 		Parameters:
@@ -2541,50 +2534,46 @@ class KX_Scene(PyObjectPlus):
 		reference (KX_GameObject or string) - The (name of the) object which position, orientation, and scale to copy (optional), if the object to add is a light and there is not reference the light's layer will be the same that the active layer in the blender scene.
 		time (integer) - The lifetime of the added object, in frames. A time of 0 means the object will last forever (optional).
 
-		Returns:	
-		The newly added object.
+		Returns: The newly added object.
 
-		Return type:
-		KX_GameObject"""
-		value = KX_GameObject
-		return value
+		Return type: KX_GameObject"""
 		
-	def end():
+		return __shared__["KX_GameObject"]
+		
+	def end(self):
 		"""Removes the scene from the game."""
 		pass
 		
-	def restart():
+	def restart(self):
 		"""Restarts the scene."""
 		pass
 		
-	def replace():
+	def replace(self):
 		"""Replaces this scene with another one.
 
 		Parameters:
 		scene (string) - The name of the scene to replace this scene with.
 
-		Returns:	
-		True if the scene exists and was scheduled for addition, False otherwise.
+		Returns: True if the scene exists and was scheduled for addition, False otherwise.
 
-		Return type:
-		boolean"""
-		return True
+		Return type: boolean"""
+		return bool()
 		
-	def suspend():
+	def suspend(self):
 		"""Suspends this scene."""
 		pass
 		
-	def resume():
+	def resume(self):
 		"""Resume this scene."""
 		pass
 		
-	def get():
+	def get(self):
 		"""Return the value matching key, or the default value if its not found.
 		
 		Return: The key value or a default."""
-		pass
+		return CValue()
 		
-	def drawObstacleSimulation():
+	def drawObstacleSimulation(self):
 		"""Draw debug visualization of obstacle simulation."""
 		pass
 
@@ -2632,21 +2621,21 @@ class KX_SoundActuator(SCA_IActuator):
 		self.cone_angle_inner = 0
 		self.cone_angle_outer = 0
 	
-	def startSound():
+	def startSound(self):
 		"""Starts the sound.
 
 		Returns:
 		None"""
 		return None
 		
-	def pauseSound():
+	def pauseSound(self):
 		"""Pauses the sound.
 
 		Returns:
 		None"""
 		return None
 		
-	def stopSound():
+	def stopSound(self):
 		"""Stops the sound.
 
 		Returns:
@@ -2713,7 +2702,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 
 	TODO - description"""
 	
-	def addWheel():
+	def addWheel(self):
 		"""Add a wheel to the vehicle
 
 		Parameters:	
@@ -2726,7 +2715,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		hasSteering (boolean) - True if the wheel should turn with steering, typically used in front wheels."""
 		pass
 		
-	def applyBraking():
+	def applyBraking(self):
 		"""Apply a braking force to the specified wheel
 
 		Parameters:	
@@ -2734,7 +2723,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		wheelIndex (integer) - index of the wheel where the force needs to be applied"""
 		pass
 		
-	def applyEngineForce():
+	def applyEngineForce(self):
 		"""Apply an engine force to the specified wheel
 
 		Parameters:	
@@ -2742,7 +2731,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		wheelIndex (integer) - index of the wheel where the force needs to be applied"""
 		pass
 		
-	def getConstraintId():
+	def getConstraintId(self):
 		"""Get the constraint ID
 
 		Returns:	
@@ -2752,7 +2741,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		integer"""
 		return 0
 		
-	def getConstraintType():
+	def getConstraintType(self):
 		"""Returns the constraint type.
 
 		Returns:	
@@ -2762,7 +2751,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		integer"""
 		return 0
 		
-	def getNumWheels():
+	def getNumWheels(self):
 		"""Returns the number of wheels.
 
 		Returns:	
@@ -2772,7 +2761,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		integer"""
 		return 0
 		
-	def getWheelOrientationQuaternion():
+	def getWheelOrientationQuaternion(self):
 		"""Returns the wheel orientation as a quaternion.
 
 		Parameters:
@@ -2785,7 +2774,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		TODO - type should be quat as per method name but from the code it looks like a matrix"""
 		return [(0.0,0.0,0.0),(0.0,0.0,0.0),(0.0,0.0,0.0)]
 		
-	def getWheelPosition():
+	def getWheelPosition(self):
 		"""Returns the position of the specified wheel
 
 		Parameters:
@@ -2798,7 +2787,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		list[x, y, z]"""
 		return [0.0,0.0,0.0]
 		
-	def getWheelRotation():
+	def getWheelRotation(self):
 		"""Returns the rotation of the specified wheel
 
 		Parameters:
@@ -2811,7 +2800,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		float"""
 		return 0.0
 		
-	def setRollInfluence():
+	def setRollInfluence(self):
 		"""Set the specified wheel's roll influence. The higher the roll influence the more the vehicle will tend to roll over in corners.
 
 		Parameters:
@@ -2819,14 +2808,15 @@ class KX_VehicleWrapper(PyObjectPlus):
 		wheelIndex (integer) - the wheel index"""
 		pass
 		
-	def setSteeringValue():
+	def setSteeringValue(self):
 		"""Set the specified wheel's steering
 
 		Parameters:
 		steering (float) - the wheel steering
 		wheelIndex (integer) - the wheel index"""
 		pass
-	def setSuspensionCompression():
+
+	def setSuspensionCompression(self):
 		"""Set the specified wheel's compression
 
 		Parameters:
@@ -2834,7 +2824,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		wheelIndex (integer) - the wheel index"""
 		pass
 		
-	def setSuspensionDamping():
+	def setSuspensionDamping(self):
 		"""Set the specified wheel's damping
 
 		Parameters:
@@ -2842,7 +2832,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		wheelIndex (integer) - the wheel index"""
 		pass
 		
-	def setSuspensionStiffness():
+	def setSuspensionStiffness(self):
 		"""Set the specified wheel's stiffness
 
 		Parameters:
@@ -2850,7 +2840,7 @@ class KX_VehicleWrapper(PyObjectPlus):
 		wheelIndex (integer) - the wheel index"""
 		pass
 		
-	def setTyreFriction():
+	def setTyreFriction(self):
 		"""Set the specified wheel's tyre friction
 
 		Parameters:
@@ -2886,7 +2876,7 @@ class KX_VertexProxy(SCA_IObject):
 		self.b = 0
 		self.a = 0
 	
-	def getXYZ():
+	def getXYZ(self):
 		"""Gets the position of this vertex.
 
 		Returns:	
@@ -2894,9 +2884,10 @@ class KX_VertexProxy(SCA_IObject):
 
 		Return type:
 		Vector((x, y, z))"""
-		return ((0.0,0.0,0.0))
+		from mathutils import Vector
+		return Vector(None)
 		
-	def setXYZ():
+	def setXYZ(self):
 		"""Sets the position of this vertex.
 
 		Type:
@@ -2906,7 +2897,7 @@ class KX_VertexProxy(SCA_IObject):
 		pos - the new position for this vertex in local coordinates."""
 		pass
 		
-	def getUV():
+	def getUV(self):
 		"""Gets the UV (texture) coordinates of this vertex.
 
 		Returns:	
@@ -2914,16 +2905,17 @@ class KX_VertexProxy(SCA_IObject):
 
 		Return type:
 		Vector((u, v))"""
-		return ((0.0,0.0))
+		from mathutils import Vector
+		return Vector(None)
 		
-	def setUV():
+	def setUV(self):
 		"""Sets the UV (texture) coordinates of this vertex.
 
 		Type:
 		Vector((u, v))"""
 		pass
 		
-	def getUV2():
+	def getUV2(self):
 		"""Gets the 2nd UV (texture) coordinates of this vertex.
 
 		Returns:	
@@ -2931,9 +2923,10 @@ class KX_VertexProxy(SCA_IObject):
 
 		Return type:
 		Vector((u, v))"""
-		return ((0.0,0.0))
+		from mathutils import Vector
+		return Vector(None)
 		
-	def setUV2():
+	def setUV2(self):
 		"""Sets the 2nd UV (texture) coordinates of this vertex.
 
 		Type:
@@ -2944,7 +2937,7 @@ class KX_VertexProxy(SCA_IObject):
 		unit - integer"""
 		pass
 		
-	def getRGBA():
+	def getRGBA(self):
 		"""Gets the color of this vertex.
 
 		The color is represented as four bytes packed into an integer value. The color is packed as RGBA.
@@ -2966,7 +2959,7 @@ class KX_VertexProxy(SCA_IObject):
 		integer"""
 		return 0
 		
-	def setRGBA():
+	def setRGBA(self):
 		"""Sets the color of this vertex.
 
 		See getRGBA() for the format of col, and its relevant problems. Use the r, g, b and a attributes or the color attribute instead.
@@ -2982,7 +2975,7 @@ class KX_VertexProxy(SCA_IObject):
 		col (integer or list [r, g, b, a]) - the new color of this vertex in packed RGBA format."""
 		pass
 		
-	def getNormal():
+	def getNormal(self):
 		"""Gets the normal vector of this vertex.
 
 		Returns:
@@ -2990,9 +2983,10 @@ class KX_VertexProxy(SCA_IObject):
 
 		Return type:
 		Vector((nx, ny, nz))"""
-		return ((0.0,0.0,0.0))
+		from mathutils import Vector
+		return Vector(None)
 		
-	def setNormal():
+	def setNormal(self):
 		"""Sets the normal vector of this vertex.
 
 		Type:
@@ -3044,3 +3038,33 @@ class KX_WorldInfo(PyObjectPlus):
 		self.mistColor = 0
 		self.backgroundColor = 0
 		self.ambientColor = 0
+
+class KX_PythonComponent(CValue):
+	"""base class — EXP_Value
+
+	classKX_PythonComponent(EXP_Value)
+	
+	Python component can be compared to python logic bricks with parameters. The python component is a script loaded in the UI, this script defined a component class by inheriting from KX_PythonComponent. This class must contain a dictionary of properties: args and two default functions: start() and update().
+	The script must have .py extension.
+	The component properties are loaded from the args attribute from the UI at loading time. When the game start the function start() is called with as arguments a dictionary of the properties’ name and value. The update() function is called every frames during the logic stage before running logics bricks, the goal of this function is to handle and process everything.
+	Since the components are loaded for the first time outside the bge, then bge is a fake module that contains only the class KX_PythonComponent to avoid importing all the bge modules. This behavior is safer but creates some issues at loading when the user want to use functions or attributes from the bge modules other than the KX_PythonComponent class. The way is to not call these functions at loading outside the bge. To detect it, the bge module contains the attribute __component__ when it’s imported outside the bge.
+	The property types supported are float, integer, boolean, string, set (for enumeration) and Vector 2D, 3D and 4D."""
+
+	def __init__(self):
+		self.object = KX_GameObject()
+		self.args = dict()
+		
+	def start(self, args):
+		"""Initialize the component.
+
+		Parameters:
+		args (dict) – The dictionary of the properties’ name and value.
+		
+		Warning: This function must be inherited in the python component class."""
+		pass
+		
+	def update(self):
+		"""Process the logic of the component.
+
+		Warning: This function must be inherited in the python component class."""
+		pass

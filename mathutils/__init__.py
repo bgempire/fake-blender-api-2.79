@@ -20,12 +20,6 @@ The mathutils module provides the following classes:
 - Quaternion
 - Vector"""
 
-class Color: pass
-class Euler: pass
-class Matrix: pass
-class Quaternion: pass
-class Vector: pass
-
 from . import bvhtree, geometry, interpolate, kdtree, noise
 
 class Color:
@@ -100,14 +94,14 @@ class Euler:
 		
 		return self
 		
-	def make_compatible(self, other=Euler):
+	def make_compatible(self, other):
 		"""Make this euler compatible with another, so interpolating between them works as intended.
 
 		Note: the rotation order is not taken into account for this function."""
 		
 		pass
 		
-	def rotate(self, other=Euler):
+	def rotate(self, other):
 		"""Rotates the euler by another mathutils value.
 
 		Parameters:

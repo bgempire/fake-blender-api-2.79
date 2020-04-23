@@ -1,6 +1,5 @@
 """Module to create and control physics constraints."""
 
-from .. import types
 
 ## Functions
 def createConstraint(physicsid_1, physicsid_2, constraint_type, pivot_x=0.0, pivot_y=0.0, pivot_z=0.0, axis_x=0.0, axis_y=0.0, axis_z=0.0, flag=0):
@@ -23,8 +22,8 @@ def createConstraint(physicsid_1, physicsid_2, constraint_type, pivot_x=0.0, piv
 
 	Return type:
 	KX_ConstraintWrapper"""
-	value = types.KX_ConstraintWrapper
-	return value
+	from .. import types
+	return types.KX_ConstraintWrapper()
 	
 def createVehicle(physicsid):
 	"""Creates a vehicle constraint.
@@ -37,8 +36,8 @@ def createVehicle(physicsid):
 	
 	Return type:
 	KX_VehicleWrapper"""
-	value = types.KX_VehicleWrapper
-	return value
+	from .. import types
+	return types.KX_VehicleWrapper
 
 def exportBulletFile(filename):
 	"""Exports a file representing the dynamics world (usually using .bullet extension).
@@ -53,24 +52,20 @@ def getAppliedImpulse(constraintId):
 	"""Parameters:
 	constraintId (int) - The id of the constraint.
 
-	Returns:	
-	The most recent applied impulse.
+	Returns: The most recent applied impulse.
 
-	Return type:
-	float"""
+	Return type: float"""
 	return True
 	
 def getVehicleConstraint(constraintId):
 	"""Parameters:
 	constraintId (int) - The id of the vehicle constraint.
 
-	Returns:	
-	A vehicle constraint object.
+	Returns: A vehicle constraint object.
 
-	Return type:
-	KX_VehicleWrapper"""
-	value = types.KX_VehicleWrapper
-	return value
+	Return type: KX_VehicleWrapper"""
+	from .. import types
+	return types.KX_VehicleWrapper
 	
 def getCharacter(gameobj):
 	"""Parameters:
@@ -81,8 +76,8 @@ def getCharacter(gameobj):
 
 	Return type:
 	KX_CharacterWrapper"""
-	value = types.KX_CharacterWrapper
-	return value
+	from .. import types
+	return types.KX_CharacterWrapper
 	
 def removeConstraint(constraintId):
 	"""Removes a constraint.
@@ -207,7 +202,7 @@ def setUseEpa(epa):
 	pass
 
 ## Constants
-error = "str"
+error = ""
 
 # Debug Mode Constants
 DBG_NODEBUG = 0
