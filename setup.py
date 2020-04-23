@@ -2,22 +2,41 @@ from distutils.core import setup
 
 setup(
 	name = 'fake-blender-api-2.79',
+	version = '0.2',
 	
 	packages = [
 		"aud", 
+		
 		"bge", 
+		"bge/app", 
+		"bge/constraints", 
+		"bge/events", 
+		"bge/logic", 
+		"bge/render", 
+		"bge/texture", 
+		"bge/types",
+		
 		"bgl", 
 		"blf", 
 		"bmesh", 
+		
 		"bpy", 
+		"bpy/app",
+		"bpy/ops",
+		"bpy/utils",
+		
 		"bpy_extras",
+		
 		"freestyle", 
+		"freestyle/utils", 
+		
 		"gpu", 
 		"idprop", 
-		"mathutils"
+		
+		"mathutils",
+		"mathutils/noise"
 	],
 	
-	version = '0.1',
 	license='GPLv3',
 	description = "Fake Blender 2.79 Python API for code completion, including BGE",
 	author = 'Joel Gomes da Silva',
