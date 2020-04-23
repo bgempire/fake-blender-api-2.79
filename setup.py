@@ -23,7 +23,7 @@ setup(
 	author = 'Joel Gomes da Silva',
 	author_email = 'joelgomes1994@hotmail.com',
 	url = 'https://github.com/bgempire/fake-blender-api-2.79',
-	download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',
+	download_url = 'https://github.com/bgempire/fake-blender-api-2.79/archive/0.1.tar.gz',
 	
 	keywords = [
 		'blender', 
