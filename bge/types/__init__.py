@@ -1,7 +1,5 @@
 """This module contains the classes that appear as instances in the Game Engine. A script must interact with these classes if it is to affect the behaviour of objects in a game."""
 
-__shared__ = {}
-
 class PyObjectPlus:
 	
 	"""class bge.PyObjectPlus
@@ -108,16 +106,12 @@ class KX_GameObject(SCA_IObject):
 	
 	def __init__(self):
 		from mathutils import Vector, Matrix
-		
-		if not "KX_GameObject" in __shared__.keys():
-			__shared__["KX_GameObject"] = None
-			__shared__["KX_GameObject"] = KX_GameObject()
 
-		self.parent = __shared__["KX_GameObject"]
-		self.groupMembers = {"key" : __shared__["KX_GameObject"]}
-		self.groupObject = __shared__["KX_GameObject"]
-		self.children = {"key" : __shared__["KX_GameObject"]}
-		self.childrenRecursive = {"key" : __shared__["KX_GameObject"]}
+		self.parent = None # type: KX_GameObject
+		self.groupMembers = None # type: dict[str, KX_GameObject]
+		self.groupObject = None # type: KX_GameObject
+		self.children = None # type: dict[str, KX_GameObject]
+		self.childrenRecursive = None # type: dict[str, KX_GameObject]
 		self.scene = KX_Scene()
 		self.name = str()
 		self.mass = float()
@@ -2509,12 +2503,11 @@ class KX_Scene(PyObjectPlus):
 	def __init__(self):
 		from mathutils import Vector
 		
-		gameObj = __shared__["KX_GameObject"]
 		self.name = str()
-		self.objects = {"key" : gameObj}
-		self.objectsInactive = {"key" : gameObj}
-		self.lights = {"key" : KX_LightObject()}
-		self.cameras = {"key" : KX_Camera()}
+		self.objects = None # type: dict[str, KX_GameObject]
+		self.objectsInactive = None # type: dict[str, KX_GameObject]
+		self.lights = None # type: dict[str, KX_LightObject]
+		self.cameras = None # type: dict[str, KX_Camera]
 		self.active_camera = KX_Camera()
 		self.world = KX_WorldInfo()
 		self.suspended = bool()
@@ -2527,6 +2520,7 @@ class KX_Scene(PyObjectPlus):
 		self.gravity = Vector(None)
 	
 	def addObject(self, object, reference, time=0):
+		# type: (str | KX_GameObject, str | KX_GameObject, int) -> KX_GameObject
 		"""Adds an object to the scene like the Add Object Actuator would.
 
 		Parameters:
@@ -2538,7 +2532,7 @@ class KX_Scene(PyObjectPlus):
 
 		Return type: KX_GameObject"""
 		
-		return __shared__["KX_GameObject"]
+		return
 		
 	def end(self):
 		"""Removes the scene from the game."""
