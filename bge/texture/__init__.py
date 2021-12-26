@@ -79,7 +79,7 @@ def imageToArray(image, mode):
 	A special mode "F" allows to return the image as an array of float. This mode should only be used to retrieve the depth buffer of the class:ImageViewport and ImageRender objects. The default mode is "RGBA".
 
 	Returns:	
-	An object representing the image as one dimensional array of bytes of size (pixel_size*width*height), line by line starting from the bottom of the image. The pixel size and format is determined by the mode parameter. For mode ‘F', the array is a one dimensional array of float of size (width*height).
+	An object representing the image as one dimensional array of bytes of size (pixel_size*width*height), line by line starting from the bottom of the image. The pixel size and format is determined by the mode parameter. For mode 'F', the array is a one dimensional array of float of size (width*height).
 
 	Return type:
 	Buffer"""
@@ -241,11 +241,11 @@ class VideoFFmpeg:
 		return 0
 
 class VideoDeckLink:
-	"""Image source from an external video stream captured with a DeckLink video card from Black Magic Design. Before this source can be used, a DeckLink hardware device must be installed, it can be a PCIe card or a USB device, and the ‘Desktop Video’ software package (version 10.4 or above must be installed) on the host as described in the DeckLink documentation. If in addition you have a recent nVideo Quadro card, you can benefit from the ‘GPUDirect’ technology to push the captured video frame very efficiently to the GPU. For this you need to install the ‘DeckLink SDK’ version 10.4 or above and copy the ‘dvp.dll’ runtime library to Blender’s installation directory or to any other place where Blender can load a DLL from.
+	"""Image source from an external video stream captured with a DeckLink video card from Black Magic Design. Before this source can be used, a DeckLink hardware device must be installed, it can be a PCIe card or a USB device, and the 'Desktop Video' software package (version 10.4 or above must be installed) on the host as described in the DeckLink documentation. If in addition you have a recent nVideo Quadro card, you can benefit from the 'GPUDirect' technology to push the captured video frame very efficiently to the GPU. For this you need to install the 'DeckLink SDK' version 10.4 or above and copy the 'dvp.dll' runtime library to Blender's installation directory or to any other place where Blender can load a DLL from.
 	
 	Parameters:
-	format (str) – string describing the video format to be captured.
-	capture (int) – Card number from which the input video must be captured."""
+	format (str) - string describing the video format to be captured.
+	capture (int) - Card number from which the input video must be captured."""
 	
 	def __init__(self, format, capture=0):
 		self.status = 0
@@ -503,8 +503,8 @@ class ImageRender:
 		"""Refresh video - render and optionally copy the image to an external buffer then invalidate its current content. The render may have been started earlier with the render() method, in which case this function simply waits for the render operations to complete. When called without argument, the pixels are not extracted but the render is guaranteed to be completed when the function returns. This only makes sense with offscreen render on texture target (see bge.render.offScreenCreate()).
 		
 		Parameters:
-		buffer (any buffer type of sufficient size) – An object that implements the buffer protocol. If specified, the image is copied to the buffer, which must be big enough or an exception is thrown. The transfer to the buffer is optimal if no processing of the image is needed. This is the case if flip=False, alpha=True, scale=False, whole=True, depth=False, zbuff=False and no filter is set.
-		format (str) – An optional image format specifier for the image that will be copied to the buffer. Only valid values are "RGBA" or "BGRA"
+		buffer (any buffer type of sufficient size) - An object that implements the buffer protocol. If specified, the image is copied to the buffer, which must be big enough or an exception is thrown. The transfer to the buffer is optimal if no processing of the image is needed. This is the case if flip=False, alpha=True, scale=False, whole=True, depth=False, zbuff=False and no filter is set.
+		format (str) - An optional image format specifier for the image that will be copied to the buffer. Only valid values are "RGBA" or "BGRA"
 		
 		Returns:
 		True if the render is complete, False if the render cannot be performed (e.g. the camera is active)
@@ -535,8 +535,8 @@ class ImageViewport:
 		"""Refresh video - copy the viewport to an external buffer (optional) then invalidate its current content.
 		
 		Parameters:
-		buffer (any buffer type) – An optional object that implements the buffer protocol. If specified, the image is copied to the buffer, which must be big enough or an exception is thrown. The transfer to the buffer is optimal if no processing of the image is needed. This is the case if flip=False, alpha=True, scale=False, whole=True, depth=False, zbuff=False and no filter is set.
-		format (str) – An optional image format specifier for the image that will be copied to the buffer. Only valid values are “RGBA” or "BGRA" """
+		buffer (any buffer type) - An optional object that implements the buffer protocol. If specified, the image is copied to the buffer, which must be big enough or an exception is thrown. The transfer to the buffer is optimal if no processing of the image is needed. This is the case if flip=False, alpha=True, scale=False, whole=True, depth=False, zbuff=False and no filter is set.
+		format (str) - An optional image format specifier for the image that will be copied to the buffer. Only valid values are “RGBA” or "BGRA" """
 		pass
 
 	pass
@@ -546,10 +546,10 @@ class Texture:
 	"""Texture object.
 
 	Parameters:	
-	gameObj (KX_GameObject) – Game object to be created a video texture on.
-	materialID (int) – Material ID default, 0 is the first material. (optional)
-	textureID (int) – Texture index in case of multi-texture channel, 0 = first channel by default. In case of UV texture, this parameter should always be 0. (optional)
-	textureObj (Texture) – Reference to another Texture object with shared bindId which he user might want to reuse the texture. If this argument is used, you should not create any source on this texture and there is no need to refresh it either: the other Texture object will provide the texture for both materials/textures.(optional)"""
+	gameObj (KX_GameObject) - Game object to be created a video texture on.
+	materialID (int) - Material ID default, 0 is the first material. (optional)
+	textureID (int) - Texture index in case of multi-texture channel, 0 = first channel by default. In case of UV texture, this parameter should always be 0. (optional)
+	textureObj (Texture) - Reference to another Texture object with shared bindId which he user might want to reuse the texture. If this argument is used, you should not create any source on this texture and there is no need to refresh it either: the other Texture object will provide the texture for both materials/textures.(optional)"""
 	
 	def __init__(self, gameObj, materialID=0, textureID=0, textureObj=None):
 		self.bindId = 0
@@ -574,8 +574,8 @@ class DeckLink:
 	"""Certain DeckLink devices can be used to playback video: the host sends video frames regularly for immediate or scheduled playback. The video feed is outputted on HDMI or SDI interfaces. This class supports the immediate playback mode: it has a source attribute that is assigned one of the source object in the bge.texture module. Refreshing the DeckLink object causes the image source to be computed and sent to the DeckLink device for immediate transmission on the output interfaces. Keying is supported: it allows to composite the frame with an input video feed that transits through the DeckLink card.
 
 	Parameters:
-	cardIdx (int) – Number of the card to be used for output (0=first card). It should be noted that DeckLink devices are usually half duplex: they can either be used for capture or playback but not both at the same time.
-	format (str) – String representing the display mode of the output feed."""
+	cardIdx (int) - Number of the card to be used for output (0=first card). It should be noted that DeckLink devices are usually half duplex: they can either be used for capture or playback but not both at the same time.
+	format (str) - String representing the display mode of the output feed."""
 	
 	def __init__(self, cardIdx=0, format=""):
 		source = None
@@ -592,6 +592,6 @@ class DeckLink:
 		"""This method must be called frequently to update the output frame in the DeckLink device.
 
 		Parameters:
-		refresh_source (bool) – True if the source objects image buffer should be invalidated after being used to compute the output frame. This triggers the recomputing of the source image on next refresh, which is normally the desired effect. False if the image source buffer should stay valid and reused on next refresh. Note that the DeckLink device stores the output frame and replays until a new frame is sent from the host. Thus, it is not necessary to refresh the DeckLink object if it is known that the image source has not changed.
-		ts (float) – The timestamp value passed to the image source object to compute the image. If unspecified, the BGE clock is used."""
+		refresh_source (bool) - True if the source objects image buffer should be invalidated after being used to compute the output frame. This triggers the recomputing of the source image on next refresh, which is normally the desired effect. False if the image source buffer should stay valid and reused on next refresh. Note that the DeckLink device stores the output frame and replays until a new frame is sent from the host. Thus, it is not necessary to refresh the DeckLink object if it is known that the image source has not changed.
+		ts (float) - The timestamp value passed to the image source object to compute the image. If unspecified, the BGE clock is used."""
 		pass

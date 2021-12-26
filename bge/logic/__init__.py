@@ -551,7 +551,7 @@ def setRender(render):
 	"""Sets the global flag that controls the render of the scene. If True, the render is done after the logic frame. If False, the render is skipped and another logic frame starts immediately.
 	
 	Parameters:
-	render (bool) – the render flag"""
+	render (bool) - the render flag"""
 	pass
 
 def getRender():
@@ -594,7 +594,7 @@ def setTimeScale(time_scale):
 	"""Set the time multiplier between real-time and simulation time. A value greater than 1.0 means that the simulation is going faster than real-time, a value lower than 1.0 means that the simulation is going slower than real-time. Note that a too large value may lead to some physics instabilities.
 
 	Parameters:
-	time_scale – The new time multiplier."""
+	time_scale - The new time multiplier."""
 	pass
 
 def getUseExternalClock():
@@ -608,14 +608,14 @@ def setUseExternalClock(use_external_clock):
 	"""Set if the BGE use the inner BGE clock, or rely or on an external clock. If the user selects the use of an external clock, he should call regularly the setClockTime method.
 	
 	Parameters:
-	use_external_clock – the new setting"""
+	use_external_clock - the new setting"""
 	pass
 
 def setClockTime(new_time):
 	"""Set the next value of the simulation clock. It is preferable to use this method from a custom main function in python, as calling it in the logic block can easily lead to a blocked system (if the time does not advance enough to run at least the next logic step).
 
 	Parameters:
-	new_time – the next value of the BGE clock (in second)."""
+	new_time - the next value of the BGE clock (in second)."""
 	pass
 
 # Utility Functions

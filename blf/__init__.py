@@ -112,7 +112,7 @@ def load(filename: str):
 
     :param filename: the filename of the font. 
     :type filename: str
-    :return:  the new font’s fontid or -1 if there was an error. 
+    :return:  the new font's fontid or -1 if there was an error. 
     '''
 
     pass

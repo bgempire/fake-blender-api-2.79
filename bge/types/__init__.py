@@ -373,7 +373,7 @@ class KX_GameObject(SCA_IObject):
 		"""Suspends physics for this object.
 
 		Parameters:
-		freeConstraints (bool) – When set to True physics constraints used by the object are deleted. Else when False (the default) constraints are restored when restoring physics."""
+		freeConstraints (bool) - When set to True physics constraints used by the object are deleted. Else when False (the default) constraints are restored when restoring physics."""
 		pass
 	
 	def restorePhysics(self):
@@ -541,7 +541,7 @@ class KX_GameObject(SCA_IObject):
 		"""Replace the current physics shape.
 		
 		Parameters:
-		gameObject (string, KX_GameObject) – set the physics shape from this gameObjets."""
+		gameObject (string, KX_GameObject) - set the physics shape from this gameObjets."""
 	
 	def get(self, key, default=""):
 		"""Return the value matching key, or the default value if its not found.
@@ -3046,8 +3046,8 @@ class KX_PythonComponent(CValue):
 	
 	Python component can be compared to python logic bricks with parameters. The python component is a script loaded in the UI, this script defined a component class by inheriting from KX_PythonComponent. This class must contain a dictionary of properties: args and two default functions: start() and update().
 	The script must have .py extension.
-	The component properties are loaded from the args attribute from the UI at loading time. When the game start the function start() is called with as arguments a dictionary of the properties’ name and value. The update() function is called every frames during the logic stage before running logics bricks, the goal of this function is to handle and process everything.
-	Since the components are loaded for the first time outside the bge, then bge is a fake module that contains only the class KX_PythonComponent to avoid importing all the bge modules. This behavior is safer but creates some issues at loading when the user want to use functions or attributes from the bge modules other than the KX_PythonComponent class. The way is to not call these functions at loading outside the bge. To detect it, the bge module contains the attribute __component__ when it’s imported outside the bge.
+	The component properties are loaded from the args attribute from the UI at loading time. When the game start the function start() is called with as arguments a dictionary of the properties' name and value. The update() function is called every frames during the logic stage before running logics bricks, the goal of this function is to handle and process everything.
+	Since the components are loaded for the first time outside the bge, then bge is a fake module that contains only the class KX_PythonComponent to avoid importing all the bge modules. This behavior is safer but creates some issues at loading when the user want to use functions or attributes from the bge modules other than the KX_PythonComponent class. The way is to not call these functions at loading outside the bge. To detect it, the bge module contains the attribute __component__ when it's imported outside the bge.
 	The property types supported are float, integer, boolean, string, set (for enumeration) and Vector 2D, 3D and 4D."""
 
 	def __init__(self):
@@ -3058,7 +3058,7 @@ class KX_PythonComponent(CValue):
 		"""Initialize the component.
 
 		Parameters:
-		args (dict) – The dictionary of the properties’ name and value.
+		args (dict) - The dictionary of the properties' name and value.
 		
 		Warning: This function must be inherited in the python component class."""
 		pass

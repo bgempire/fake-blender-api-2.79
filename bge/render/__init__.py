@@ -74,7 +74,7 @@ def getDisplayDimensions():
 def makeScreenshot(filename):
 	"""Writes an image file with the current displayed frame.
 
-	The image is written to ‘filename'. The path may be absolute (eg. /home/foo/image) or relative when started with // (eg. //image). Note that absolute paths are not portable between platforms. If the filename contains a #, it will be replaced by an incremental index so that screenshots can be taken multiple times without overwriting the previous ones (eg. image-#).
+	The image is written to 'filename'. The path may be absolute (eg. /home/foo/image) or relative when started with // (eg. //image). Note that absolute paths are not portable between platforms. If the filename contains a #, it will be replaced by an incremental index so that screenshots can be taken multiple times without overwriting the previous ones (eg. image-#).
 
 	Settings for the image are taken from the render settings (file format and respective settings, gamma and colospace conversion, etc). The image resolution matches the framebuffer, meaning, the window size and aspect ratio. When running from the standalone player, instead of the embedded player, only PNG files are supported. Additional color conversions are also not supported.
 

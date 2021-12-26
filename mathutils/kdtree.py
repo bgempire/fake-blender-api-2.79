@@ -18,8 +18,8 @@ class KDTree:
 		"""Find nearest point to co.
 
 		Parameters:	
-		co (float triplet) – 3d coordinates.
-		filter (callable) – function which takes an index and returns True for indices to include in the search.
+		co (float triplet) - 3d coordinates.
+		filter (callable) - function which takes an index and returns True for indices to include in the search.
 		
 		Returns: Returns (Vector, index, distance).
 
@@ -32,8 +32,8 @@ class KDTree:
 		"""Find nearest n points to co.
 
 		Parameters:	
-		co (float triplet) – 3d coordinates.
-		n (int) – Number of points to find.
+		co (float triplet) - 3d coordinates.
+		n (int) - Number of points to find.
 		
 		Returns: Returns a list of tuples (Vector, index, distance).
 
@@ -46,8 +46,8 @@ class KDTree:
 		"""Find nearest n points to co.
 
 		Parameters:	
-		co (float triplet) – 3d coordinates.
-		n (int) – Number of points to find.
+		co (float triplet) - 3d coordinates.
+		n (int) - Number of points to find.
 		
 		Returns: Returns a list of tuples (Vector, index, distance).
 

@@ -47,7 +47,7 @@ class Device:
 		self.volume = 1.0
 	
 	def lock(self):
-		"""Locks the device so that it’s guaranteed, that no samples are read from the streams until unlock() is called. This is useful if you want to do start/stop/pause/resume some sounds at the same time.
+		"""Locks the device so that it's guaranteed, that no samples are read from the streams until unlock() is called. This is useful if you want to do start/stop/pause/resume some sounds at the same time.
 
 		Note: The device has to be unlocked as often as locked to be able to continue playback.
 		
@@ -59,8 +59,8 @@ class Device:
 		"""Plays a factory.
 
 		Parameters:
-		factory (Factory) – The factory to play.
-		keep (bool) – See Handle.keep.
+		factory (Factory) - The factory to play.
+		keep (bool) - See Handle.keep.
 		
 		Returns: The playback handle with which playback can be controlled with.
 
@@ -85,13 +85,13 @@ class Factory:
 		"""Creates a factory object of a sound file.
 
 		Parameters:
-		filename (string) – Path of the file.
+		filename (string) - Path of the file.
 		
 		Returns: The created Factory object.
 		
 		Return type: Factory
 		
-		Warning: If the file doesn’t exist or can’t be read you will not get an exception immediately, but when you try to start playback of that factory."""
+		Warning: If the file doesn't exist or can't be read you will not get an exception immediately, but when you try to start playback of that factory."""
 		
 		return self
 	
@@ -99,8 +99,8 @@ class Factory:
 		"""Creates a sine factory which plays a sine wave.
 
 		Parameters:
-		frequency (float) – The frequency of the sine wave in Hz.
-		rate (int) – The sampling rate in Hz. It’s recommended to set this value to the playback device’s samling rate to avoid resamping.
+		frequency (float) - The frequency of the sine wave in Hz.
+		rate (int) - The sampling rate in Hz. It's recommended to set this value to the playback device's samling rate to avoid resamping.
 		
 		Returns: The created Factory object.
 
@@ -122,10 +122,10 @@ class Factory:
 		return self
 	
 	def delay(self, time):
-		"""Delays by playing adding silence in front of the other factory’s data.
+		"""Delays by playing adding silence in front of the other factory's data.
 
 		Parameters:
-		time (float) – How many seconds of silence should be added before the factory.
+		time (float) - How many seconds of silence should be added before the factory.
 		
 		Returns: The created Factory object.
 		
@@ -137,8 +137,8 @@ class Factory:
 		"""Fades a factory in by raising the volume linearly in the given time interval.
 
 		Parameters:	
-		start (float) – Time in seconds when the fading should start.
-		length (float) – Time in seconds how long the fading should last.
+		start (float) - Time in seconds when the fading should start.
+		length (float) - Time in seconds how long the fading should last.
 		
 		Returns: The created Factory object.
 
@@ -152,8 +152,8 @@ class Factory:
 		"""Fades a factory in by lowering the volume linearly in the given time interval.
 
 		Parameters:
-		start (float) – Time in seconds when the fading should start.
-		length (float) – Time in seconds how long the fading should last.
+		start (float) - Time in seconds when the fading should start.
+		length (float) - Time in seconds how long the fading should last.
 		
 		Returns: The created Factory object.
 
@@ -164,11 +164,11 @@ class Factory:
 		return self
 	
 	def filter(self, b, a=1.0):
-		"""Filters a factory with the supplied IIR filter coefficients. Without the second parameter you’ll get a FIR filter. If the first value of the a sequence is 0 it will be set to 1 automatically. If the first value of the a sequence is neither 0 nor 1, all filter coefficients will be scaled by this value so that it is 1 in the end, you don’t have to scale yourself.
+		"""Filters a factory with the supplied IIR filter coefficients. Without the second parameter you'll get a FIR filter. If the first value of the a sequence is 0 it will be set to 1 automatically. If the first value of the a sequence is neither 0 nor 1, all filter coefficients will be scaled by this value so that it is 1 in the end, you don't have to scale yourself.
 
 		Parameters:
-		b (sequence of float) – The nominator filter coefficients.
-		a (sequence of float) – The denominator filter coefficients.
+		b (sequence of float) - The nominator filter coefficients.
+		a (sequence of float) - The denominator filter coefficients.
 		
 		Returns: The created Factory object.
 
@@ -180,8 +180,8 @@ class Factory:
 		"""Creates a second order highpass filter based on the transfer function H(s) = s^2 / (s^2 + s/Q + 1)
 
 		Parameters:	
-		frequency (float) – The cut off trequency of the highpass.
-		Q (float) – Q factor of the lowpass.
+		frequency (float) - The cut off trequency of the highpass.
+		Q (float) - Q factor of the lowpass.
 		
 		Returns: The created Factory object.
 
@@ -193,7 +193,7 @@ class Factory:
 		"""Plays two factories in sequence.
 
 		Parameters:
-		factory (Factory) – The factory to play second.
+		factory (Factory) - The factory to play second.
 		
 		Returns: The created Factory object.
 		
@@ -207,8 +207,8 @@ class Factory:
 		"""Limits a factory within a specific start and end time.
 
 		Parameters:	
-		start (float) – Start time in seconds.
-		end (float) – End time in seconds.
+		start (float) - Start time in seconds.
+		end (float) - End time in seconds.
 		
 		Returns: The created Factory object.
 
@@ -220,7 +220,7 @@ class Factory:
 		"""Loops a factory.
 
 		Parameters:
-		count (integer) – How often the factory should be looped. Negative values mean endlessly.
+		count (integer) - How often the factory should be looped. Negative values mean endlessly.
 		
 		Returns: The created Factory object.
 		
@@ -234,8 +234,8 @@ class Factory:
 		"""Creates a second order lowpass filter based on the transfer function H(s) = 1 / (s^2 + s/Q + 1)
 
 		Parameters:
-		frequency (float) – The cut off trequency of the lowpass.
-		Q (float) – Q factor of the lowpass.
+		frequency (float) - The cut off trequency of the lowpass.
+		Q (float) - Q factor of the lowpass.
 		
 		Returns: The created Factory object.
 
@@ -247,7 +247,7 @@ class Factory:
 		"""Mixes two factories.
 
 		Parameters:
-		factory (Factory) – The factory to mix over the other.
+		factory (Factory) - The factory to mix over the other.
 		
 		Returns: The created Factory object.
 		
@@ -270,7 +270,7 @@ class Factory:
 		"""Changes the pitch of a factory with a specific factor.
 
 		Parameters:
-		factor (float) – The factor to change the pitch with.
+		factor (float) - The factor to change the pitch with.
 		
 		Returns: The created Factory object.
 		
@@ -289,9 +289,9 @@ class Factory:
 		
 		Return type: Factory
 		
-		Note: The factory has to have a finite length and has to be seekable. It’s recommended to use this only with factories with fast and accurate seeking, which is not true for encoded audio files, such ones should be buffered using buffer() before being played reversed.
+		Note: The factory has to have a finite length and has to be seekable. It's recommended to use this only with factories with fast and accurate seeking, which is not true for encoded audio files, such ones should be buffered using buffer() before being played reversed.
 		
-		Warning: If seeking is not accurate in the underlying factory you’ll likely hear skips/jumps/cracks."""
+		Warning: If seeking is not accurate in the underlying factory you'll likely hear skips/jumps/cracks."""
 		
 		return self
 	
@@ -299,7 +299,7 @@ class Factory:
 		"""Makes a square wave out of an audio wave by setting all samples with a amplitude >= threshold to 1, all <= -threshold to -1 and all between to 0.
 
 		Parameters:
-		threshold (float) – Threshold value over which an amplitude counts non-zero.
+		threshold (float) - Threshold value over which an amplitude counts non-zero.
 		
 		Returns: The created Factory object.
 		
@@ -311,7 +311,7 @@ class Factory:
 		"""Changes the volume of a factory.
 
 		Parameters:
-		volume (float) – The new volume.
+		volume (float) - The new volume.
 		
 		Returns: The created Factory object.
 		
@@ -377,9 +377,9 @@ class Handle:
 	
 # Functions
 def device():
-	"""Returns the application’s Device.
+	"""Returns the application's Device.
 
-	Return: The application’s Device.
+	Return: The application's Device.
 	
 	Return type: Device"""
 	

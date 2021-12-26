@@ -42,10 +42,10 @@ class IDPropertyGroup:
 	def pop(self, key):
 		"""Remove an item from the group, returning a Python representation.
 
-		Raises: KeyError – When the item doesn’t exist.
+		Raises: KeyError - When the item doesn't exist.
 		
 		Parameters:
-		key (string) – Name of item to remove."""
+		key (string) - Name of item to remove."""
 		
 		pass
 	
@@ -58,7 +58,7 @@ class IDPropertyGroup:
 		"""Update key, values.
 
 		Parameters:
-		other (IDPropertyGroup or dict) – Updates the values in the group with this."""
+		other (IDPropertyGroup or dict) - Updates the values in the group with this."""
 		
 		pass
 	

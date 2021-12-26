@@ -22,7 +22,7 @@ def automerge(bm: 'bmesh.types.BMesh',
 
 def average_vert_facedata(bm: 'bmesh.types.BMesh',
                           verts: typing.List['bmesh.types.BMVert']):
-    '''Merge uv/vcols associated with the input vertices at the bounding box center. (I know, it’s not averaging but the vert_snap_to_bb_center is just too long). 
+    '''Merge uv/vcols associated with the input vertices at the bounding box center. (I know, it's not averaging but the vert_snap_to_bb_center is just too long). 
 
     :param bm: The bmesh to operate on. 
     :type bm: 'bmesh.types.BMesh'
@@ -90,7 +90,7 @@ def bevel(bm: 'bmesh.types.BMesh', geom: typing.List['bmesh.types.BMVert'],
 def bisect_edges(bm: 'bmesh.types.BMesh',
                  edges: typing.List['bmesh.types.BMEdge'], cuts: int,
                  edge_percents: dict) -> dict:
-    '''Splits input edges (but doesn’t do anything else). This creates a 2-valence vert. 
+    '''Splits input edges (but doesn't do anything else). This creates a 2-valence vert. 
 
     :param bm: The bmesh to operate on. 
     :type bm: 'bmesh.types.BMesh'
@@ -145,7 +145,7 @@ def bmesh_to_mesh(bm: 'bmesh.types.BMesh', mesh: 'bpy.types.Mesh',
     :type mesh: 'bpy.types.Mesh'
     :param object: Undocumented. 
     :type object: 'bpy.types.Object'
-    :param skip_tessface: don’t calculate mfaces 
+    :param skip_tessface: don't calculate mfaces 
     :type skip_tessface: bool
     '''
 
@@ -298,7 +298,7 @@ def contextual_create(bm: 'bmesh.types.BMesh',
 def convex_hull(bm: 'bmesh.types.BMesh',
                 input: typing.List['bmesh.types.BMVert'],
                 use_existing_faces: bool) -> dict:
-    '''All hull vertices, faces, and edges are added to ‘geom.out’. Any input elements that end up inside the hull (i.e. are not used by an output face) are added to the ‘interior_geom’ slot. The ‘unused_geom’ slot will contain all interior geometry that is completely unused. Lastly, ‘holes_geom’ contains edges and faces that were in the input and are part of the hull. 
+    '''All hull vertices, faces, and edges are added to 'geom.out'. Any input elements that end up inside the hull (i.e. are not used by an output face) are added to the 'interior_geom' slot. The 'unused_geom' slot will contain all interior geometry that is completely unused. Lastly, 'holes_geom' contains edges and faces that were in the input and are part of the hull. 
 
     :param bm: The bmesh to operate on. 
     :type bm: 'bmesh.types.BMesh'
@@ -651,7 +651,7 @@ def edgenet_fill(bm: 'bmesh.types.BMesh',
 
 def edgenet_prepare(bm: 'bmesh.types.BMesh',
                     edges: typing.List['bmesh.types.BMEdge']) -> dict:
-    '''Identifies several useful edge loop cases and modifies them so they’ll become a face when edgenet_fill is called. The cases covered are: 
+    '''Identifies several useful edge loop cases and modifies them so they'll become a face when edgenet_fill is called. The cases covered are: 
 
     :param bm: The bmesh to operate on. 
     :type bm: 'bmesh.types.BMesh'
@@ -683,7 +683,7 @@ def extrude_discrete_faces(bm: 'bmesh.types.BMesh',
 def extrude_edge_only(bm: 'bmesh.types.BMesh',
                       edges: typing.List['bmesh.types.BMEdge'],
                       use_select_history: bool) -> dict:
-    '''Extrudes Edges into faces, note that this is very simple, there’s no fancy winged extrusion. 
+    '''Extrudes Edges into faces, note that this is very simple, there's no fancy winged extrusion. 
 
     :param bm: The bmesh to operate on. 
     :type bm: 'bmesh.types.BMesh'
@@ -907,7 +907,7 @@ def join_triangles(bm: 'bmesh.types.BMesh',
 
 def mesh_to_bmesh(bm: 'bmesh.types.BMesh', mesh: 'bpy.types.Mesh',
                   object: 'bpy.types.Object', use_shapekey: bool):
-    '''Load the contents of a mesh into the bmesh. this bmop is private, it’s reserved exclusively for entering editmode. 
+    '''Load the contents of a mesh into the bmesh. this bmop is private, it's reserved exclusively for entering editmode. 
 
     :param bm: The bmesh to operate on. 
     :type bm: 'bmesh.types.BMesh'
@@ -1130,7 +1130,7 @@ def reverse_faces(bm: 'bmesh.types.BMesh',
 
 def reverse_uvs(bm: 'bmesh.types.BMesh',
                 faces: typing.List['bmesh.types.BMFace']):
-    '''Reverse the UV’s 
+    '''Reverse the UV's 
 
     :param bm: The bmesh to operate on. 
     :type bm: 'bmesh.types.BMesh'
@@ -1196,7 +1196,7 @@ def rotate_edges(bm: 'bmesh.types.BMesh',
 
 def rotate_uvs(bm: 'bmesh.types.BMesh',
                faces: typing.List['bmesh.types.BMFace'], use_ccw: bool):
-    '''Cycle the loop UV’s 
+    '''Cycle the loop UV's 
 
     :param bm: The bmesh to operate on. 
     :type bm: 'bmesh.types.BMesh'
@@ -1405,7 +1405,7 @@ def split(bm: 'bmesh.types.BMesh', geom: typing.List['bmesh.types.BMVert'],
     :type geom: typing.List['bmesh.types.BMVert']
     :param dest: Undocumented. 
     :type dest: 'bmesh.types.BMesh'
-    :param use_only_faces: when enabled. don’t duplicate loose verts/edges 
+    :param use_only_faces: when enabled. don't duplicate loose verts/edges 
     :type use_only_faces: bool
     :return:  geom:type list of (bmesh.types.BMVert, bmesh.types.BMEdge, bmesh.types.BMFace)boundary_map:type dict mapping vert/edge/face types to bmesh.types.BMVert/bmesh.types.BMEdge/bmesh.types.BMFaceisovert_map:type dict mapping vert/edge/face types to bmesh.types.BMVert/bmesh.types.BMEdge/bmesh.types.BMFace 
     '''
@@ -1424,7 +1424,7 @@ def split_edges(
     :type edges: typing.List['bmesh.types.BMEdge']
     :param verts: optional tag verts, use to have greater control of splits 
     :type verts: typing.List['bmesh.types.BMVert']
-    :param use_verts: use ‘verts’ for splitting, else just find verts to split from edges 
+    :param use_verts: use 'verts' for splitting, else just find verts to split from edges 
     :type use_verts: bool
     :return:  edges: old output disconnected edgestype list of (bmesh.types.BMEdge) 
     '''

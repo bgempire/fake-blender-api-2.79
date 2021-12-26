@@ -86,7 +86,7 @@ class BMEdge:
     '''
 
     is_valid: bool = None
-    '''True when this element is valid (hasn’t been removed). 
+    '''True when this element is valid (hasn't been removed). 
 
     :type: bool
     '''
@@ -142,7 +142,7 @@ class BMEdge:
     def calc_face_angle(self, fallback=None) -> float:
         '''
 
-        :param fallback: return this when the edge doesn’t have 2 faces (instead of raising a ValueError). 
+        :param fallback: return this when the edge doesn't have 2 faces (instead of raising a ValueError). 
         :type fallback: 
         :rtype: float
         :return:  The angle between 2 connected faces in radians. 
@@ -152,7 +152,7 @@ class BMEdge:
     def calc_face_angle_signed(self, fallback=None) -> float:
         '''
 
-        :param fallback: return this when the edge doesn’t have 2 faces (instead of raising a ValueError). 
+        :param fallback: return this when the edge doesn't have 2 faces (instead of raising a ValueError). 
         :type fallback: 
         :rtype: float
         :return:  The angle between 2 connected faces in radians (negative for concave join). 
@@ -300,7 +300,7 @@ class BMEditSelSeq:
         pass
 
     def discard(self, element):
-        '''Like remove but doesn’t raise an error when the elements not in the selection list. 
+        '''Like remove but doesn't raise an error when the elements not in the selection list. 
 
         '''
         pass
@@ -350,7 +350,7 @@ class BMFace:
     '''
 
     is_valid: bool = None
-    '''True when this element is valid (hasn’t been removed). 
+    '''True when this element is valid (hasn't been removed). 
 
     :type: bool
     '''
@@ -362,7 +362,7 @@ class BMFace:
     '''
 
     material_index: int = None
-    '''The face’s material index. 
+    '''The face's material index. 
 
     :type: int
     '''
@@ -512,7 +512,7 @@ class BMFace:
         pass
 
     def normal_update(self, ):
-        '''Update face’s normal. 
+        '''Update face's normal. 
 
         '''
         pass
@@ -798,7 +798,7 @@ class BMLoop:
     '''This is normally accessed from BMFace.loops where each face loop represents a corner of the face. '''
 
     edge: 'BMEdge' = None
-    '''The loop’s edge (between this loop and the next), (read-only). 
+    '''The loop's edge (between this loop and the next), (read-only). 
 
     :type: 'BMEdge'
     '''
@@ -822,7 +822,7 @@ class BMLoop:
     '''
 
     is_valid: bool = None
-    '''True when this element is valid (hasn’t been removed). 
+    '''True when this element is valid (hasn't been removed). 
 
     :type: bool
     '''
@@ -864,7 +864,7 @@ class BMLoop:
     '''
 
     vert: 'BMVert' = None
-    '''The loop’s vertex (read-only). 
+    '''The loop's vertex (read-only). 
 
     :type: 'BMVert'
     '''
@@ -983,7 +983,7 @@ class BMVert:
     '''
 
     is_valid: bool = None
-    '''True when this element is valid (hasn’t been removed). 
+    '''True when this element is valid (hasn't been removed). 
 
     :type: bool
     '''
@@ -1031,9 +1031,9 @@ class BMVert:
     '''
 
     def calc_edge_angle(self, fallback=None) -> float:
-        '''Return the angle between this vert’s two connected edges. 
+        '''Return the angle between this vert's two connected edges. 
 
-        :param fallback: return this when the vert doesn’t have 2 edges (instead of raising a ValueError). 
+        :param fallback: return this when the vert doesn't have 2 edges (instead of raising a ValueError). 
         :type fallback: 
         :rtype: float
         :return:  Angle between edges in radians. 
@@ -1158,7 +1158,7 @@ class BMesh:
     '''
 
     is_valid: bool = None
-    '''True when this element is valid (hasn’t been removed). 
+    '''True when this element is valid (hasn't been removed). 
 
     :type: bool
     '''
@@ -1182,7 +1182,7 @@ class BMesh:
     '''
 
     select_mode: set = None
-    '''The selection mode, values can be {‘VERT’, ‘EDGE’, ‘FACE’}, can’t be assigned an empty set. 
+    '''The selection mode, values can be {'VERT', 'EDGE', 'FACE'}, can't be assigned an empty set. 
 
     :type: set
     '''
@@ -1302,7 +1302,7 @@ class BMesh:
 
         :param matrix: transform matrix. 
         :type matrix: 'mathutils.Matrix'
-        :param filter: set of values in (‘SELECT’, ‘HIDE’, ‘SEAM’, ‘SMOOTH’, ‘TAG’). 
+        :param filter: set of values in ('SELECT', 'HIDE', 'SEAM', 'SMOOTH', 'TAG'). 
         :type filter: set
         '''
         pass

@@ -4,7 +4,7 @@ import bpy
 
 
 class Buffer:
-    '''The Buffer object is simply a block of memory that is delineated and initialized by the user. Many OpenGL functions return data to a C-style pointer, however, because this is not possible in python the Buffer object can be used to this end. Wherever pointer notation is used in the OpenGL functions the Buffer object can be used in it’s bgl wrapper. In some instances the Buffer object will need to be initialized with the template parameter, while in other instances the user will want to create just a blank buffer which will be zeroed by default. '''
+    '''The Buffer object is simply a block of memory that is delineated and initialized by the user. Many OpenGL functions return data to a C-style pointer, however, because this is not possible in python the Buffer object can be used to this end. Wherever pointer notation is used in the OpenGL functions the Buffer object can be used in it's bgl wrapper. In some instances the Buffer object will need to be initialized with the template parameter, while in other instances the user will want to create just a blank buffer which will be zeroed by default. '''
 
     dimensions = None
     '''The number of dimensions of the Buffer. '''
@@ -4328,7 +4328,7 @@ def glColor(red, green, blue, alpha):
     '''Set a new color. 
 
     :param blue: Specify new red, green, and blue values for the current color. 
-    :param alpha: Specifies a new alpha value for the current color. Included only in the four-argument glColor4 commands. (With ‘4’ colors only) 
+    :param alpha: Specifies a new alpha value for the current color. Included only in the four-argument glColor4 commands. (With '4' colors only) 
     '''
 
     pass
@@ -4578,7 +4578,7 @@ def glEndList():
 def glEvalCoord(u, v):
     '''Evaluate enabled one- and two-dimensional maps 
 
-    :param u: Specifies a value that is the domain coordinate u to the basis function defined in a previous glMap1 or glMap2 command. If the function prototype ends in ‘v’ then u specifies a pointer to an array containing either one or two domain coordinates. The first coordinate is u. The second coordinate is v, which is present only in glEvalCoord2 versions. 
+    :param u: Specifies a value that is the domain coordinate u to the basis function defined in a previous glMap1 or glMap2 command. If the function prototype ends in 'v' then u specifies a pointer to an array containing either one or two domain coordinates. The first coordinate is u. The second coordinate is v, which is present only in glEvalCoord2 versions. 
     :param v: Specifies a value that is the domain coordinate v to the basis function defined in a previous glMap2 command. This argument is not present in a glEvalCoord1 command. 
     '''
 
@@ -4642,7 +4642,7 @@ def glFlush():
 def glFog(pname: typing.Union[int, str], param):
     '''Specify fog parameters 
 
-    :param pname: Specifies a single-valued fog parameter. If the function prototype ends in ‘v’ specifies a fog parameter. 
+    :param pname: Specifies a single-valued fog parameter. If the function prototype ends in 'v' specifies a fog parameter. 
     :type pname: typing.Union[int, str]
     :param param: Specifies the value or values to be assigned to pname. GL_FOG_COLOR requires an array of four values. All other parameters accept an array containing only a single value. 
     '''
@@ -4802,7 +4802,7 @@ def glGetPixelMap(map: typing.Union[int, str], values: 'Buffer'):
 def glGetPolygonStipple(mask: 'bpy.context.object'):
     '''Return the polygon stipple pattern 
 
-    :param mask: Returns the stipple pattern. The initial value is all 1’s. 
+    :param mask: Returns the stipple pattern. The initial value is all 1's. 
     :type mask: 'bpy.context.object'
     '''
 
@@ -4991,7 +4991,7 @@ def glIndex(c: 'Buffer'):
 def glIndexMask(mask: int):
     '''Control the writing of individual bits in the color index buffers 
 
-    :param mask: Specifies a bit mask to enable and disable the writing of individual bits in the color index buffers. Initially, the mask is all 1’s. 
+    :param mask: Specifies a bit mask to enable and disable the writing of individual bits in the color index buffers. Initially, the mask is all 1's. 
     :type mask: int
     '''
 
@@ -5064,7 +5064,7 @@ def glLight(light: typing.Union[int, str], pname: typing.Union[int, str],
     :type light: typing.Union[int, str]
     :param pname: Specifies a single-valued light source parameter for light. 
     :type pname: typing.Union[int, str]
-    :param param: Specifies the value that parameter pname of light source light will be set to. If function prototype ends in ‘v’ specifies a pointer to the value or values that parameter pname of light source light will be set to. 
+    :param param: Specifies the value that parameter pname of light source light will be set to. If function prototype ends in 'v' specifies a pointer to the value or values that parameter pname of light source light will be set to. 
     '''
 
     pass
@@ -5075,7 +5075,7 @@ def glLightModel(pname: typing.Union[int, str], param):
 
     :param pname: Specifies a single-value light model parameter. 
     :type pname: typing.Union[int, str]
-    :param param: Specifies the value that param will be set to. If function prototype ends in ‘v’ specifies a pointer to the value or values that param will be set to. 
+    :param param: Specifies the value that param will be set to. If function prototype ends in 'v' specifies a pointer to the value or values that param will be set to. 
     '''
 
     pass
@@ -5086,7 +5086,7 @@ def glLineStipple(factor: int, pattern: int):
 
     :param factor: Specifies a multiplier for each bit in the line stipple pattern. If factor is 3, for example, each bit in the pattern is used three times before the next bit in the pattern is used. factor is clamped to the range [1, 256] and defaults to 1. 
     :type factor: int
-    :param pattern: Specifies a 16-bit integer whose bit pattern determines which fragments of a line will be drawn when the line is rasterized. Bit zero is used first; the default pattern is all 1’s. 
+    :param pattern: Specifies a 16-bit integer whose bit pattern determines which fragments of a line will be drawn when the line is rasterized. Bit zero is used first; the default pattern is all 1's. 
     :type pattern: int
     '''
 
@@ -5224,7 +5224,7 @@ def glMaterial(face: typing.Union[int, str], pname: typing.Union[int, str],
     :type face: typing.Union[int, str]
     :param pname: Specifies the single-valued material parameter of the face or faces that is being updated. Must be GL_SHININESS. 
     :type pname: typing.Union[int, str]
-    :param params: Specifies the value that parameter GL_SHININESS will be set to. If function prototype ends in ‘v’ specifies a pointer to the value or values that pname will be set to. 
+    :param params: Specifies the value that parameter GL_SHININESS will be set to. If function prototype ends in 'v' specifies a pointer to the value or values that pname will be set to. 
     :type params: int
     '''
 
@@ -5469,7 +5469,7 @@ def glPushName(name: int):
 def glRasterPos(x, y, z, w):
     '''Specify the raster position for pixel operations 
 
-    :param w: Specify the x,y,z, and w object coordinates (if present) for the raster position. If function prototype ends in ‘v’ specifies a pointer to an array of two, three, or four elements, specifying x, y, z, and w coordinates, respectively. 
+    :param w: Specify the x,y,z, and w object coordinates (if present) for the raster position. If function prototype ends in 'v' specifies a pointer to an array of two, three, or four elements, specifying x, y, z, and w coordinates, respectively. 
     '''
 
     pass
@@ -5593,7 +5593,7 @@ def glStencilFunc(func: typing.Union[int, str], ref: int, mask: int):
     :type func: typing.Union[int, str]
     :param ref: Specifies the reference value for the stencil test. ref is clamped to the range [0,2n-1], where n is the number of bitplanes in the stencil buffer. The initial value is 0. 
     :type ref: int
-    :param mask: Specifies a mask that is ANDed with both the reference value and the stored stencil value when the test is done. The initial value is all 1’s. 
+    :param mask: Specifies a mask that is ANDed with both the reference value and the stored stencil value when the test is done. The initial value is all 1's. 
     :type mask: int
     '''
 
@@ -5603,7 +5603,7 @@ def glStencilFunc(func: typing.Union[int, str], ref: int, mask: int):
 def glStencilMask(mask: int):
     '''Control the writing of individual bits in the stencil planes 
 
-    :param mask: Specifies a bit mask to enable and disable writing of individual bits in the stencil planes. Initially, the mask is all 1’s. 
+    :param mask: Specifies a bit mask to enable and disable writing of individual bits in the stencil planes. Initially, the mask is all 1's. 
     :type mask: int
     '''
 
@@ -5644,7 +5644,7 @@ def glTexEnv(target: typing.Union[int, str], pname: typing.Union[int, str],
     :type target: typing.Union[int, str]
     :param pname: Specifies the symbolic name of a single-valued texture environment parameter. Must be GL_TEXTURE_ENV_MODE. 
     :type pname: typing.Union[int, str]
-    :param param: Specifies a single symbolic constant. If function prototype ends in ‘v’ specifies a pointer to a parameter array that contains either a single symbolic constant or an RGBA color 
+    :param param: Specifies a single symbolic constant. If function prototype ends in 'v' specifies a pointer to a parameter array that contains either a single symbolic constant or an RGBA color 
     '''
 
     pass
@@ -5658,7 +5658,7 @@ def glTexGen(coord: typing.Union[int, str], pname: typing.Union[int, str],
     :type coord: typing.Union[int, str]
     :param pname: Specifies the symbolic name of the texture- coordinate generation function. 
     :type pname: typing.Union[int, str]
-    :param param: Specifies a single-valued texture generation parameter. If function prototype ends in ‘v’ specifies a pointer to an array of texture generation parameters. If pname is GL_TEXTURE_GEN_MODE, then the array must contain a single symbolic constant. Otherwise, params holds the coefficients for the texture-coordinate generation function specified by pname. 
+    :param param: Specifies a single-valued texture generation parameter. If function prototype ends in 'v' specifies a pointer to an array of texture generation parameters. If pname is GL_TEXTURE_GEN_MODE, then the array must contain a single symbolic constant. Otherwise, params holds the coefficients for the texture-coordinate generation function specified by pname. 
     '''
 
     pass
@@ -5728,7 +5728,7 @@ def glTexParameter(target: typing.Union[int, str],
     :type target: typing.Union[int, str]
     :param pname: Specifies the symbolic name of a single-valued texture parameter. 
     :type pname: typing.Union[int, str]
-    :param param: Specifies the value of pname. If function prototype ends in ‘v’ specifies a pointer to an array where the value or values of pname are stored. 
+    :param param: Specifies the value of pname. If function prototype ends in 'v' specifies a pointer to an array where the value or values of pname are stored. 
     '''
 
     pass
