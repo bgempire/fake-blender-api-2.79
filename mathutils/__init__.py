@@ -81,87 +81,100 @@ class Color:
 
 
 class Euler:
-	"""This object gives access to Eulers in Blender.
+    """This object gives access to Eulers in Blender."""
 
-	Parameters:
-	angles (3d vector) - Three angles, in radians.
-	order (str) - Optional order of the angles, a permutation of XYZ."""
-	
-	def __init__(self, angles, order="XYZ"):
-		self.is_frozen = False
-		self.is_wrapped = False
-		self.order = self
-		self.owner = self
-		self.x = 1.0
-		self.y = 1.0
-		self.z = 1.0
-		
-	def copy(self):
-		"""Returns a copy of this euler.
+    def __init__(self, angles=None, order="XYZ"):
+        # type: (__Sequence[float], str) -> None
+        """This object gives access to Eulers in Blender.
 
-		Returns: A copy of the euler.
-		
-		Return type: Euler
-		
-		Note: use this to get a copy of a wrapped euler with no reference to the original data."""
-		
-		return self
-		
-	def freeze(self):
-		"""Make this object immutable.
+        Args:
+            angles (__Sequence[__Union[float, int]]): Three angles, in radians.
+            order (str): Optional order of the angles, a permutation of XYZ."""
 
-		After this the object can be hashed, used in dictionaries & sets.
+        self.is_frozen = False  # type: bool
+        self.is_wrapped = False  # type: bool
+        self.order = "XYZ"  # type: str
+        self.owner = self  # type: Euler
+        self.x = 1.0  # type: float
+        self.y = 1.0  # type: float
+        self.z = 1.0  # type: float
 
-		Returns: An instance of this object."""
-		
-		return self
-		
-	def make_compatible(self, other):
-		"""Make this euler compatible with another, so interpolating between them works as intended.
+    def copy(self):
+        # type: () -> Euler
+        """Returns a copy of this euler.
 
-		Note: the rotation order is not taken into account for this function."""
-		
-		pass
-		
-	def rotate(self, other):
-		"""Rotates the euler by another mathutils value.
+        Returns:
+            Euler: A copy of the euler.
 
-		Parameters:
-		other (Euler, Quaternion or Matrix) - rotation component of mathutils value"""
-		
-		pass
-		
-	def rotate_axis(self, axis, angle):
-		"""Rotates the euler a certain amount and returning a unique euler rotation (no 720 degree pitches).
+        Note:
+            - Use this to get a copy of a wrapped euler with no reference to the original data."""
 
-		Parameters:
-		axis (string) - single character in ['X, 'Y', 'Z'].
-		angle (float) - angle in radians."""
-		
-		pass
-		
-	def to_matrix(self):
-		"""Return a matrix representation of the euler.
+        pass
 
-		Returns: A 3x3 roation matrix representation of the euler.
-		
-		Return type: Matrix"""
-		
-		return Matrix(False)
-		
-	def to_quaternion(self):
-		"""Return a quaternion representation of the euler.
+    def freeze(self):
+        # type: () -> Euler
+        """Make this object immutable. After this the object can be hashed, used in dictionaries and sets.
 
-		Returns: Quaternion representation of the euler.
-		Return type: Quaternion"""
-		
-		return Quaternion(False, False)
-		
-	def zero(self):
-		"""Set all values to zero."""
-		
-		pass
-	pass
+        Returns:
+            An instance of this object."""
+
+        pass
+
+    def make_compatible(self, other):
+        # type: (Euler) -> None
+        """Make this euler compatible with another, so interpolating between them works as intended.
+
+        Args:
+            other (Euler): Other Euler to make this compatible with
+
+        Note:
+            - The rotation order is not taken into account for this function."""
+
+        pass
+
+    def rotate(self, other):
+        # type: (__Union[Euler, Quaternion, Matrix]) -> None
+        """Rotates the euler by another mathutils value.
+
+        Args:
+            other (__Union[Euler, Quaternion, Matrix]): rotation component of mathutils value"""
+
+        pass
+
+    def rotate_axis(self, axis, angle):
+        # type: (str, float) -> None
+        """Rotates the euler a certain amount and returning a unique euler rotation (no 720 degree pitches).
+
+        Args:
+            axis (str): single character in ['X, 'Y', 'Z'].
+            angle (float): angle in radians."""
+
+        pass
+
+    def to_matrix(self):
+        # type: () -> Matrix
+        """Return a matrix representation of the euler.
+
+        Returns:
+            Matrix: A 3x3 roation matrix representation of the euler."""
+
+        pass
+
+    def to_quaternion(self):
+        # type: () -> Quaternion
+        """Return a quaternion representation of the euler.
+
+        Returns:
+            Quaternion: Quaternion representation of the euler."""
+
+        pass
+
+    def zero(self):
+        # type: () -> None
+        """Set all values to zero."""
+
+        pass
+
 
 class Matrix:
 	"""This object gives access to Matrices in Blender, supporting square and rectangular matrices from 2x2 up to 4x4.
