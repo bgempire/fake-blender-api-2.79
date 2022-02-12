@@ -88,7 +88,7 @@ class Euler:
         """This object gives access to Eulers in Blender.
 
         Args:
-            angles (__Sequence[__Union[float, int]]): Three angles, in radians.
+            angles (__Sequence[float]): Three angles, in radians.
             order (str): Optional order of the angles, a permutation of XYZ."""
 
         self.is_frozen = False  # type: bool
