@@ -27,7 +27,7 @@ from typing import Sequence as __Sequence, Union as __Union
 class Color:
     """This object gives access to Colors in Blender."""
 
-    def __init__(self, rgb=(0.0, 0.0, 0.0)):
+    def __init__(self, rgb=None):
         # type: (__Sequence[__Union[float, int]]) -> None
         """This object gives access to Colors in Blender.
 
