@@ -25,40 +25,60 @@ from typing import Sequence as __Sequence, Union as __Union
 
 
 class Color:
-	"""This object gives access to Colors in Blender.
+    """This object gives access to Colors in Blender."""
 
-	Parameters: rgb (3d vector) - (r, g, b) color values"""
-	
-	def __init__(self, rgb):
-		self.r = 1.0
-		self.g = 1.0
-		self.b = 1.0
-		self.h = 1.0
-		self.s = 1.0
-		self.v = 1.0
-		self.hsv = [1.0, 1.0, 1.0]
-		self.is_frozen = False
-		self.is_wrapped = False
-		self.owner = self
-	
-	def copy(self):
-		"""Returns a copy of this color.
+    def __init__(self, rgb=(0.0, 0.0, 0.0)):
+        # type: (__Sequence[__Union[float, int]]) -> None
+        """This object gives access to Colors in Blender.
 
-		Returns: A copy of the color.
-		
-		Return type: Color"""
-		
-		return self
-		
-	def freeze(self):
-		"""Make this object immutable.
+        Args:
+            rgb (__Sequence[float, float, float]): (r, g, b) color values"""
 
-		After this the object can be hashed, used in dictionaries & sets.
+        self.r = 1.0  # type: float
+        self.g = 1.0  # type: float
+        self.b = 1.0  # type: float
+        self.h = 1.0  # type: float
+        self.s = 1.0  # type: float
+        self.v = 1.0  # type: float
+        self.hsv = [1.0, 1.0, 1.0]  # type: list[float, float, float]
+        self.is_frozen = False  # type: bool
+        self.is_wrapped = False  # type: bool
+        self.owner = self  # type: Color
 
-		Returns: An instance of this object."""
-		
-		return self
-	pass
+    def __sub__(self, other):
+        # type: (Color) -> Color
+        pass
+
+    def __add__(self, other):
+        # type: (Color) -> Color
+        pass
+
+    def __mul__(self, other):
+        # type: (__Union[Color, int, float]) -> Color
+        pass
+
+    def __truediv__(self, other):
+        # type: (__Union[int, float]) -> Color
+        pass
+
+    def copy(self):
+        # type: () -> Color
+        """Returns a copy of this color.
+
+        Returns:
+            Color: A copy of the color."""
+
+        pass
+
+    def freeze(self):
+        # type: () -> Color
+        """Make this object immutable. After this the object can be hashed, used in dictionaries & sets.
+
+        Returns:
+            Color: An instance of this object."""
+
+        pass
+
 
 class Euler:
 	"""This object gives access to Eulers in Blender.
