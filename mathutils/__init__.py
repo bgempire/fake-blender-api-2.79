@@ -194,23 +194,25 @@ class Euler:
 
 
 class Matrix:
-	"""This object gives access to Matrices in Blender, supporting square and rectangular matrices from 2x2 up to 4x4.
+    """This object gives access to Matrices in Blender, supporting square and rectangular matrices from 2x2 up to 4x4."""
 
-	Parameters:
-	rows (2d number sequence) - Sequence of rows. When ommitted, a 4x4 identity matrix is constructed."""
-	
-	def __init__(self, rows):
-		self.col = self
-		self.is_frozen = False
-		self.is_negative = False
-		self.is_orthogonal = False
-		self.is_orthogonal_axis_vectors = False
-		self.is_wrapped = False
-		self.median_scale = 1.0
-		self.owner = self
-		self.row = self
-		self.translation = Vector(False)
-		
+    def __init__(self, rows=None):
+        # type: (__Sequence[__Sequence[float]]) -> None
+        """This object gives access to Matrices in Blender, supporting square and rectangular matrices from 2x2 up to 4x4.
+
+        Args:
+            rows (__Sequence[__Sequence[float]]): Sequence of rows. When ommitted, a 4x4 identity matrix is constructed."""
+
+        self.col = self  # type: Matrix
+        self.is_frozen = False  # type: bool
+        self.is_negative = False  # type: bool
+        self.is_orthogonal = False  # type: bool
+        self.is_orthogonal_axis_vectors = False  # type: bool
+        self.is_wrapped = False  # type: bool
+        self.median_scale = 1.0  # type: float
+        self.owner = self  # type: Matrix
+        self.row = []  # type: __Sequence[Vector]
+        self.translation = Vector()  # type: Vector
 
     def __getitem__(self, item):
         # type: (int) -> Vector
@@ -220,293 +222,325 @@ class Matrix:
         # type: (int, float) -> None
         pass
 
-		Parameters:
-		size (int) - The size of the identity matrix to construct [2, 4].
-		
-		Returns: A new identity matrix.
-		
-		Return type: Matrix"""
-		
-		return self
-		
-	@classmethod
-	def OrthoProjection(self, axis, size):
-		"""Create a matrix to represent an orthographic projection.
+    @classmethod
+    def Identity(cls, size):
+        # type: (int) -> Matrix
+        """Create an identity matrix.
 
-		Parameters:
-		axis (string or Vector) - Can be any of the following: ['X', 'Y', 'XY', 'XZ', 'YZ'], where a single axis is for a 2D matrix. Or a vector for an arbitrary axis
-		size (int) - The size of the projection matrix to construct [2, 4].
-		
-		Returns: A new projection matrix.
+        Args:
+            size (int): The size of the identity matrix to construct [2, 4].
 
-		Return type: Matrix"""
-		
-		return self
-		
-	@classmethod
-	def Rotation(self, angle, size, axis):
-		"""Create a matrix representing a rotation.
+        Returns:
+            Matrix: A new identity matrix."""
 
-		Parameters:
-		angle (float) - The angle of rotation desired, in radians.
-		size (int) - The size of the rotation matrix to construct [2, 4].
-		axis (string or Vector) - a string in ['X', 'Y', 'Z'] or a 3D Vector Object (optional when size is 2).
-		
-		Returns: A new rotation matrix.
+        pass
 
-		Return type: Matrix"""
-		
-		return self
-		
-	@classmethod
-	def Scale(self, factor, size, axis):
-		"""Create a matrix representing a scaling.
+    @classmethod
+    def OrthoProjection(cls, axis, size):
+        # type: (__Union[str, Vector], int) -> Matrix
+        """Create a matrix to represent an orthographic projection.
 
-		Parameters:
-		factor (float) - The factor of scaling to apply.
-		size (int) - The size of the scale matrix to construct [2, 4].
-		axis (Vector) - Direction to influence scale. (optional).
-		
-		Returns: A new scale matrix.
+        Args:
+            axis (__Union[str, Vector]): Can be any of the following: ['X', 'Y', 'XY', 'XZ', 'YZ'], where a single axis is for a 2D matrix. Or a vector for an arbitrary axis
+            size (int): The size of the projection matrix to construct [2, 4].
 
-		Return type: Matrix"""
-		
-		return self
-		
-	@classmethod
-	def Shear(self, plane, size, factor):
-		"""Create a matrix to represent an shear transformation.
+        Returns:
+            Matrix: A new projection matrix."""
 
-		Parameters:
-		plane (string) - Can be any of the following: ['X', 'Y', 'XY', 'XZ', 'YZ'], where a single axis is for a 2D matrix only.
-		size (int) - The size of the shear matrix to construct [2, 4].
-		factor (float or float pair) - The factor of shear to apply. For a 3 or 4 size matrix pass a pair of floats corresponding with the plane axis.
-		
-		Returns: A new shear matrix.
+        pass
 
-		Return type: Matrix"""
-		
-		return self
-		
-	@classmethod
-	def Translation(self, vector):
-		"""Create a matrix representing a translation.
+    @classmethod
+    def Rotation(cls, angle, size, axis=None):
+        # type: (float, int, __Union[str, Vector]) -> Matrix
+        """Create a matrix representing a rotation.
 
-		Parameters:
-		vector (Vector) - The translation vector.
-		
-		Returns: An identity matrix with a translation.
-		Return type: Matrix"""
-		
-		return self
-		
-	def adjugate(self):
-		"""Set the matrix to its adjugate.
+        Args:
+            angle (float): The angle of rotation desired, in radians.
+            size (int): The size of the rotation matrix to construct [2, 4].
+            axis (__Union[str, Vector]): a string in ['X', 'Y', 'Z'] or a 3D Vector Object (optional when size is 2).
 
-		Note: When the matrix cannot be adjugated a ValueError exception is raised."""
-		
-		pass
-		
-	def adjugated(self):
-		"""Return an adjugated copy of the matrix.
+        Returns:
+            Matrix: A new rotation matrix."""
 
-		Returns: the adjugated matrix.
-		Return type: Matrix
-		
-		Note: When the matrix cant be adjugated a ValueError exception is raised."""
-		
-		return self
-		
-	def copy(self):
-		"""Returns a copy of this matrix.
+        pass
 
-		Returns: an instance of itself
-		Return type: Matrix"""
-		
-		return self
-		
-	def decompose(self):
-		"""Return the translation, rotation and scale components of this matrix.
+    @classmethod
+    def Scale(cls, factor, size, axis=None):
+        # type: (float, int, Vector) -> Matrix
+        """Create a matrix representing a scaling.
 
-		Returns: trans, rot, scale triple.
-		Return type: (Vector, Quaternion, Vector)"""
-		
-		return (Vector(False), Quaternion(False, False), Vector(False))
-		
-	def determinant(self):
-		"""Return the determinant of a matrix.
+        Args:
+            factor (float): The factor of scaling to apply.
+            size (int): The size of the scale matrix to construct [2, 4].
+            axis (Vector): Direction to influence scale. (optional).
 
-		Returns: Return the determinant of a matrix.
-		Return type: float"""
-		
-		return 1.0
-		
-	def freeze(self):
-		"""Make this object immutable.
+        Returns:
+            Matrix: A new scale matrix."""
 
-		After this the object can be hashed, used in dictionaries & sets.
+        pass
 
-		Returns: An instance of this object."""
-		
-		return self
-		
-	def identity(self):
-		"""Set the matrix to the identity matrix.
+    @classmethod
+    def Shear(cls, plane, size, factor):
+        # type: (str, int, __Union[float, __Sequence[float, float]]) -> Matrix
+        """Create a matrix to represent an shear transformation.
 
-		Note: An object with a location and rotation of zero, and a scale of one will have an identity matrix."""
-		
-		pass
-		
-	def invert(self, fallback=None):
-		"""Set the matrix to its inverse.
+        Args:
+            plane (str): Can be any of the following: ['X', 'Y', 'XY', 'XZ', 'YZ'], where a single axis is for a 2D matrix only.
+            size (int): The size of the shear matrix to construct [2, 4].
+            factor (__Union[float, __Sequence[float, float]]): The factor of shear to apply. For a 3 or 4 size matrix pass a pair of floats corresponding with the plane axis.
 
-		Parameters:
-		fallback (Matrix) - Set the matrix to this value when the inverse cannot be calculated (instead of raising a ValueError exception)."""
-		
-		pass
-		
-	def invert_safe(self):
-		"""Set the matrix to its inverse, will never error. If degenerated (e.g. zero scale on an axis), add some epsilon to its diagonal, to get an invertible one. If tweaked matrix is still degenerated, set to the identity matrix instead."""
-		
-		pass
-		
-	def inverted(self, fallback=None):
-		"""Return an inverted copy of the matrix.
+        Returns:
+            Matrix: A new shear matrix."""
 
-		Parameters:
-		fallback (any) - return this when the inverse can't be calculated (instead of raising a ValueError).
-		
-		Returns: the inverted matrix or fallback when given.
-		Return type: Matrix"""
-		
-		return self
-		
-	def inverted_safe(self):
-		"""Return an inverted copy of the matrix, will never error. If degenerated (e.g. zero scale on an axis), add some epsilon to its diagonal, to get an invertible one. If tweaked matrix is still degenerated, return the identity matrix instead.
+        pass
 
-		Returns: the inverted matrix.
-		Return type: Matrix"""
-		
-		return self
-		
-	def lerp(self, other, factor):
-		"""Returns the interpolation of two matrices.
+    @classmethod
+    def Translation(cls, vector):
+        # type: (Vector) -> Matrix
+        """Create a matrix representing a translation.
 
-		Parameters:
-		other (Matrix) - value to interpolate with.
-		factor (float) - The interpolation value in [0.0, 1.0].
-		
-		Returns: The interpolated matrix.
-		Return type: Matrix"""
-		
-		return self
-		
-	def normalize(self):
-		"""Normalize each of the matrix columns."""
-		
-		pass
-		
-	def normalized(self):
-		"""Return a column normalized matrix
+        Args:
+            vector (Vector): The translation vector.
 
-		Returns: a column normalized matrix
-		Return type: Matrix"""
-		
-		return self
-		
-	def resize_4x4(self):
-		"""Resize the matrix to 4x4."""
-		
-		pass
-		
-	def rotate(self, other):
-		"""Rotates the matrix by another mathutils value.
+        Returns:
+            Matrix: An identity matrix with a translation."""
 
-		Parameters:
-		other (Euler, Quaternion or Matrix) - rotation component of mathutils value
-		
-		Note: If any of the columns are not unit length this may not have desired results."""
-		
-		pass
-		
-	def to_3x3(self):
-		"""Return a 3x3 copy of this matrix.
+        pass
 
-		Returns: a new matrix.
-		Return type: Matrix"""
-		
-		return self
-		
-	def to_4x4(self):
-		"""Return a 4x4 copy of this matrix.
+    def adjugate(self):
+        # type: () -> None
+        """Set the matrix to its adjugate.
 
-		Returns: a new matrix.
-		Return type: Matrix"""
-		
-		return self
-		
-	def to_euler(self):
-		"""Return an Euler representation of the rotation matrix (3x3 or 4x4 matrix only).
+        Note:
+            - When the matrix cannot be adjugated a ValueError exception is raised."""
 
-		Parameters:
-		order (string) - Optional rotation order argument in ['XYZ', 'XZY', 'YXZ', 'YZX', 'ZXY', 'ZYX'].
-		euler_compat (Euler) - Optional euler argument the new euler will be made compatible with (no axis flipping between them). Useful for converting a series of matrices to animation curves.
-		
-		Returns: Euler representation of the matrix.
-		
-		Return type: Euler"""
-		
-		return Euler(False)
-		
-	def to_quaternion(self):
-		"""Return a quaternion representation of the rotation matrix.
+        pass
 
-		Returns: Quaternion representation of the rotation matrix.
-		
-		Return type: Quaternion"""
-		
-		return Quaternion(False, False)
-		
-	def to_scale(self):
-		"""Return the scale part of a 3x3 or 4x4 matrix.
+    def adjugated(self):
+        # type: () -> Matrix
+        """Return an adjugated copy of the matrix.
 
-		Returns: Return the scale of a matrix.
-		
-		Return type: Vector
-		
-		Note: This method does not return a negative scale on any axis because it is not possible to obtain this data from the matrix alone."""
-		
-		return Vector(False)
-		
-	def to_translation(self):
-		"""Return the translation part of a 4 row matrix.
+        Returns:
+            Matrix: The adjugated matrix.
 
-		Returns: Return the translation of a matrix.
-		
-		Return type: Vector"""
-		
-		return Vector(False)
-		
-	def transpose(self):
-		"""Set the matrix to its transpose."""
-		
-		pass
-		
-	def transposed(self):
-		"""Return a new, transposed matrix.
+        Note:
+            - When the matrix cant be adjugated a ValueError exception is raised."""
 
-		Returns: a transposed matrix
-		
-		Return type: Matrix"""
-		
-		return self
-		
-	def zero(self):
-		"""Set all the matrix values to zero."""
-		
-		return self
-		
-	pass
+        pass
+
+    def copy(self):
+        # type: () -> Matrix
+        """Returns a copy of this matrix.
+
+        Returns:
+            Matrix: An instance of itself"""
+
+        pass
+
+    def decompose(self):
+        # type: () -> tuple[Vector, Quaternion, Vector]
+        """Return the translation, rotation and scale components of this matrix.
+
+        Returns:
+            tuple[Vector, Quaternion, Vector]: trans, rot, scale triple."""
+
+        pass
+
+    def determinant(self):
+        # type: () -> float
+        """Return the determinant of a matrix.
+
+        Returns:
+            float: Return the determinant of a matrix."""
+
+        pass
+
+    def freeze(self):
+        # type: () -> Matrix
+        """Make this object immutable.
+
+        After this the object can be hashed, used in dictionaries & sets.
+
+        Returns:
+            Matrix: An instance of this object."""
+
+        pass
+
+    def identity(self):
+        # type: () -> None
+        """Set the matrix to the identity matrix.
+
+        Note:
+            - An object with a location and rotation of zero, and a scale of one will have an identity matrix."""
+
+        pass
+
+    def invert(self, fallback=None):
+        # type: (Matrix) -> None
+        """Set the matrix to its inverse.
+
+        Args:
+            fallback (Matrix): Set the matrix to this value when the inverse cannot be calculated (instead of raising a ValueError exception)."""
+
+        pass
+
+    def invert_safe(self):
+        # type: () -> None
+        """Set the matrix to its inverse, will never error. If degenerated (e.g. zero scale on an axis), add some epsilon to its diagonal, to get an invertible one. If tweaked matrix is still degenerated, set to the identity matrix instead."""
+
+        pass
+
+    def inverted(self, fallback=None):
+        # type: (Matrix) -> Matrix
+        """Return an inverted copy of the matrix.
+
+        Args:
+            fallback (Matrix): return this when the inverse can't be calculated (instead of raising a ValueError).
+
+        Returns:
+            Matrix: The inverted matrix or fallback when given."""
+
+        pass
+
+    def inverted_safe(self):
+        # type: () -> Matrix
+        """Return an inverted copy of the matrix, will never error. If degenerated (e.g. zero scale on an axis), add some epsilon to its diagonal, to get an invertible one. If tweaked matrix is still degenerated, return the identity matrix instead.
+
+        Returns:
+            Matrix: The inverted matrix."""
+
+        pass
+
+    def lerp(self, other, factor):
+        # type: (Matrix, float) -> Matrix
+        """Returns the interpolation of two matrices.
+
+        Args:
+            other (Matrix): value to interpolate with.
+            factor (float): The interpolation value in [0.0, 1.0].
+
+        Returns:
+            Matrix: The interpolated matrix."""
+
+        pass
+
+    def normalize(self):
+        # type: () -> None
+        """Normalize each of the matrix columns."""
+
+        pass
+
+    def normalized(self):
+        # type: () -> Matrix
+        """Return a column normalized matrix
+
+        Returns:
+            Matrix: a column normalized matrix"""
+
+        pass
+
+    def resize_4x4(self):
+        # type: () -> None
+        """Resize the matrix to 4x4."""
+
+        pass
+
+    def rotate(self, other):
+        # type: (__Union[Euler, Quaternion, Matrix]) -> None
+        """Rotates the matrix by another mathutils value.
+
+        Args:
+            other (__Union[Euler, Quaternion, Matrix]): rotation component of mathutils value
+
+        Note:
+            - If any of the columns are not unit length this may not have desired results."""
+
+        pass
+
+    def to_3x3(self):
+        # type: () -> Matrix
+        """Return a 3x3 copy of this matrix.
+
+        Returns:
+            Matrix: A new matrix."""
+
+        pass
+
+    def to_4x4(self):
+        # type: () -> Matrix
+        """Return a 4x4 copy of this matrix.
+
+        Returns:
+            Matrix: A new matrix."""
+
+        pass
+
+    def to_euler(self, order="", euler_compat=None):
+        # type: (str, Euler) -> Euler
+        """Return an Euler representation of the rotation matrix (3x3 or 4x4 matrix only).
+
+        Args:
+            order (str): Optional rotation order argument in ['XYZ', 'XZY', 'YXZ', 'YZX', 'ZXY', 'ZYX'].
+            euler_compat (Euler): Optional euler argument the new euler will be made compatible with (no axis flipping between them). Useful for converting a series of matrices to animation curves.
+
+        Returns:
+            Euler: Euler representation of the matrix."""
+
+        pass
+
+    def to_quaternion(self):
+        # type: () -> Quaternion
+        """Return a quaternion representation of the rotation matrix.
+
+        Returns:
+            Quaternion: Quaternion representation of the rotation matrix."""
+
+        pass
+
+    def to_scale(self):
+        # type: () -> Vector
+        """Return the scale part of a 3x3 or 4x4 matrix.
+
+        Returns:
+            Vector: Return the scale of a matrix.
+
+        Note:
+            - This method does not return a negative scale on any axis because it is not possible to obtain this data from the matrix alone."""
+
+        pass
+
+    def to_translation(self):
+        # type: () -> Vector
+        """Return the translation part of a 4 row matrix.
+
+        Returns:
+            Vector: The translation of a matrix."""
+
+        pass
+
+    def transpose(self):
+        # type: () -> None
+        """Set the matrix to its transpose."""
+
+        pass
+
+    def transposed(self):
+        # type: () -> Matrix
+        """Return a new, transposed matrix.
+
+        Returns:
+            Matrix: A transposed matrix"""
+
+        pass
+
+    def zero(self):
+        # type: () -> None
+        """Set all the matrix values to zero."""
+
+        pass
+
+    pass
+
 
 class Quaternion:
 	"""This object gives access to Quaternions in Blender.
