@@ -543,20 +543,31 @@ class Matrix:
 
 
 class Quaternion:
-	"""This object gives access to Quaternions in Blender.
+    """This object gives access to Quaternions in Blender."""
 
-	Parameters:
-	seq (Vector) - size 3 or 4
-	angle (float) - rotation angle, in radians
-	
-	The constructor takes arguments in various forms:
-	
-	(), no args - Create an identity quaternion
-	(wxyz) - Create a quaternion from a (w, x, y, z) vector.
-	(exponential_map) - Create a quaternion from a 3d exponential map vector.
-	(axis, angle) - Create a quaternion representing a rotation of angle radians over axis."""
-	
-	def __init__(self, seq, angle):
+    def __init__(self, seq=None, angle=None):
+        # type: (Vector, float) -> None
+        """This object gives access to Quaternions in Blender. The constructor takes arguments in various forms:
+
+        - (), no args - Create an identity quaternion
+        - (wxyz) - Create a quaternion from a (w, x, y, z) vector.
+        - (exponential_map) - Create a quaternion from a 3d exponential map vector.
+        - (axis, angle) - Create a quaternion representing a rotation of angle radians over axis.
+
+        Args:
+            seq (Vector): size 3 or 4
+            angle (float): rotation angle, in radians"""
+
+        self.angle = 1.0
+        self.axis = Vector(False)
+        self.is_frozen = False
+        self.is_wrapped = False
+        self.magnitude = 1.0
+        self.owner = self
+        self.w = 1.0
+        self.x = 1.0
+        self.y = 1.0
+        self.z = 1.0
 
     def __getitem__(self, item):
         # type: (int) -> float
@@ -566,184 +577,197 @@ class Quaternion:
         # type: (int, float) -> None
         pass
 
-	def conjugate(self):
-		"""Set the quaternion to its conjugate (negate x, y, z)."""
-		pass
-		
-	def conjugated(self):
-		"""Return a new conjugated quaternion.
+    def conjugate(self):
+        # type: () -> None
+        """Set the quaternion to its conjugate (negate x, y, z)."""
+        pass
 
-		Returns: a new quaternion.
-		
-		Return type: Quaternion"""
-		
-		return self
-		
-	def copy(self):
-		"""Returns a copy of this quaternion.
+    def conjugated(self):
+        # type: () -> Quaternion
+        """Return a new conjugated quaternion.
 
-		Returns: A copy of the quaternion.
-		
-		Return type: Quaternion
-		
-		Note use this to get a copy of a wrapped quaternion with no reference to the original data."""
-		
-		return self
-		
-	def cross(self, other):
-		"""Return the cross product of this quaternion and another.
+        Returns:
+            Quaternion: A new quaternion."""
 
-		Parameters:
-		other (Quaternion) - The other quaternion to perform the cross product with.
-		
-		Returns: The cross product.
-		
-		Return type: Quaternion"""
-		
-		return self
-		
-	def dot(self, other):
-		"""Return the dot product of this quaternion and another.
+        pass
 
-		Parameters:
-		other (Quaternion) - The other quaternion to perform the dot product with.
-		
-		Returns: The dot product.
-		
-		Return type: Quaternion"""
-		
-		return self
-		
-	def freeze(self):
-		"""Make this object immutable.
+    def copy(self):
+        # type: () -> Quaternion
+        """Returns a copy of this quaternion.
 
-		After this the object can be hashed, used in dictionaries & sets.
+        Returns:
+            Quaternion: A copy of the quaternion.
 
-		Returns: An instance of this object."""
-		
-		return self
-		
-	def identity(self):
-		"""Set the quaternion to an identity quaternion.
+        Note:
+            Use this to get a copy of a wrapped quaternion with no reference to the original data."""
 
-		Return type: Quaternion"""
-		
-		return self
-		
-	def invert(self):
-		"""Set the quaternion to an identity quaternion.
+        pass
 
-		Return type: Quaternion"""
-		
-		pass
-		
-	def inverted(self):
-		"""Return a new, inverted quaternion.
+    def cross(self, other):
+        # type: (Quaternion) -> Quaternion
+        """Return the cross product of this quaternion and another.
 
-		Returns: the inverted value.
-		
-		Return type: Quaternion"""
-		
-		return self
-		
-	def negate(self):
-		"""Set the quaternion to its negative.
+        Args:
+            other (Quaternion): The other quaternion to perform the cross product with.
 
-		Return type: Quaternion"""
-		
-		return self
-		
-	def normalize(self):
-		"""Normalize the quaternion."""
-		
-		pass
-		
-	def normalized(self):
-		"""Return a new normalized quaternion.
+        Returns:
+            Quaternion: The cross product."""
 
-		Returns: a normalized copy.
-		
-		Return type: Quaternion"""
-		
-		return self
-		
-	def rotate(self, other):
-		"""Rotates the quaternion by another mathutils value.
+        pass
 
-		Parameters:
-		other (Euler, Quaternion or Matrix) - rotation component of mathutils value"""
-		
-		pass
-		
-	def rotation_difference(self, other):
-		"""Returns a quaternion representing the rotational difference.
+    def dot(self, other):
+        # type: (Quaternion) -> Quaternion
+        """Return the dot product of this quaternion and another.
 
-		Parameters:
-		other (Quaternion) - second quaternion.
-		
-		Returns: the rotational difference between the two quat rotations.
-		
-		Return type: Quaternion"""
-		
-		return self
-		
-	def slerp(self, other, factor):
-		"""Returns the interpolation of two quaternions.
+        Args:
+            other (Quaternion): The other quaternion to perform the dot product with.
 
-		Parameters:
-		other (Quaternion) - value to interpolate with.
-		factor (float) - The interpolation value in [0.0, 1.0].
-		
-		Returns: The interpolated rotation.
+        Returns:
+            Quaternion: The dot product."""
 
-		Return type: Quaternion"""
-		
-		return self
-		
-	def to_axis_angle(self):
-		"""Return the axis, angle representation of the quaternion.
+        pass
 
-		Returns: axis, angle.
-		
-		Return type: (Vector, float) pair"""
-		
-		return (Vector(False), 1.0)
-		
-	def to_euler(self, order, euler_compat):
-		"""Return Euler representation of the quaternion.
+    def freeze(self):
+        # type: () -> Quaternion
+        """Make this object immutable.
 
-		Parameters:
-		order (string) - Optional rotation order argument in ['XYZ', 'XZY', 'YXZ', 'YZX', 'ZXY', 'ZYX'].
-		euler_compat (Euler) - Optional euler argument the new euler will be made compatible with (no axis flipping between them). Useful for converting a series of matrices to animation curves.
-		
-		Returns: Euler representation of the quaternion.
+        After this the object can be hashed, used in dictionaries & sets.
 
-		Return type: Euler"""
-		
-		return Euler(False)
-		
-	def to_exponential_map(self):
-		"""Return the exponential map representation of the quaternion.
+        Returns:
+            Quaternion: An instance of this object."""
 
-		This representation consist of the rotation axis multiplied by the rotation angle. Such a representation is useful for interpolation between multiple orientations.
+        pass
 
-		Returns: exponential map.
-		
-		Return type: Vector of size 3
-		
-		To convert back to a quaternion, pass it to the Quaternion constructor."""
-		
-		return Vector(False)
-		
-	def to_matrix(self):
-		"""Return a matrix representation of the quaternion.
+    def identity(self):
+        # type: () -> Quaternion
+        """Set the quaternion to an identity quaternion.
 
-		Returns: A 3x3 rotation matrix representation of the quaternion.
-		
-		Return type: Matrix"""
-		
-		return Matrix(False)
-		
+        Returns:
+            Quaternion: Quaternion as an identity quaternion."""
+
+        pass
+
+    def invert(self):
+        # type: () -> Quaternion
+        """Return a new, inverted quaternion.
+
+        Returns:
+            Quaternion: the inverted value."""
+
+        pass
+
+    def inverted(self):
+        # type: () -> Quaternion
+        """Return a new, inverted quaternion.
+
+        Returns:
+            Quaternion: The inverted value."""
+
+        pass
+
+    def negate(self):
+        # type: () -> Quaternion
+        """Set the quaternion to its negative.
+
+        Returns:
+            Quaternion: Negative quaternion."""
+
+        pass
+
+    def normalize(self):
+        # type: () -> None
+        """Normalize the quaternion."""
+
+        pass
+
+    def normalized(self):
+        # type: () -> Quaternion
+        """Return a new normalized quaternion.
+
+        Returns:
+            Quaternion: A normalized copy."""
+
+        pass
+
+    def rotate(self, other):
+        # type: (__Union[Euler, Quaternion, Matrix]) -> None
+        """Rotates the quaternion by another mathutils value.
+
+        Args:
+            other (__Union[Euler, Quaternion, Matrix]): rotation component of mathutils value"""
+
+        pass
+
+    def rotation_difference(self, other):
+        # type: (Quaternion) -> Quaternion
+        """Returns a quaternion representing the rotational difference.
+
+        Args:
+            other (Quaternion): second quaternion.
+
+        Returns:
+            Quaternion: The rotational difference between the two quat rotations."""
+
+        pass
+
+    def slerp(self, other, factor):
+        # type: (Quaternion, float) -> Quaternion
+        """Returns the interpolation of two quaternions.
+
+        Args:
+            other (Quaternion): value to interpolate with.
+            factor (float): The interpolation value in [0.0, 1.0].
+
+        Returns:
+            Quaternion: The interpolated rotation."""
+
+        pass
+
+    def to_axis_angle(self):
+        # type: () -> tuple[Vector, float]
+        """Return the axis, angle representation of the quaternion.
+
+        Returns:
+            tuple[Vector, float]: axis, angle."""
+
+        pass
+
+    def to_euler(self, order, euler_compat):
+        # type: (str, Euler) -> Euler
+        """Return Euler representation of the quaternion.
+
+        Args:
+            order (str): Optional rotation order argument in ['XYZ', 'XZY', 'YXZ', 'YZX', 'ZXY', 'ZYX'].
+            euler_compat (Euler): Optional euler argument the new euler will be made compatible with (no axis flipping between them). Useful for converting a series of matrices to animation curves.
+
+        Returns:
+            Euler: Euler representation of the quaternion."""
+
+        pass
+
+    def to_exponential_map(self):
+        # type: () -> Vector
+        """Return the exponential map representation of the quaternion. This representation consist of the rotation
+        axis multiplied by the rotation angle. Such a representation is useful for interpolation between multiple orientations.
+
+        Returns:
+            Vector: Exponential map.
+
+        Note:
+            To convert back to a quaternion, pass it to the Quaternion constructor."""
+
+        pass
+
+    def to_matrix(self):
+        # type: () -> Matrix
+        """Return a matrix representation of the quaternion.
+
+        Returns:
+            Matrix: A 3x3 rotation matrix representation of the quaternion."""
+
+        pass
+
+
 class Vector:
 	"""This object gives access to Vectors in Blender.
 
