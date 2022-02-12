@@ -22,7 +22,7 @@ The mathutils module provides the following classes:
 - Vector"""
 
 from . import bvhtree, geometry, interpolate, kdtree, noise
-from typing import Sequence as __Sequence, Union as __Union
+from typing import Sequence as __Sequence, Union as __Union, Any as __Any
 
 
 class Color:
