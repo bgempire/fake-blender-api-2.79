@@ -2,7 +2,8 @@
 
 This module provides access to math operations.
 
-Note: Classes, methods and attributes that accept vectors also accept other numeric sequences, such as tuples, lists.
+Note:
+    - Classes, methods and attributes that accept vectors also accept other numeric sequences, such as tuples, lists.
 
 Submodules:
 
