@@ -558,16 +558,16 @@ class Quaternion:
             seq (Vector): size 3 or 4
             angle (float): rotation angle, in radians"""
 
-        self.angle = 1.0
-        self.axis = Vector(False)
-        self.is_frozen = False
-        self.is_wrapped = False
-        self.magnitude = 1.0
-        self.owner = self
-        self.w = 1.0
-        self.x = 1.0
-        self.y = 1.0
-        self.z = 1.0
+        self.angle = 1.0  # type: float
+        self.axis = Vector()  # type: Vector
+        self.is_frozen = False  # type: bool
+        self.is_wrapped = False  # type: bool
+        self.magnitude = 1.0  # type: float
+        self.owner = self  # type: Quaternion
+        self.w = 1.0  # type: float
+        self.x = 1.0  # type: float
+        self.y = 1.0  # type: float
+        self.z = 1.0  # type: float
 
     def __getitem__(self, item):
         # type: (int) -> float
