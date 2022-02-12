@@ -1,216 +1,188 @@
-import sys
-import typing
-CLIPPING = None
-'''constant value 2 '''
+"""Font Drawing (blf)
 
-KERNING_DEFAULT = None
-'''constant value 8 '''
+This module provides access to blenders text drawing functions."""
 
-ROTATION = None
-'''constant value 1 '''
-
-SHADOW = None
-'''constant value 4 '''
-
-WORD_WRAP = None
-'''constant value 128 '''
+# Constants
+CLIPPING = 2
+KERNING_DEFAULT = 8
+ROTATION = 1
+SHADOW = 4
+WORD_WRAP = 128
 
 
-def aspect(fontid: int, aspect: float):
-    '''Set the aspect for drawing text. 
+def aspect(fontid, aspect):
+    # type: (int, float) -> None
+    """Set the aspect for drawing text. 
 
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param aspect: The aspect ratio for text drawing to use. 
-    :type aspect: float
-    '''
+    Args:
+        fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+        aspect: The aspect ratio for text drawing to use."""
 
     pass
 
 
-def blur(fontid: int, radius: int):
-    '''Set the blur radius for drawing text. 
+def blur(fontid, radius):
+    # type: (int, int) -> None
+    """Set the blur radius for drawing text.
 
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param radius: The radius for blurring text (in pixels). 
-    :type radius: int
-    '''
-
-    pass
-
-
-def clipping(fontid: int, xmin: float, ymin: float, xmax: float, ymax: float):
-    '''Set the clipping, enable/disable using CLIPPING. 
-
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param xmin: Clip the drawing area by these bounds. 
-    :type xmin: float
-    :param ymin: Clip the drawing area by these bounds. 
-    :type ymin: float
-    :param xmax: Clip the drawing area by these bounds. 
-    :type xmax: float
-    :param ymax: Clip the drawing area by these bounds. 
-    :type ymax: float
-    '''
+    Args:
+        fontid (int): The id of the typeface as returned by blf.load(), for default font use 0.
+        radius (int): The radius for blurring text (in pixels)."""
 
     pass
 
 
-def dimensions(fontid: int, text: str):
-    '''Return the width and height of the text. 
+def clipping(fontid, xmin, ymin, xmax, ymax):
+    # type: (int, float, float, float, float) -> None
+    """Set the clipping, enable/disable using CLIPPING.
 
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param text: the text to draw. 
-    :type text: str
-    :return:  the width and height of the text. 
-    '''
-
-    pass
-
-
-def disable(fontid: int, option: int):
-    '''Disable option. 
-
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param option: One of ROTATION, CLIPPING, SHADOW or KERNING_DEFAULT. 
-    :type option: int
-    '''
+    Args:
+        fontid (int): The id of the typeface as returned by blf.load(), for default font use 0.
+        xmin (float): Clip the drawing area by these bounds.
+        ymin (float): Clip the drawing area by these bounds.
+        xmax (float): Clip the drawing area by these bounds.
+        ymax (float): Clip the drawing area by these bounds."""
 
     pass
 
 
-def draw(fontid: int, text: str):
-    '''Draw text in the current context. 
+def dimensions(fontid, text):
+    # type: (int, str) -> tuple[float]
+    """Return the width and height of the text.
 
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param text: the text to draw. 
-    :type text: str
-    '''
+    Args:
+        fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+        text: the text to draw.
 
-    pass
-
-
-def enable(fontid: int, option: int):
-    '''Enable option. 
-
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param option: One of ROTATION, CLIPPING, SHADOW or KERNING_DEFAULT. 
-    :type option: int
-    '''
+    Returns:
+        tuple[float]: the width and height of the text."""
 
     pass
 
 
-def load(filename: str):
-    '''Load a new font. 
+def disable(fontid, option):
+    # type: (int, int) -> None
+    """Disable option.
 
-    :param filename: the filename of the font. 
-    :type filename: str
-    :return:  the new font's fontid or -1 if there was an error. 
-    '''
-
-    pass
-
-
-def position(fontid: int, x: float, y: float, z: float):
-    '''Set the position for drawing text. 
-
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param x: X axis position to draw the text. 
-    :type x: float
-    :param y: Y axis position to draw the text. 
-    :type y: float
-    :param z: Z axis position to draw the text. 
-    :type z: float
-    '''
+    Args:
+        fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+        option: One of ROTATION, CLIPPING, SHADOW or KERNING_DEFAULT."""
 
     pass
 
 
-def rotation(fontid: int, angle: float):
-    '''Set the text rotation angle, enable/disable using ROTATION. 
+def draw(fontid, text):
+    # type: (int, str) -> None
+    """Draw text in the current context.
 
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param angle: The angle for text drawing to use. 
-    :type angle: float
-    '''
+    fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+    text: the text to draw."""
 
     pass
 
 
-def shadow(fontid: int, level: int, r: float, g: float, b: float, a: float):
-    '''Shadow options, enable/disable using SHADOW . 
+def enable(fontid, option):
+    # type: (int, int) -> None
+    """Enable option.
 
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param level: The blur level, can be 3, 5 or 0. 
-    :type level: int
-    :param r: Shadow color (red channel 0.0 - 1.0). 
-    :type r: float
-    :param g: Shadow color (green channel 0.0 - 1.0). 
-    :type g: float
-    :param b: Shadow color (blue channel 0.0 - 1.0). 
-    :type b: float
-    :param a: Shadow color (alpha channel 0.0 - 1.0). 
-    :type a: float
-    '''
+    fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+    option: One of ROTATION, CLIPPING, SHADOW or KERNING_DEFAULT."""
 
     pass
 
 
-def shadow_offset(fontid: int, x: float, y: float):
-    '''Set the offset for shadow text. 
+def load(filename):
+    # type: (str) -> int
+    """Load a new font.
 
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param x: Vertical shadow offset value in pixels. 
-    :type x: float
-    :param y: Horizontal shadow offset value in pixels. 
-    :type y: float
-    '''
+    Args:
+        filename: the filename of the font.
 
-    pass
-
-
-def size(fontid: int, size: int, dpi: int):
-    '''Set the size and dpi for drawing text. 
-
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param size: Point size of the font. 
-    :type size: int
-    :param dpi: dots per inch value to use for drawing. 
-    :type dpi: int
-    '''
+    Returns:
+        The new font's fontid or -1 if there was an error."""
 
     pass
 
 
-def unload(filename: str):
-    '''Unload an existing font. 
+def position(fontid, x, y, z):
+    # type: (int, float, float, float) -> None
+    """Set the position for drawing text.
 
-    :param filename: the filename of the font. 
-    :type filename: str
-    '''
+    Args:
+        fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+        x: X axis position to draw the text.
+        y: Y axis position to draw the text.
+        z: Z axis position to draw the text."""
 
     pass
 
 
-def word_wrap(fontid: int, wrap_width: int):
-    '''Set the wrap width, enable/disable using WORD_WRAP. 
+def rotation(fontid, angle):
+    # type: (int, float) -> None
+    """Set the text rotation angle, enable/disable using ROTATION.
 
-    :param fontid: The id of the typeface as returned by blf.load(), for default font use 0. 
-    :type fontid: int
-    :param wrap_width: The width (in pixels) to wrap words at. 
-    :type wrap_width: int
-    '''
+    Args:
+        fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+        angle: The angle for text drawing to use."""
+
+    pass
+
+
+def shadow(fontid, level, r, g, b, a):
+    # type: (int, int, float, float, float, float) -> None
+    """Shadow options, enable/disable using SHADOW .
+
+    Args:
+        fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+        level: The blur level, can be 3, 5 or 0.
+        r: Shadow color (red channel 0.0 - 1.0).
+        g: Shadow color (green channel 0.0 - 1.0).
+        b: Shadow color (blue channel 0.0 - 1.0).
+        a: Shadow color (alpha channel 0.0 - 1.0)."""
+
+    pass
+
+
+def shadow_offset(fontid, x, y):
+    # type: (int, float, float) -> None
+    """Set the offset for shadow text.
+
+    Args:
+        fontid: The id of the typeface as returned by blf.load(), for default font use 0.
+        x: Vertical shadow offset value in pixels.
+        y: Horizontal shadow offset value in pixels."""
+
+    pass
+
+
+def size(fontid, size, dpi):
+    # type: (int, int, int) -> None
+    """Set the size and dpi for drawing text.
+
+    Args:
+        fontid (int): The id of the typeface as returned by blf.load(), for default font use 0.
+        size (int): Point size of the font.
+        dpi (int): dots per inch value to use for drawing."""
+
+    pass
+
+
+def unload(filename):
+    # type: (str) -> None
+    """Unload an existing font.
+
+    Args:
+        filename (str): the filename of the font."""
+
+    pass
+
+
+def word_wrap(fontid, wrap_width):
+    # type: (int, int) -> None
+    """Set the wrap width, enable/disable using WORD_WRAP.
+
+    Args:
+        fontid (int): The id of the typeface as returned by blf.load(), for default font use 0.
+        wrap_width (int): The width (in pixels) to wrap words at."""
 
     pass
