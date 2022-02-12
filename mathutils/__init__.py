@@ -45,6 +45,14 @@ class Color:
         self.is_wrapped = False  # type: bool
         self.owner = self  # type: Color
 
+    def __getitem__(self, item):
+        # type: (int) -> float
+        pass
+
+    def __setitem__(self, key, value):
+        # type: (int, float) -> None
+        pass
+
     def __sub__(self, other):
         # type: (Color) -> Color
         pass
@@ -98,6 +106,14 @@ class Euler:
         self.x = 1.0  # type: float
         self.y = 1.0  # type: float
         self.z = 1.0  # type: float
+
+    def __getitem__(self, item):
+        # type: (int) -> float
+        pass
+
+    def __setitem__(self, key, value):
+        # type: (int, float) -> None
+        pass
 
     def copy(self):
         # type: () -> Euler
@@ -194,9 +210,14 @@ class Matrix:
 		self.row = self
 		self.translation = Vector(False)
 		
-	@classmethod
-	def Identity(self, size):
-		"""Create an identity matrix.
+
+    def __getitem__(self, item):
+        # type: (int) -> Vector
+        return self.row[item]
+
+    def __setitem__(self, key, value):
+        # type: (int, float) -> None
+        pass
 
 		Parameters:
 		size (int) - The size of the identity matrix to construct [2, 4].
@@ -501,17 +522,15 @@ class Quaternion:
 	(axis, angle) - Create a quaternion representing a rotation of angle radians over axis."""
 	
 	def __init__(self, seq, angle):
-		self.angle = 1.0
-		self.axis = Vector(False)
-		self.is_frozen = False
-		self.is_wrapped = False
-		self.magnitude = 1.0
-		self.owner = self
-		self.w = 1.0
-		self.x = 1.0
-		self.y = 1.0
-		self.z = 1.0
-		
+
+    def __getitem__(self, item):
+        # type: (int) -> float
+        pass
+
+    def __setitem__(self, key, value):
+        # type: (int, float) -> None
+        pass
+
 	def conjugate(self):
 		"""Set the quaternion to its conjugate (negate x, y, z)."""
 		pass
@@ -1044,6 +1063,14 @@ class Vector:
 		self.zzzy = self
 		self.zzzz = self
 		
+    def __getitem__(self, item):
+        # type: (int) -> float
+        pass
+
+    def __setitem__(self, key, value):
+        # type: (int, float) -> None
+        pass
+
 	@classmethod
 	def Fill(self, size, fill=0.0):
 		"""Create a vector of length size with all values set to fill.
