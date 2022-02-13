@@ -1,271 +1,396 @@
-"""Module to manipulate general screen tasks."""
+"""Rasterizer (bge.render)
 
-## Constants
+Module to manipulate general screen tasks."""
+
+# Constants
 # General
-KX_TEXFACE_MATERIAL = 0
-KX_BLENDER_MULTITEX_MATERIAL = 1
-KX_BLENDER_GLSL_MATERIAL = 2
-VSYNC_OFF = 1
-VSYNC_ON = 0
-VSYNC_ADAPTIVE = 2
-LEFT_EYE = 0
-RIGHT_EYE = 1
+KX_TEXFACE_MATERIAL = 0  # type: int
+KX_BLENDER_MULTITEX_MATERIAL = 1  # type: int
+KX_BLENDER_GLSL_MATERIAL = 2  # type: int
+VSYNC_OFF = 1  # type: int
+VSYNC_ON = 0  # type: int
+VSYNC_ADAPTIVE = 2  # type: int
+LEFT_EYE = 0  # type: int
+RIGHT_EYE = 1  # type: int
 
 # HDR
-HDR_NONE = 0
-HDR_HALF_FLOAT = 1
-HDR_FULL_FLOAT = 2
+HDR_NONE = 0  # type: int
+HDR_HALF_FLOAT = 1  # type: int
+HDR_FULL_FLOAT = 2  # type: int
 
 # Mipmap
-RAS_MIPMAP_NONE = 0
-RAS_MIPMAP_NEAREST = 1
-RAS_MIPMAP_LINEAR = 2
+RAS_MIPMAP_NONE = 0  # type: int
+RAS_MIPMAP_NEAREST = 1  # type: int
+RAS_MIPMAP_LINEAR = 2  # type: int
 
-## Functions
+
+# Functions
 def getWindowWidth():
-	"""Gets the width of the window (in pixels)
+    # type: () -> int
+    """Gets the width of the window (in pixels).
 
-	Return type:
-	integer"""
-	return 0
-	
+    Returns:
+        Window width in pixels."""
+
+    pass
+
+
 def getWindowHeight():
-	"""Gets the height of the window (in pixels)
+    # type: () -> int
+    """Gets the height of the window (in pixels).
 
-	Return type:
-	integer"""
-	return 0
-	
+    Returns:
+        Window height in pixels."""
+
+    pass
+
+
 def setWindowSize(width, height):
-	"""Set the width and height of the window (in pixels). This also works for fullscreen applications.
+    # type: (int, int) -> None
+    """Set the width and height of the window (in pixels). This also works for fullscreen applications.
 
-	Note: Only works in the standalone player, not the Blender-embedded player.
+    Note:
+        - Only works in the standalone player, not the Blender-embedded player.
 
-	Parameters:
-	width (integer) - width in pixels
-	height (integer) - height in pixels"""
-	pass
-	
+    Args:
+        width: width in pixels
+        height: height in pixels"""
+
+    pass
+
+
 def setFullscreen(enable):
-	"""Set whether or not the window should be fullscreen.
+    # type: (bool) -> None
+    """Set whether or not the window should be fullscreen.
 
-	Note: Only works in the standalone player, not the Blender-embedded player.
+    Note:
+        - Only works in the standalone player, not the Blender-embedded player.
 
-	Parameters:
-	enable (bool) - True to set full screen, False to set windowed."""
-	pass
-	
+    Args:
+        enable: True to set full screen, False to set windowed."""
+
+    pass
+
+
 def getFullscreen():
-	"""Returns whether or not the window is fullscreen.
+    # type: () -> bool
+    """Returns whether or not the window is fullscreen.
 
-	Note: Only works in the standalone player, not the Blender-embedded player; there it always returns False.
+    Note:
+        - Only works in the standalone player, not the Blender-embedded player; there it always returns False.
 
-	Return type:
-	bool"""
-	return False
-	
+    Returns:
+        If game is in fullscreen mode."""
+
+    pass
+
+
 def getDisplayDimensions():
-	"""Get the display dimensions, in pixels, of the display (e.g., the monitor). Can return the size of the entire view, so the combination of all monitors; for example, (3840, 1080) for two side-by-side 1080p monitors.
+    # type: () -> tuple[int, int]
+    """Get the display dimensions, in pixels, of the display (e.g., the monitor). Can return the size of the entire
+    view, so the combination of all monitors; for example, (3840, 1080) for two side-by-side 1080p monitors.
 
-	Return type:
-	tuple (width, height)"""
-	return (0,0)
-	
+    Returns:
+        Display dimensions in pixels of the display."""
+
+    pass
+
+
 def makeScreenshot(filename):
-	"""Writes an image file with the current displayed frame.
+    # type: (str) -> None
+    """Writes an image file with the current displayed frame. The image is written to 'filename'. The path may be
+    absolute (eg. /home/foo/image) or relative when started with // (eg. //image). Note that absolute paths are not
+    portable between platforms. If the filename contains a #, it will be replaced by an incremental index so that
+    screenshots can be taken multiple times without overwriting the previous ones (eg. image-#).
 
-	The image is written to 'filename'. The path may be absolute (eg. /home/foo/image) or relative when started with // (eg. //image). Note that absolute paths are not portable between platforms. If the filename contains a #, it will be replaced by an incremental index so that screenshots can be taken multiple times without overwriting the previous ones (eg. image-#).
+    Settings for the image are taken from the render settings (file format and respective settings, gamma and
+    colospace conversion, etc). The image resolution matches the framebuffer, meaning, the window size and aspect
+    ratio. When running from the standalone player, instead of the embedded player, only PNG files are supported.
+    Additional color conversions are also not supported.
 
-	Settings for the image are taken from the render settings (file format and respective settings, gamma and colospace conversion, etc). The image resolution matches the framebuffer, meaning, the window size and aspect ratio. When running from the standalone player, instead of the embedded player, only PNG files are supported. Additional color conversions are also not supported.
+    Args:
+        filename: path and name of the file to write"""
 
-	Parameters:
-	filename (string) - path and name of the file to write"""
-	pass
-	
+    pass
+
+
 def enableVisibility(visible):
-	"""Deprecated; doesn't do anything."""
-	pass
-	
+    # type: (bool) -> None
+    """Deprecated; doesn't do anything."""
+
+    pass
+
+
 def showMouse(visible):
-	"""Enables or disables the operating system mouse cursor.
+    # type: (bool) -> None
+    """Enables or disables the operating system mouse cursor.
 
-	Parameters:
-	visible (boolean)"""
-	pass
-	
+    Args:
+        visible: Whether show mouse cursor. """
+
+    pass
+
+
 def setMousePosition(x, y):
-	"""Sets the mouse cursor position.
+    # type: (int, int) -> None
+    """Sets the mouse cursor position.
 
-	Parameters:
-	x (integer) - X-coordinate in screen pixel coordinates.
-	y (integer) - Y-coordinate in screen pixel coordinates."""
-	pass
-	
+    Args:
+        x: X-coordinate in screen pixel coordinates.
+        y: Y-coordinate in screen pixel coordinates."""
+
+    pass
+
+
 def setBackgroundColor(rgba):
-	"""Deprecated and no longer functional. Use bge.types.KX_WorldInfo.backgroundColor() instead."""
-	pass
-	
+    # type: (tuple[float]) -> None
+    """Deprecated and no longer functional. Use bge.types.KX_WorldInfo.backgroundColor() instead."""
+
+    pass
+
+
 def setEyeSeparation(eyesep):
-	"""Sets the eye separation for stereo mode. Usually Focal Length/30 provides a confortable value.
+    # type: (float) -> None
+    """Sets the eye separation for stereo mode. Usually Focal Length/30 provides a confortable value.
 
-	Parameters:
-	eyesep (float) - The distance between the left and right eye."""
-	pass
-	
+    Args:
+        eyesep: The distance between the left and right eye."""
+
+    pass
+
+
 def getEyeSeparation():
-	"""Gets the current eye separation for stereo mode.
+    # type: () -> int
+    """Gets the current eye separation for stereo mode.
 
-	Return type:
-	float"""
-	return True
-	
+    Returns:
+        Current eye separation for stereo mode."""
+
+    pass
+
+
 def setFocalLength(focallength):
-	"""Sets the focal length for stereo mode. It uses the current camera focal length as initial value.
+    # type: (float) -> None
+    """Sets the focal length for stereo mode. It uses the current camera focal length as initial value.
 
-	Parameters:
-	focallength (float) - The focal length."""
-	pass
-	
+    Args:
+        focallength: The focal length."""
+
+    pass
+
+
 def getFocalLength():
-	"""Gets the current focal length for stereo mode.
+    # type: () -> float
+    """Gets the current focal length for stereo mode.
 
-	Return type:
-	float"""
-	return 0.0
-	
+    Returns:
+        Current focal length for stereo mode."""
+
+    pass
+
+
 def getStereoEye():
-	"""Gets the current stereoscopy eye being rendered. This function is mainly used in a bge.types.KX_Scene.pre_draw callback function to customize the camera projection matrices for each stereoscopic eye.
+    # type: () -> int
+    """Gets the current stereoscopy eye being rendered. This function is mainly used in a bge.types.KX_Scene.pre_draw
+    callback function to customize the camera projection matrices for each stereoscopic eye.
 
-	Return type:
-	LEFT_EYE, RIGHT_EYE"""
-	pass
-	
+    Returns:
+        Current stereoscopy eye being rendered."""
+
+    pass
+
+
 def setMaterialMode(mode):
-	"""Set the material mode to use for OpenGL rendering.
+    # type: (int) -> None
+    """Set the material mode to use for OpenGL rendering. The parameter mode can be one of the following constants:
 
-	Parameters:
-	mode (KX_TEXFACE_MATERIAL, KX_BLENDER_MULTITEX_MATERIAL, KX_BLENDER_GLSL_MATERIAL) - material mode
+    - KX_TEXFACE_MATERIAL
+    - KX_BLENDER_MULTITEX_MATERIAL
+    - KX_BLENDER_GLSL_MATERIAL
 
-	Note: Changes will only affect newly created scenes."""
-	pass
-	
-def getMaterialMode(mode):
-	"""Get the material mode to use for OpenGL rendering.
+    Args:
+        mode: material mode
 
-	Return type:
-	KX_TEXFACE_MATERIAL, KX_BLENDER_MULTITEX_MATERIAL, KX_BLENDER_GLSL_MATERIAL"""
-	pass
-	
+    Note:
+        - Changes will only affect newly created scenes."""
+
+    pass
+
+
+def getMaterialMode():
+    # type: () -> int
+    """Get the material mode to use for OpenGL rendering.
+
+    Returns:
+        Material mode to use for OpenGL rendering. One of KX_TEXFACE_MATERIAL, KX_BLENDER_MULTITEX_MATERIAL or KX_BLENDER_GLSL_MATERIAL"""
+
+    pass
+
+
 def setGLSLMaterialSetting(setting, enable):
-	"""Enables or disables a GLSL material setting.
+    # type: (str, bool) -> None
+    """Enables or disables a GLSL material setting. The parameter setting can be one of the following strings:
 
-	Parameters:
-	setting (string (lights, shaders, shadows, ramps, nodes, extra_textures))
-	enable (boolean)"""
-	pass
-	
+    - shaders
+    - shadows
+    - ramps
+    - nodes
+    - extra_textures
+
+    Args:
+        setting: Name of the setting.
+        enable: If enable the setting."""
+
+    pass
+
+
 def getGLSLMaterialSetting(setting):
-	"""Get the state of a GLSL material setting.
+    # type: (str) -> None
+    """Get the state of a GLSL material setting.
 
-	Parameters:
-	setting (string (lights, shaders, shadows, ramps, nodes, extra_textures)) -
+    Args:
+        setting: Name of the setting.
 
-	Return type:
-	boolean"""
-	return True
-	
+    Returns:
+        State of the passed GLSL material setting."""
+
+    pass
+
+
 def setAnisotropicFiltering(level):
-	"""Set the anisotropic filtering level for textures.
+    # type: (int) -> None
+    """Set the anisotropic filtering level for textures. The parameter level must be one of the integers:
+    (1, 2, 4, 8, 16).
 
-	Parameters:
-	level (integer (must be one of 1, 2, 4, 8, 16)) - The new anisotropic filtering level to use
+    Args:
+        level: The new anisotropic filtering level to use.
 
-	Note: Changing this value can cause all textures to be recreated, which can be slow."""
-	pass
-	
+    Note:
+        - Changing this value can cause all textures to be recreated, which can be slow."""
+
+    pass
+
+
 def getAnisotropicFiltering():
-	"""Get the anisotropic filtering level used for textures.
+    # type: () -> int
+    """Get the anisotropic filtering level used for textures.
 
-	Return type:
-	integer (one of 1, 2, 4, 8, 16)"""
-	return 16
-	
+    Returns:
+        Anisotropic filtering level. One of (1, 2, 4, 8, 16)."""
+
+    pass
+
+
 def setMipmapping(value):
-	"""Change how to use mipmapping.
+    # type: (int) -> None
+    """Change how to use mipmapping.
 
-	Note: Changing this value can cause all textures to be recreated, which can be slow."""
-	pass
-	
+    Note:
+        - Changing this value can cause all textures to be recreated, which can be slow."""
+
+    pass
+
+
 def getMipmapping():
-	"""Get the current mipmapping setting.
+    # type: () -> int
+    """Get the current mipmapping setting.
 
-	Return type:
-	RAS_MIPMAP_NONE, RAS_MIPMAP_NEAREST, RAS_MIPMAP_LINEAR"""
-	pass
-	
+    Returns:
+        Current mipmapping setting. One of RAS_MIPMAP_NONE, RAS_MIPMAP_NEAREST, RAS_MIPMAP_LINEAR."""
+
+    pass
+
+
 def drawLine(fromVec, toVec, color):
-	"""Draw a line in the 3D scene.
+    # type: (tuple[float], tuple[float], tuple[float]) -> None
+    """Draw a line in the 3D scene.
 
-	Parameters:
-	fromVec (list [x, y, z]) - the origin of the line
-	toVec (list [x, y, z]) - the end of the line
-	color (list [r, g, b]) - the color of the line"""
-	pass
-	
+    Args:
+        fromVec: the origin of the line
+        toVec: the end of the line
+        color: the color of the line"""
+
+    pass
+
+
 def enableMotionBlur(factor):
-	"""Enable the motion blur effect.
+    # type: (float) -> None
+    """Enable the motion blur effect.
 
-	Parameters:
-	factor (float [0.0 - 1.0]) - the ammount of motion blur to display."""
-	pass
-	
+    Args:
+        factor: The ammount of motion blur to display. Allows from 0.0 to 1.0."""
+
+    pass
+
+
 def disableMotionBlur():
-	"""Disable the motion blur effect."""
-	pass
-	
+    # type: () -> None
+    """Disable the motion blur effect."""
+
+    pass
+
+
 def showFramerate(enable):
-	"""Show or hide the framerate.
+    # type: (bool) -> None
+    """Show or hide the framerate.
 
-	Parameters:
-	enable (boolean)"""
-	pass
-	
+    Args:
+        enable: If show or hide the framerate."""
+
+    pass
+
+
 def showProfile(enable):
-	"""Show or hide the profile.
+    # type: (bool) -> None
+    """Show or hide the profile.
 
-	Parameters:
-	enable (boolean)"""
-	pass
-	
+    Args:
+        enable: If show or hide the profile."""
+
+    pass
+
+
 def showProperties(enable):
-	"""Show or hide the debug properties.
+    # type: (bool) -> None
+    """Show or hide the debug properties.
 
-	Parameters:
-	enable (boolean)"""
-	pass
-	
+    Args:
+        enable: If show or hide the debug properties."""
+
+    pass
+
+
 def autoDebugList(enable):
-	"""Enable or disable auto adding debug properties to the debug list.
+    # type: (bool) -> None
+    """Enable or disable auto adding debug properties to the debug list.
 
-	Parameters:
-	enable (boolean)"""
-	pass
-	
+    Args:
+        enable: If enable auto adding debug properties to the debug list."""
+
+    pass
+
+
 def clearDebugList():
-	"""Clears the debug property list."""
-	pass
-	
+    # type: () -> None
+    """Clears the debug property list."""
+    pass
+
+
 def setVsync(value):
-	"""Set the vsync value
+    # type: (int) -> None
+    """Set the vsync value.
 
-	Parameters:
-	value (integer) - One of VSYNC_OFF, VSYNC_ON, VSYNC_ADAPTIVE"""
-	pass
-	
+    Args:
+        value: Vsync value. One of VSYNC_OFF, VSYNC_ON, VSYNC_ADAPTIVE."""
+
+    pass
+
+
 def getVsync():
-	"""Get the current vsync value
+    # type: () -> int
+    """Get the current vsync value.
 
-	Return type:
-	One of VSYNC_OFF, VSYNC_ON, VSYNC_ADAPTIVE"""
-	pass
+    Returns:
+        Current vsync value. One of VSYNC_OFF, VSYNC_ON, VSYNC_ADAPTIVE."""
 
+    pass
