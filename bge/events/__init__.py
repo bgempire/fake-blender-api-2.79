@@ -9,10 +9,10 @@ def EventToString(event):
     """Return the string name of a key event. Will raise a ValueError error if its invalid.
 
     Args:
-        event (int): key event constant from bge.events or the keyboard sensor.
+        event: key event constant from bge.events or the keyboard sensor.
 
     Returns:
-        str: The key event name."""
+        The key event name."""
 
     pass
 
@@ -22,11 +22,11 @@ def EventToCharacter(event, shift):
     """Return the string name of a key event. Returns an empty string if the event cant be represented as a character.
 
     Args:
-        event (int): key event constant from bge.events or the keyboard sensor.
-        shift (bool): set to true if shift is held.
+        event: key event constant from bge.events or the keyboard sensor.
+        shift: set to true if shift is held.
 
     Returns:
-        str: The key event character."""
+        The key event character."""
 
     pass
 
