@@ -3,7 +3,7 @@
 from .. import types as _types
 
 
-## Functions
+# Functions
 def createConstraint(physicsid_1, physicsid_2, constraint_type, pivot_x=0.0, pivot_y=0.0, pivot_z=0.0, axis_x=0.0, axis_y=0.0, axis_z=0.0, flag=0):
     # type: (int, int, int, float, float, float, float, float, float, int) -> _types.KX_ConstraintWrapper
     """Creates a constraint.
@@ -25,6 +25,7 @@ def createConstraint(physicsid_1, physicsid_2, constraint_type, pivot_x=0.0, piv
 
     pass
 
+
 def createVehicle(physicsid):
     # type: (int) -> _types.KX_VehicleWrapper
     """Creates a vehicle constraint.
@@ -37,6 +38,7 @@ def createVehicle(physicsid):
 
     pass
 
+
 def exportBulletFile(filename):
     # type: (str) -> None
     """Exports a file representing the dynamics world (usually using .bullet extension).
@@ -46,6 +48,7 @@ def exportBulletFile(filename):
         filename (str): File path."""
 
     pass
+
 
 def getAppliedImpulse(constraintId):
     # type: (int) -> float
@@ -57,6 +60,7 @@ def getAppliedImpulse(constraintId):
 
     pass
 
+
 def getVehicleConstraint(constraintId):
     # type: (int) -> _types.KX_VehicleWrapper
     """Args:
@@ -66,6 +70,7 @@ def getVehicleConstraint(constraintId):
         KX_VehicleWrapper: A vehicle constraint object."""
 
     pass
+
 
 def getCharacter(gameobj):
     # type: (_types.KX_GameObject) -> _types.KX_CharacterWrapper
@@ -77,6 +82,7 @@ def getCharacter(gameobj):
 
     pass
 
+
 def removeConstraint(constraintId):
     # type: (int) -> None
     """Removes a constraint.
@@ -86,9 +92,10 @@ def removeConstraint(constraintId):
 
     pass
 
+
 def setCcdMode(ccdMode):
     # type: (int) -> None
-    """Sets the CCD (Continous Colision Detection) mode in the Physics Environment.
+    """Sets the CCD (Continuous Collision Detection) mode in the Physics Environment.
 
     Args:
         ccdMode (int): The new CCD mode.
@@ -98,44 +105,49 @@ def setCcdMode(ccdMode):
 
     pass
 
+
 def setContactBreakingTreshold(breakingTreshold):
     # type: (float) -> None
-    """Sets tresholds to do with contact point management.
+    """Sets thresholds to do with contact point management.
 
     Args:
-        breakingTreshold (float): The new contact breaking treshold.
+        breakingTreshold (float): The new contact breaking threshold.
 
     Note:
         Reasonable default is 0.02 (if units are meters)."""
 
     pass
 
+
 def setDeactivationAngularTreshold(angularTreshold):
     # type: (float) -> None
-    """Sets the angular velocity treshold.
+    """Sets the angular velocity threshold.
 
     Args:
-        angularTreshold (float): New deactivation angular treshold."""
+        angularTreshold (float): New deactivation angular threshold."""
 
     pass
+
 
 def setDeactivationLinearTreshold(linearTreshold):
     # type: (float) -> None
-    """Sets the linear velocity treshold.
+    """Sets the linear velocity threshold.
 
     Args:
-        linearTreshold (float): New deactivation linear treshold."""
+        linearTreshold (float): New deactivation linear threshold."""
 
     pass
 
+
 def setDeactivationTime(time):
     # type: (float) -> None
-    """Sets the time after which a resting rigidbody gets deactived.
+    """Sets the time after which a resting rigidbody gets deactivated.
 
     Args:
         time (float): The deactivation time."""
 
     pass
+
 
 def setDebugMode(mode):
     # type: (int) -> None
@@ -145,6 +157,7 @@ def setDebugMode(mode):
         mode (int): The new debug mode, see Debug Mode Constants."""
 
     pass
+
 
 def setGravity(x, y, z):
     # type: (float, float, float) -> None
@@ -157,14 +170,16 @@ def setGravity(x, y, z):
 
     pass
 
+
 def setLinearAirDamping(damping):
     # type: (float) -> None
-    """Sets the linear air damping for rigidbodies.
+    """Sets the linear air damping for rigid bodies.
 
     Note:
         Not implemented."""
 
     pass
+
 
 def setNumIterations(numiter):
     # type: (int) -> None
@@ -175,14 +190,16 @@ def setNumIterations(numiter):
 
     pass
 
+
 def setNumTimeSubSteps(numsubstep):
     # type: (int) -> None
-    """Sets the number of substeps for each physics proceed. Tradeoff quality for performance.
+    """Sets the number of sub-steps for each physics proceed. Tradeoff quality for performance.
 
     Args:
-        numsubstep (int): New number of substeps."""
+        numsubstep (int): New number of sub-steps."""
 
     pass
+
 
 def setSolverDamping(damping):
     # type: (float) -> None
@@ -196,6 +213,7 @@ def setSolverDamping(damping):
 
     pass
 
+
 def setSolverTau(tau):
     # type: (float) -> None
     """Sets the spring constant of a penalty based solver.
@@ -207,6 +225,7 @@ def setSolverTau(tau):
         Very experimental, not recommended."""
 
     pass
+
 
 def setSolverType(solverType):
     # type: (int) -> None
@@ -220,9 +239,10 @@ def setSolverType(solverType):
 
     pass
 
+
 def setSorConstant(sor):
     # type: (float) -> None
-    """Sets the successive overrelaxation constant.
+    """Sets the successive over-relaxation constant.
 
     Args:
         sor (float): New sor value.
@@ -232,6 +252,7 @@ def setSorConstant(sor):
 
     pass
 
+
 def setUseEpa(epa):
     # type: (bool) -> None
     """Note:
@@ -240,7 +261,7 @@ def setUseEpa(epa):
     pass
 
 
-## Constants
+# Constants
 error = ""
 """Symbolic constant string that indicates error."""
 
@@ -270,13 +291,13 @@ DBG_PROFILETIMINGS = 128
 """Draw profile timings in debug."""
 
 DBG_ENABLESATCOMPARISION = 256
-"""Enable sat comparision in debug."""
+"""Enable sat comparison in debug."""
 
 DBG_DISABLEBULLETLCP = 512
 """Disable Bullet LCP."""
 
 DBG_ENABLECCD = 1024
-"""Enable Continous Collision Detection in debug."""
+"""Enable Continuous Collision Detection in debug."""
 
 DBG_DRAWCONSTRAINTS = 2048
 """Draw constraints in debug."""
@@ -294,4 +315,3 @@ ANGULAR_CONSTRAINT = 3
 CONETWIST_CONSTRAINT = 4
 VEHICLE_CONSTRAINT = 11
 GENERIC_6DOF_CONSTRAINT = 12
-
