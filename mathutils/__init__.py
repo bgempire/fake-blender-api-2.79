@@ -36,15 +36,34 @@ class Color:
             rgb (__Sequence[float, float, float]): (r, g, b) color values"""
 
         self.r = 1.0  # type: float
+        """Red color channel."""
+
         self.g = 1.0  # type: float
+        """Green color channel."""
+
         self.b = 1.0  # type: float
+        """Blue color channel."""
+
         self.h = 1.0  # type: float
+        """HSV Hue component in [0, 1]."""
+
         self.s = 1.0  # type: float
+        """HSV Saturation component in [0, 1]."""
+
         self.v = 1.0  # type: float
+        """HSV Value component in [0, 1]."""
+
         self.hsv = [1.0, 1.0, 1.0]  # type: list[float, float, float]
+        """HSV Values in [0, 1]."""
+
         self.is_frozen = False  # type: bool
+        """True when this object has been frozen (read-only)."""
+
         self.is_wrapped = False  # type: bool
+        """True when this object wraps external data (read-only)."""
+
         self.owner = self  # type: Color
+        """The item this is wrapping or None (read-only)."""
 
     def __getitem__(self, item):
         # type: (int) -> float
@@ -101,12 +120,25 @@ class Euler:
             order (str): Optional order of the angles, a permutation of XYZ."""
 
         self.is_frozen = False  # type: bool
+        """True when this object has been frozen (read-only)."""
+
         self.is_wrapped = False  # type: bool
+        """True when this object wraps external data (read-only)."""
+
         self.order = "XYZ"  # type: str
+        """Euler rotation order."""
+
         self.owner = self  # type: Euler
+        """The item this is wrapping or None (read-only)."""
+
         self.x = 1.0  # type: float
+        """Euler axis angle in radians."""
+
         self.y = 1.0  # type: float
+        """Euler axis angle in radians."""
+
         self.z = 1.0  # type: float
+        """Euler axis angle in radians."""
 
     def __getitem__(self, item):
         # type: (int) -> float
@@ -204,15 +236,34 @@ class Matrix:
             rows (__Sequence[__Sequence[float]]): Sequence of rows. When ommitted, a 4x4 identity matrix is constructed."""
 
         self.col = self  # type: Matrix
+        """Access the matix by colums, 3x3 and 4x4 only, (read-only)."""
+
         self.is_frozen = False  # type: bool
+        """True when this object has been frozen (read-only)."""
+
         self.is_negative = False  # type: bool
+        """True if this matrix results in a negative scale, 3x3 and 4x4 only, (read-only)."""
+
         self.is_orthogonal = False  # type: bool
+        """True if this matrix is orthogonal, 3x3 and 4x4 only, (read-only)."""
+
         self.is_orthogonal_axis_vectors = False  # type: bool
+        """True if this matrix has got orthogonal axis vectors, 3x3 and 4x4 only, (read-only)."""
+
         self.is_wrapped = False  # type: bool
+        """True when this object wraps external data (read-only)."""
+
         self.median_scale = 1.0  # type: float
+        """The average scale applied to each axis (read-only)."""
+
         self.owner = self  # type: Matrix
+        """The item this is wrapping or None (read-only)."""
+
         self.row = []  # type: __Sequence[Vector]
+        """Access the matix by rows (default), (read-only)."""
+
         self.translation = Vector()  # type: Vector
+        """The translation component of the matrix."""
 
     def __getitem__(self, item):
         # type: (int) -> Vector
@@ -559,15 +610,34 @@ class Quaternion:
             angle (float): rotation angle, in radians"""
 
         self.angle = 1.0  # type: float
+        """Angle of the quaternion."""
+
         self.axis = Vector()  # type: Vector
+        """Quaternion axis as a vector."""
+
         self.is_frozen = False  # type: bool
+        """True when this object has been frozen (read-only)."""
+
         self.is_wrapped = False  # type: bool
+        """True when this object wraps external data (read-only)."""
+
         self.magnitude = 1.0  # type: float
+        """Size of the quaternion (read-only)."""
+
         self.owner = self  # type: Quaternion
+        """The item this is wrapping or None (read-only)."""
+
         self.w = 1.0  # type: float
+        """Quaternion axis value."""
+
         self.x = 1.0  # type: float
+        """Quaternion axis value."""
+
         self.y = 1.0  # type: float
+        """Quaternion axis value."""
+
         self.z = 1.0  # type: float
+        """Quaternion axis value."""
 
     def __getitem__(self, item):
         # type: (int) -> float
@@ -779,15 +849,35 @@ class Vector:
             seq (__Sequence[float]): Components of the vector, must be a sequence of at least two"""
 
         self.is_frozen = False  # type: bool
+        """True when this object has been frozen (read-only)."""
+
         self.is_wrapped = False  # type: bool
+        """True when this object wraps external data (read-only)."""
+
         self.length = 1.0  # type: float
+        """Vector Length."""
+
         self.length_squared = 1.0  # type: float
+        """Vector length squared (v.dot(v))."""
+
         self.magnitude = 1.0  # type: float
+        """Vector Length."""
+
         self.owner = self  # type: Vector
+        """The item this is wrapping or None (read-only)."""
+
         self.w = 1.0  # type: float
+        """Vector W axis (4D Vectors only)."""
+
         self.x = 1.0  # type: float
+        """Vector X axis."""
+
         self.y = 1.0  # type: float
+        """Vector Y axis."""
+
         self.z = 1.0  # type: float
+        """Vector Z axis (3D Vectors only)."""
+
         self.ww = self  # type: Vector
         self.www = self  # type: Vector
         self.wwww = self  # type: Vector
