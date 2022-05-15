@@ -1,3 +1,3 @@
-import sys
-import typing
-STDPERLIN: int = None
+"""mathutils.noise.types"""
+
+STDPERLIN = 1  # type: int
