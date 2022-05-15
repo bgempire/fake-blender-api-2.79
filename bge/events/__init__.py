@@ -156,9 +156,12 @@ PAUSEKEY = 108  # type: int
 PERIODKEY = 12  # type: int
 QUOTEKEY = 62  # type: int
 RIGHTBRACKETKEY = 68  # type: int
-RETKEY = 7  # type: int
 ENTERKEY = 7  # type: int
 SEMICOLONKEY = 61  # type: int
 SLASHKEY = 64  # type: int
 SPACEKEY = 8  # type: int
 TABKEY = 57  # type: int
+
+# Deprecated
+RETKEY = 7  # type: int
+"""Deprecated: use bge.events.ENTERKEY"""
