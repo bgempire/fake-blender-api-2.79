@@ -3,14 +3,14 @@
 from .. import types as _types
 from ...mathutils import Vector as _Vector
 
-### Constants
+# Constants
 KX_TRUE = 1
 """True value used by some modules."""
 
 KX_FALSE = 2
 """False value used by some modules."""
 
-## Sensors
+# Sensors
 # Sensor Status
 KX_SENSOR_INACTIVE = 0
 """See bge.types.SCA_ISensor.status."""
@@ -127,7 +127,7 @@ KX_RAY_AXIS_NEG_Z = 5
 """See bge.types.KX_RaySensor.axis."""
 
 
-## Actuators
+# Actuators
 # Action Actuator
 KX_ACTIONACT_PLAY = 0
 """See bge.types.BL_ActionActuator.mode."""
@@ -294,7 +294,7 @@ KX_GAME_LOADCFG = 6
 KX_ACT_MOUSE_OBJECT_AXIS_X = 0
 """See bge.types.KX_MouseActuator.object_axis."""
 
-KX_ACT_MOUSE_OBJECT_AXIS_X = 1
+KX_ACT_MOUSE_OBJECT_AXIS_Y = 1
 """See bge.types.KX_MouseActuator.object_axis."""
 
 KX_ACT_MOUSE_OBJECT_AXIS_Z = 2
@@ -427,7 +427,7 @@ KX_TRACK_TRAXIS_NEG_Z = 5
 """See bge.types.KX_TrackToActuator.trackAxis."""
 
 
-## Various
+# Various
 # 2D Filter
 RAS_2DFILTER_BLUR = 2
 """See bge.types.SCA_2DFilterActuator.mode."""
@@ -752,7 +752,7 @@ KX_STATE_OP_SET = 1  # type: int
 """Add bits to state mask. See bge.types.KX_StateActuator.operation"""
 
 
-## Variables
+# Variables
 globalDict = {} # type: dict
 """A dictionary that is saved between loading blend files so you can use it to store inventory and other variables you want to store between scenes and blend files. It can also be written to a file and loaded later on with the game load/save actuators.
 
@@ -845,7 +845,7 @@ def LibLoad(blend, type, data=None, load_actions=False, verbose=False, load_scri
         load_actions (bool): Search for and load all actions in a given Scene and not just the "active" actions (Scene type only)
         verbose (bool): Whether or not to print debugging information (e.g., 'SceneName: Scene')
         load_scripts (bool): Whether or not to load text datablocks as well (can be disabled for some extra security)
-        async (bool): Whether or not to do the loading asynchronously (in another thread). Only the 'Scene' type is currently supported for this feature.
+        asynchronous (bool): Whether or not to do the loading asynchronously (in another thread). Only the 'Scene' type is currently supported for this feature.
         scene (KX_Scene or string): Scene to merge loaded data to, if None use the current scene.
 
     Returns:
