@@ -2751,86 +2751,127 @@ class KX_SCA_ReplaceMeshActuator(SCA_IActuator):
     pass
 
 class KX_Scene(PyObjectPlus):
-    """base class - PyObjectPlus
-
-    class bge.KX_Scene(PyObjectPlus)
-
-    An active scene that gives access to objects, cameras, lights and scene attributes.
+    """An active scene that gives access to objects, cameras, lights and scene attributes.
 
     The activity culling stuff is supposed to disable logic bricks when their owner gets too far from the active camera. It was taken from some code lurking at the back of KX_Scene - who knows what it does!"""
 
     def __init__(self):
-        from mathutils import Vector
+        # type: () -> None
+        super().__init__()
 
         self.name = ""  # type: str
-        self.objects = None # type: dict[str, KX_GameObject]
-        self.objectsInactive = None # type: dict[str, KX_GameObject]
-        self.lights = None # type: dict[str, KX_LightObject]
-        self.cameras = None # type: dict[str, KX_Camera]
-        self.active_camera = KX_Camera()
-        self.world = KX_WorldInfo()
-        self.suspended = True  # type: bool
-        self.activity_culling = True  # type: bool
-        self.activity_culling_radius = 0.0  # type: float
-        self.dbvt_culling = True  # type: bool
-        self.pre_draw = list()
-        self.post_draw = list()
-        self.pre_draw_setup = list()
-        self.gravity = Vector(None)
+        """The scene's name (read-only)."""
 
-    def addObject(self, object, reference, time=0):
+        self.objects = None # type: dict[str, KX_GameObject]
+        """A list of objects in the scene, (read-only)."""
+
+        self.objectsInactive = None # type: dict[str, KX_GameObject]
+        """A list of objects on background layers (used for the addObject actuator), (read-only)."""
+
+        self.lights = None # type: dict[str, KX_LightObject]
+        """A list of lights in the scene, (read-only)."""
+
+        self.cameras = None # type: dict[str, KX_Camera]
+        """A list of cameras in the scene, (read-only)."""
+
+        self.active_camera = None  # type: KX_Camera
+        """The current active camera.
+
+        Note:
+            This can be set directly from Python to avoid using the KX_SceneActuator."""
+
+        self.world = None  # type: KX_WorldInfo
+        """The current active world, (read-only)."""
+
+        self.suspended = True  # type: bool
+        """True if the scene is suspended (read-only)."""
+
+        self.activity_culling = True  # type: bool
+        """True if the scene is activity culling."""
+
+        self.activity_culling_radius = 0.0  # type: float
+        """The distance outside which to do activity culling. Measured in manhattan distance."""
+
+        self.dbvt_culling = True  # type: bool
+        """True when Dynamic Bounding box Volume Tree is set (read-only)."""
+
+        self.pre_draw = []  # type: list[_Callable]
+        """A list of callables to be run before the render step."""
+
+        self.post_draw = []  # type: list[_Callable]
+        """A list of callables to be run after the render step."""
+
+        self.pre_draw_setup = []  # type: list[_Callable]
+        """A list of callables to be run before the drawing setup (i.e., before the model view and projection matrices are computed)."""
+
+        self.gravity = None  # type: _Vector
+        """The scene gravity using the world x, y and z axis."""
+
+    def addObject(self, object, reference=None, time=0):
         # type: (str | KX_GameObject, str | KX_GameObject, int) -> KX_GameObject
         """Adds an object to the scene like the Add Object Actuator would.
 
         Args:
-        object (KX_GameObject or string): The (name of the) object to add.
-        reference (KX_GameObject or string): The (name of the) object which position, orientation, and scale to copy (optional), if the object to add is a light and there is not reference the light's layer will be the same that the active layer in the blender scene.
-        time (integer): The lifetime of the added object, in frames. A time of 0 means the object will last forever (optional).
+            object (KX_GameObject or string): The (name of the) object to add.
+            reference (KX_GameObject or string): The (name of the) object which position, orientation, and scale to copy (optional), if the object to add is a light and there is not reference the light's layer will be the same that the active layer in the blender scene.
+            time (integer): The lifetime of the added object, in frames. A time of 0 means the object will last forever (optional).
 
-        Returns: The newly added object.
-
-        Return type: KX_GameObject"""
+        Returns:
+            KX_GameObject: The newly added object."""
 
         return
 
     def end(self):
+        # type: () -> None
         """Removes the scene from the game."""
+
         pass
 
     def restart(self):
+        # type: () -> None
         """Restarts the scene."""
+
         pass
 
-    def replace(self):
+    def replace(self, scene):
+        # type: (str) -> bool
         """Replaces this scene with another one.
 
         Args:
-        scene (string): The name of the scene to replace this scene with.
+            scene (string): The name of the scene to replace this scene with.
 
-        Returns: True if the scene exists and was scheduled for addition, False otherwise.
+        Returns:
+            bool: True if the scene exists and was scheduled for addition, False otherwise."""
 
-        Return type: boolean"""
-        return bool()
+        pass
 
     def suspend(self):
+        # type: () -> None
         """Suspends this scene."""
+
         pass
 
     def resume(self):
+        # type: () -> None
         """Resume this scene."""
+
         pass
 
-    def get(self):
+    def get(self, key, default=None):
+        # type: (str, object) -> object
         """Return the value matching key, or the default value if its not found.
 
-        Return: The key value or a default."""
-        return CValue()
+        Returns:
+            The key value or a default."""
 
-    def drawObstacleSimulation(self):
-        """Draw debug visualization of obstacle simulation."""
         pass
 
-    pass
+    def drawObstacleSimulation(self):
+        # type: () -> None
+        """Draw debug visualization of obstacle simulation."""
+
+        pass
+
 
 class KX_SceneActuator(SCA_IActuator):
     """base class - SCA_IActuator
