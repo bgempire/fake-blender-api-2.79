@@ -4,69 +4,69 @@ from .. import types as _types
 
 
 # Constants
-error = ""
+error = ""  # type: str
 """Symbolic constant string that indicates error."""
 
 # Debug Mode Constants
-DBG_NODEBUG = 0
+DBG_NODEBUG = 0  # type: int
 """No debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_DRAWWIREFRAME = 1
+DBG_DRAWWIREFRAME = 1  # type: int
 """Draw wireframe in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_DRAWAABB = 2
+DBG_DRAWAABB = 2  # type: int
 """Draw Axis Aligned Bounding Box in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_DRAWFREATURESTEXT = 4
+DBG_DRAWFREATURESTEXT = 4  # type: int
 """Draw features text in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_DRAWCONTACTPOINTS = 8
+DBG_DRAWCONTACTPOINTS = 8  # type: int
 """Draw contact points in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_NOHELPTEXT = 32
+DBG_NOHELPTEXT = 32  # type: int
 """Debug without help text. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_DRAWTEXT = 64
+DBG_DRAWTEXT = 64  # type: int
 """Draw text in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_PROFILETIMINGS = 128
+DBG_PROFILETIMINGS = 128  # type: int
 """Draw profile timings in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_ENABLESATCOMPARISION = 256
+DBG_ENABLESATCOMPARISION = 256  # type: int
 """Enable sat comparison in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_DISABLEBULLETLCP = 512
+DBG_DISABLEBULLETLCP = 512  # type: int
 """Disable Bullet LCP. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_ENABLECCD = 1024
+DBG_ENABLECCD = 1024  # type: int
 """Enable Continuous Collision Detection in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_DRAWCONSTRAINTS = 2048
+DBG_DRAWCONSTRAINTS = 2048  # type: int
 """Draw constraints in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_DRAWCONSTRAINTSLIMITS = 4096
+DBG_DRAWCONSTRAINTSLIMITS = 4096  # type: int
 """Draw constraint limits in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
-DBG_FASTWIREFRAME = 8192
+DBG_FASTWIREFRAME = 8192  # type: int
 """Draw a fast wireframe in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
 
 # Create Constraints Constants
-POINTTOPOINT_CONSTRAINT = 1
+POINTTOPOINT_CONSTRAINT = 1  # type: int
 """Constraint type to be used with bge.constraints.createConstraint()."""
 
-LINEHINGE_CONSTRAINT = 2
+LINEHINGE_CONSTRAINT = 2  # type: int
 """Constraint type to be used with bge.constraints.createConstraint()."""
 
-ANGULAR_CONSTRAINT = 3
+ANGULAR_CONSTRAINT = 3  # type: int
 """Constraint type to be used with bge.constraints.createConstraint()."""
 
-CONETWIST_CONSTRAINT = 4
+CONETWIST_CONSTRAINT = 4  # type: int
 """Constraint type to be used with bge.constraints.createConstraint()."""
 
-VEHICLE_CONSTRAINT = 11
+VEHICLE_CONSTRAINT = 11  # type: int
 """Constraint type to be used with bge.constraints.createConstraint()."""
 
-GENERIC_6DOF_CONSTRAINT = 12
+GENERIC_6DOF_CONSTRAINT = 12  # type: int
 """Constraint type to be used with bge.constraints.createConstraint()."""
 
 
