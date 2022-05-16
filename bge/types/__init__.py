@@ -1088,68 +1088,67 @@ class SCA_MouseSensor(SCA_ISensor):
     pass
 
 class SCA_NANDController(SCA_IController):
+    """An NAND controller activates when all linked sensors are not active.
 
-    """base class - SCA_IController
-
-    class bge.SCA_NANDController(SCA_IController)
-
-    An NAND controller activates when all linked sensors are not active.
-
-    There are no special python methods for this controller."""
+    There are no special Python methods for this controller."""
 
     pass
+
 
 class SCA_NORController(SCA_IController):
+    """An NOR controller activates only when all linked sensors are de-activated.
 
-    """base class - SCA_IController
-
-    class bge.SCA_NORController(SCA_IController)
-
-    An NOR controller activates only when all linked sensors are de-activated.
-
-    There are no special python methods for this controller."""
+    There are no special Python methods for this controller."""
 
     pass
+
 
 class SCA_ORController(SCA_IController):
+    """An OR controller activates when any connected sensor activates.
 
-    """base class - SCA_IController
-
-    class bge.SCA_ORController(SCA_IController)
-
-    An OR controller activates when any connected sensor activates.
-
-    There are no special python methods for this controller."""
+    There are no special Python methods for this controller."""
 
     pass
 
+
 class SCA_PropertyActuator(SCA_IActuator):
-
-    """base class - SCA_IActuator
-
-    class bge.SCA_PropertyActuator(SCA_IActuator)
-
-    Property Actuator"""
+    """Property Actuator"""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.propName = ""  # type: str
+        """the property on which to operate."""
+
         self.value = ""  # type: str
+        """the value with which the actuator operates."""
+
         self.mode = 0  # type: int
+
 
 class SCA_PropertySensor(SCA_ISensor):
-
-    """base class - SCA_ISensor
-
-    class bge.SCA_PropertySensor(SCA_ISensor)
-
-    Activates when the game object property matches."""
+    """Activates when the game object property matches."""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.mode = 0  # type: int
+        """Type of check on the property."""
+
         self.propName = ""  # type: str
+        """The property the sensor operates."""
+
         self.value = ""  # type: str
+        """The value with which the sensor compares to the value of the property."""
+
         self.min = ""  # type: str
+        """The minimum value of the range used to evaluate the property when in interval mode."""
+
         self.max = ""  # type: str
+        """The maximum value of the range used to evaluate the property when in interval mode."""
+
 
 class SCA_PythonController(SCA_IController):
     """A Python controller uses a Python script to activate it's actuators, based on it's sensors."""
@@ -1212,46 +1211,56 @@ class SCA_PythonJoystick(PyObjectPlus):
         self.numHats = 0  # type: int
 
 class SCA_PythonKeyboard(PyObjectPlus):
-
-    """base class - PyObjectPlus
-
-    class bge.SCA_PythonKeyboard(PyObjectPlus)
-
-    The current keyboard."""
+    """The current keyboard."""
 
     def __init__(self):
-        self.events = {0 : 0}
-        self.active_events = {0 : 0}
+        # type: () -> None
+        super().__init__()
 
-    def getClipboard(self, ):
+        self.events = {}  # type: dict[int, int]
+        """A dictionary containing the status of each keyboard event or key. (read-only)."""
+
+        self.active_events = {}  # type: dict[int, int]
+        """A dictionary containing the status of only the active keyboard events or keys. (read-only)."""
+
+    def getClipboard(self):
+        # type: () -> str
         """Gets the clipboard text.
 
-        Return type:
-        string"""
-        return str()
+        Returns:
+            string"""
+
+        pass
 
     def setClipboard(self, text):
+        # type: (str) -> None
         """Sets the clipboard text.
 
         Args:
-        text (string): New clipboard text"""
+            text (string): New clipboard text"""
+
         pass
 
-    pass
 
 class SCA_PythonMouse(PyObjectPlus):
-
-    """base class - PyObjectPlus
-
-    class bge.SCA_PythonMouse(PyObjectPlus)
-
-    The current mouse."""
+    """The current mouse."""
 
     def __init__(self):
-        self.events = {0 : 0}
-        self.active_events = {0 : 0}
-        self.position = (int(), int())
+        # type: () -> None
+        super().__init__()
+
+        self.events = {}  # type: dict[int, int]
+        """A dictionary containing the status of each mouse event. (read-only)."""
+
+        self.active_events = {}  # type: dict[int, int]
+        """A dictionary containing the status of only the active mouse events. (read-only)."""
+
+        self.position = tuple()  # type: tuple[int, int]
+        """The normalized x and y position of the mouse cursor."""
+
         self.visible = True  # type: bool
+        """The visibility of the mouse cursor."""
+
 
 class SCA_RandomActuator(SCA_IActuator):
 
@@ -1333,36 +1342,34 @@ class SCA_RandomActuator(SCA_IActuator):
     pass
 
 class SCA_RandomSensor(SCA_ISensor):
-
-    """base class - SCA_ISensor
-
-    class bge.SCA_RandomSensor(SCA_ISensor)
-
-    This sensor activates randomly."""
+    """This sensor activates randomly."""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.lastDraw = 0  # type: int
+        """The seed of the random number generator."""
+
         self.seed = 0  # type: int
+        """The seed of the random number generator."""
+
 
 class SCA_XNORController(SCA_IController):
-    """base class - SCA_IController
+    """An XNOR controller activates when all linked sensors are the same (activated or inative).
 
-    class bge.SCA_XNORController(SCA_IController)
+    There are no special Python methods for this controller."""
 
-    An XNOR controller activates when all linked sensors are the same (activated or inative).
-
-    There are no special python methods for this controller."""
     pass
+
 
 class SCA_XORController(SCA_IController):
-    """base class - SCA_IController
+    """An XOR controller activates when there is the input is mixed, but not when all are on or off.
 
-    class bge.SCA_XORController(SCA_IController)
+    There are no special Python methods for this controller."""
 
-    An XOR controller activates when there is the input is mixed, but not when all are on or off.
-
-    There are no special python methods for this controller."""
     pass
+
 
 class BL_ActionActuator(SCA_IActuator):
     """base class - SCA_IActuator
