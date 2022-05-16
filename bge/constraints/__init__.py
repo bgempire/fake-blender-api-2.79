@@ -3,6 +3,73 @@
 from .. import types as _types
 
 
+# Constants
+error = ""
+"""Symbolic constant string that indicates error."""
+
+# Debug Mode Constants
+DBG_NODEBUG = 0
+"""No debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_DRAWWIREFRAME = 1
+"""Draw wireframe in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_DRAWAABB = 2
+"""Draw Axis Aligned Bounding Box in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_DRAWFREATURESTEXT = 4
+"""Draw features text in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_DRAWCONTACTPOINTS = 8
+"""Draw contact points in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_NOHELPTEXT = 32
+"""Debug without help text. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_DRAWTEXT = 64
+"""Draw text in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_PROFILETIMINGS = 128
+"""Draw profile timings in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_ENABLESATCOMPARISION = 256
+"""Enable sat comparison in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_DISABLEBULLETLCP = 512
+"""Disable Bullet LCP. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_ENABLECCD = 1024
+"""Enable Continuous Collision Detection in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_DRAWCONSTRAINTS = 2048
+"""Draw constraints in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_DRAWCONSTRAINTSLIMITS = 4096
+"""Draw constraint limits in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+DBG_FASTWIREFRAME = 8192
+"""Draw a fast wireframe in debug. Debug mode to be used with bge.constraints.setDebugMode()."""
+
+# Create Constraints Constants
+POINTTOPOINT_CONSTRAINT = 1
+"""Constraint type to be used with bge.constraints.createConstraint()."""
+
+LINEHINGE_CONSTRAINT = 2
+"""Constraint type to be used with bge.constraints.createConstraint()."""
+
+ANGULAR_CONSTRAINT = 3
+"""Constraint type to be used with bge.constraints.createConstraint()."""
+
+CONETWIST_CONSTRAINT = 4
+"""Constraint type to be used with bge.constraints.createConstraint()."""
+
+VEHICLE_CONSTRAINT = 11
+"""Constraint type to be used with bge.constraints.createConstraint()."""
+
+GENERIC_6DOF_CONSTRAINT = 12
+"""Constraint type to be used with bge.constraints.createConstraint()."""
+
+
 # Functions
 def createConstraint(physicsid_1, physicsid_2, constraint_type, pivot_x=0.0, pivot_y=0.0, pivot_z=0.0, axis_x=0.0, axis_y=0.0, axis_z=0.0, flag=0):
     # type: (int, int, int, float, float, float, float, float, float, int) -> _types.KX_ConstraintWrapper
@@ -259,59 +326,3 @@ def setUseEpa(epa):
         Not implemented."""
 
     pass
-
-
-# Constants
-error = ""
-"""Symbolic constant string that indicates error."""
-
-# Debug Mode Constants
-DBG_NODEBUG = 0
-"""No debug."""
-
-DBG_DRAWWIREFRAME = 1
-"""Draw wireframe in debug."""
-
-DBG_DRAWAABB = 2
-"""Draw Axis Aligned Bounding Box in debug."""
-
-DBG_DRAWFREATURESTEXT = 4
-"""Draw features text in debug."""
-
-DBG_DRAWCONTACTPOINTS = 8
-"""Draw contact points in debug."""
-
-DBG_NOHELPTEXT = 32
-"""Debug without help text."""
-
-DBG_DRAWTEXT = 64
-"""Draw text in debug."""
-
-DBG_PROFILETIMINGS = 128
-"""Draw profile timings in debug."""
-
-DBG_ENABLESATCOMPARISION = 256
-"""Enable sat comparison in debug."""
-
-DBG_DISABLEBULLETLCP = 512
-"""Disable Bullet LCP."""
-
-DBG_ENABLECCD = 1024
-"""Enable Continuous Collision Detection in debug."""
-
-DBG_DRAWCONSTRAINTS = 2048
-"""Draw constraints in debug."""
-
-DBG_DRAWCONSTRAINTSLIMITS = 4096
-"""Draw constraint limits in debug."""
-
-DBG_FASTWIREFRAME = 8192
-"""Draw a fast wireframe in debug."""
-
-# Create Constraints Constants
-POINTTOPOINT_CONSTRAINT = 1
-LINEHINGE_CONSTRAINT = 2
-ANGULAR_CONSTRAINT = 3
-CONETWIST_CONSTRAINT = 4
-VEHICLE_CONSTRAINT = 11
-GENERIC_6DOF_CONSTRAINT = 12
