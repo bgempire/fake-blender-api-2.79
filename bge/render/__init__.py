@@ -5,23 +5,56 @@ Module to manipulate general screen tasks."""
 # Constants
 # General
 KX_TEXFACE_MATERIAL = 0  # type: int
+"""Materials as defined by the texture face settings. See bge.render.getMaterialMode() and bge.render.setMaterialMode()."""
+
 KX_BLENDER_MULTITEX_MATERIAL = 1  # type: int
+"""Materials approximating blender materials with multitexturing. See bge.render.getMaterialMode() and bge.render.setMaterialMode()."""
+
 KX_BLENDER_GLSL_MATERIAL = 2  # type: int
+"""Materials approximating blender materials with GLSL. See bge.render.getMaterialMode() and bge.render.setMaterialMode()."""
+
 VSYNC_OFF = 1  # type: int
+"""Disables vsync. See bge.render.getVsync() and bge.render.setVsync()."""
+
 VSYNC_ON = 0  # type: int
+"""Enables vsync. See bge.render.getVsync() and bge.render.setVsync()."""
+
 VSYNC_ADAPTIVE = 2  # type: int
+"""Enables adaptive vsync if supported. Adaptive vsync enables vsync if the framerate is above the monitors refresh rate. Otherwise, vsync is diabled if the framerate is too low. See bge.render.getVsync() and bge.render.setVsync()."""
+
 LEFT_EYE = 0  # type: int
+"""Left eye being used during stereoscopic rendering."""
+
 RIGHT_EYE = 1  # type: int
+"""Right eye being used during stereoscopic rendering."""
+
+RAS_OFS_RENDER_BUFFER = 1  # type: int
+"""The pixel buffer for offscreen render is a RenderBuffer. Argument to offScreenCreate()."""
+
+RAS_OFS_RENDER_TEXTURE = 2  # type: int
+"""The pixel buffer for offscreen render is a Texture. Argument to offScreenCreate()."""
+
 
 # HDR
 HDR_NONE = 0  # type: int
+"""Use 8 bit per channel image format."""
+
 HDR_HALF_FLOAT = 1  # type: int
+"""Use 16 bit float per channel image format."""
+
 HDR_FULL_FLOAT = 2  # type: int
+"""Use 32 bit float per channel image format."""
+
 
 # Mipmap
 RAS_MIPMAP_NONE = 0  # type: int
+"""Disables mipmaps. See bge.render.getMipmapping() and bge.render.setMipmapping()."""
+
 RAS_MIPMAP_NEAREST = 1  # type: int
+"""Nearest mipmaps. See bge.render.getMipmapping() and bge.render.setMipmapping()."""
+
 RAS_MIPMAP_LINEAR = 2  # type: int
+"""Linear mipmaps. See bge.render.getMipmapping() and bge.render.setMipmapping()."""
 
 
 # Functions
