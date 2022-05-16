@@ -1,6 +1,6 @@
 """This module contains the classes that appear as instances in the Game Engine. A script must interact with these classes if it is to affect the behaviour of objects in a game."""
 
-from ...mathutils import Vector as _Vector, Matrix as _Matrix
+from ...mathutils import Vector as _Vector, Matrix as _Matrix, Color as _Color
 from typing import Callable as _Callable
 
 
@@ -882,7 +882,7 @@ class SCA_IController(SCA_ILogicBrick):
         super().__init__()
 
         self.state = 0  # type: int
-        """The controllers state bitmask. This can be used with the GameObject’s state to test if the controller is active."""
+        """The controllers state bitmask. This can be used with the GameObject's state to test if the controller is active."""
 
         self.sensors = {}  # type: dict[str, SCA_ISensor]
         """A list of sensors linked to this controller.
@@ -1152,33 +1152,47 @@ class SCA_PropertySensor(SCA_ISensor):
         self.max = ""  # type: str
 
 class SCA_PythonController(SCA_IController):
-
-    """base class - SCA_IController
-
-    class bge.SCA_PythonController(SCA_IController)
-
-    A Python controller uses a Python script to activate it's actuators, based on it's sensors."""
+    """A Python controller uses a Python script to activate it's actuators, based on it's sensors."""
 
     def __init__(self):
-        self.owner = KX_GameObject()
+        # type: () -> None
+        super().__init__()
+
+        self.owner = None  # type: KX_GameObject
+        """The object the controller is attached to."""
+
         self.script = ""  # type: str
+        """The value of this variable depends on the execution method.
+
+        - When 'Script' execution mode is set this value contains the entire Python script as a single string (not the script name as you might expect) which can be modified to run different scripts.
+        - When 'Module' execution mode is set this value will contain a single line string - module name and function "module.func" or "package.module.func" where the module names are python textblocks or external scripts.
+
+        Note:
+            Once this is set the script name given for warnings will remain unchanged."""
+
         self.mode = 0  # type: int
+        """The execution mode for this controller (read-only).
+
+        - Script: 0, Execute the script as a python code.
+        - Module: 1, Execute the script as a module and function."""
 
     def activate(self, actuator):
+        # type: (SCA_IActuator | str) -> None
         """Activates an actuator attached to this controller.
 
         Args:
-        actuator (actuator or the actuator name as a string): The actuator to operate on."""
+            actuator (actuator or the actuator name as a string): The actuator to operate on."""
         pass
 
     def deactivate(self, actuator):
+        # type: (SCA_IActuator | str) -> None
         """Deactivates an actuator attached to this controller.
 
         Args:
-        actuator (actuator or the actuator name as a string): The actuator to operate on."""
+            actuator (actuator or the actuator name as a string): The actuator to operate on."""
+
         pass
 
-    pass
 
 class SCA_PythonJoystick(PyObjectPlus):
 
@@ -3217,72 +3231,123 @@ class KX_VertexProxy(SCA_IObject):
     pass
 
 class KX_VisibilityActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.KX_VisibilityActuator(SCA_IActuator)
-
-    Visibility Actuator."""
+    """Visibility Actuator."""
 
     def __init__(self):
-        self.visibility = 0
-        self.useOcclusion = 0
-        self.useRecursion = 0
+        # type: () -> None
+        super().__init__()
+
+        self.visibility = False  # type: bool
+        """Whether the actuator makes its parent object visible or invisible."""
+
+        self.useOcclusion = False  # type: bool
+        """whether the actuator makes its parent object an occluder or not."""
+
+        self.useRecursion = False  # type: bool
+        """whether the visibility/occlusion should be propagated to all children of the object."""
+
 
 class KX_WorldInfo(PyObjectPlus):
-    """base class - PyObjectPlus
-
-    class bge.KX_WorldInfo(PyObjectPlus)
-
-    A world object.
-
-    # Set the mist color to red.
-    import bge
-
-    sce = bge.logic.getCurrentScene()
-
-    sce.world.mistColor = [1.0, 0.0, 0.0]"""
+    """A world object."""
 
     # Constants
-    KX_MIST_QUADRATIC = 0
-    KX_MIST_LINEAR = 0
-    KX_MIST_INV_QUADRATIC = 0
+    KX_MIST_QUADRATIC = 0  # type: int
+    """Type of quadratic attenuation used to fade mist. See bge.types.KX_WorldInfo.mistType."""
+
+    KX_MIST_LINEAR = 1  # type: int
+    """Type of linear attenuation used to fade mist. See bge.types.KX_WorldInfo.mistType."""
+
+    KX_MIST_INV_QUADRATIC = 2  # type: int
+    """Type of inverse quadratic attenuation used to fade mist. See bge.types.KX_WorldInfo.mistType."""
 
     def __init__(self):
-        self.mistEnable = 0
-        self.mistStart = 0
-        self.mistDistance = 0
-        self.mistIntensity = 0
-        self.mistType = 0
-        self.mistColor = 0
-        self.backgroundColor = 0
-        self.ambientColor = 0
+        # type: () -> None
+        super().__init__()
+
+        self.mistEnable = True  # type: bool
+        """Return the state of the mist."""
+
+        self.mistStart = 0.0  # type: float
+        """The mist start point."""
+
+        self.mistDistance = 0.0  # type: float
+        """The mist distance fom the start point to reach 100% mist."""
+
+        self.mistIntensity = 0.0  # type: float
+        """The mist intensity."""
+
+        self.mistType = 0  # type: int
+        """The type of mist - must be KX_MIST_QUADRATIC, KX_MIST_LINEAR or KX_MIST_INV_QUADRATIC"""
+
+        self.mistColor =  None  # type: _Color
+        """The color of the mist. Black = [0.0, 0.0, 0.0], White = [1.0, 1.0, 1.0]. Mist and background color sould always set to the same color."""
+
+        self.horizonColor = None  # type: _Vector
+        """The horizon color. Black = [0.0, 0.0, 0.0, 1.0], White = [1.0, 1.0, 1.0, 1.0]. Mist and horizon color should always be set to the same color."""
+
+        self.zenithColor = None  # type: _Vector
+        """The zenith color. Black = [0.0, 0.0, 0.0, 1.0], White = [1.0, 1.0, 1.0, 1.0]."""
+
+        self.ambientColor = None  # type: _Color
+        """The color of the ambient light. Black = [0.0, 0.0, 0.0], White = [1.0, 1.0, 1.0]."""
+
+        self.exposure = 0.0  # type: float
+        """Amount of exponential color correction for light."""
+
+        self.range = 0.0  # type: float
+        """The color range that will be mapped to 0 - 1."""
+
+        self.envLightEnergy = 0.0  # type: float
+        """The environment light energy."""
+
+        self.envLightEnabled = False  # type: bool
+        """Returns True if Environment Lighting is enabled. Else returns False"""
+
+        self.envLightColor = None  # type: _Vector
+        """White: returns 0 SkyColor: returns 1 SkyTexture: returns 2"""
+
+        self.backgroundColor = None  # type: _Color
+        """The color of the background. Black = [0.0, 0.0, 0.0], White = [1.0, 1.0, 1.0]. Mist and background color sould always set to the same color."""
+
 
 class KX_PythonComponent(CValue):
-    """base class — EXP_Value
+    """Python component can be compared to python logic bricks with parameters. The python component is a script loaded in the UI, this script defined a component class by inheriting from KX_PythonComponent. This class must contain a dictionary of properties: args and two default functions: start() and update().
 
-    classKX_PythonComponent(EXP_Value)
-
-    Python component can be compared to python logic bricks with parameters. The python component is a script loaded in the UI, this script defined a component class by inheriting from KX_PythonComponent. This class must contain a dictionary of properties: args and two default functions: start() and update().
     The script must have .py extension.
+
     The component properties are loaded from the args attribute from the UI at loading time. When the game start the function start() is called with as arguments a dictionary of the properties' name and value. The update() function is called every frames during the logic stage before running logics bricks, the goal of this function is to handle and process everything.
+
     Since the components are loaded for the first time outside the bge, then bge is a fake module that contains only the class KX_PythonComponent to avoid importing all the bge modules. This behavior is safer but creates some issues at loading when the user want to use functions or attributes from the bge modules other than the KX_PythonComponent class. The way is to not call these functions at loading outside the bge. To detect it, the bge module contains the attribute __component__ when it's imported outside the bge.
+
     The property types supported are float, integer, boolean, string, set (for enumeration) and Vector 2D, 3D and 4D."""
 
     def __init__(self):
-        self.object = KX_GameObject()
-        self.args = dict()
+        # type: () -> None
+        super().__init__()
+
+        self.object = None  # type: KX_GameObject
+        """The object owner of the component."""
+
+        self.args = {}  # type: dict[str, object]
+        """Dictionary of the component properties, the keys are string and the value can be: float, integer, Vector(2D/3D/4D), set, string."""
 
     def start(self, args):
+        # type: (dict[str, object]) -> None
         """Initialize the component.
 
         Args:
-        args (dict): The dictionary of the properties' name and value.
+            args (dict): The dictionary of the properties' name and value.
 
-        Warning: This function must be inherited in the python component class."""
+        Warning:
+            This function must be inherited in the python component class."""
+
         pass
 
     def update(self):
+        # type: () -> None
         """Process the logic of the component.
 
-        Warning: This function must be inherited in the python component class."""
+        Warning:
+            This function must be inherited in the python component class."""
+
         pass
