@@ -3,6 +3,7 @@
 from ...mathutils import Vector as _Vector, Matrix as _Matrix
 from typing import Callable as _Callable
 
+
 class PyObjectPlus:
     """Base class of most other types in the Game Engine."""
 
@@ -35,7 +36,7 @@ class CPropValue(CValue):
 
 
 class CListValue(CPropValue):
-    """This is a list like object used in the game engine internally that behaves similar to a python list in most ways.
+    """This is a list like object used in the game engine internally that behaves similar to a Python list in most ways.
 
     As well as the normal index lookup (val= clist[i]), CListValue supports string lookups (val= scene.objects["Cube"])
 
@@ -44,6 +45,21 @@ class CListValue(CPropValue):
     def __init__(self):
         # type: () -> None
         super().__init__()
+
+    def __setitem__(self, key, value):
+        # type: (str | int, object | CValue) -> None
+
+        pass
+
+    def __getitem__(self, item):
+        # type: (str | int) -> object
+
+        pass
+
+    def __len__(self):
+        # type: () -> int
+
+        pass
 
     def append(self, val):
         # type: (object | CValue) -> None
