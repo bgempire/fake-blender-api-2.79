@@ -14,39 +14,98 @@ from ... import bgl as _bgl
 # Constants
 # FFmpeg Video and Image Status
 SOURCE_ERROR = -1  # type: int
+"""See FFmpeg Video and Image classes status attributes."""
 SOURCE_EMPTY = 0  # type: int
+"""See FFmpeg Video and Image classes status attributes."""
 SOURCE_READY = 1  # type: int
+"""See FFmpeg Video and Image classes status attributes."""
 SOURCE_PLAYING = 2  # type: int
+"""See FFmpeg Video and Image classes status attributes."""
 SOURCE_STOPPED = 3  # type: int
+"""See FFmpeg Video and Image classes status attributes."""
+
 
 # Image Blending Modes
 IMB_BLEND_MIX = 0  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_ADD = 1  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_SUB = 2  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_MUL = 3  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_LIGHTEN = 4  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_DARKEN = 5  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_ERASE_ALPHA = 6  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_ADD_ALPHA = 7  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_OVERLAY = 8  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_HARDLIGHT = 9  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_COLORBURN = 10  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_LINEARBURN = 11  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_COLORDODGE = 12  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_SCREEN = 13  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_SOFTLIGHT = 14  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_PINLIGHT = 15  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_VIVIDLIGHT = 16  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_LINEARLIGHT = 17  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_DIFFERENCE = 18  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_EXCLUSION = 19  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_HUE = 20  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_SATURATION = 21  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_LUMINOSITY = 22  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_COLOR = 23  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_COPY = 1000  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_COPY_RGB = 1001  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
+
 IMB_BLEND_COPY_ALPHA = 1002  # type: int
+"""See Wikipedia's Blend Modes for reference: https://en.wikipedia.org/wiki/Blend_modes"""
 
 
 # Video Classes
