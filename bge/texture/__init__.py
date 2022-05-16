@@ -15,12 +15,16 @@ from ... import bgl as _bgl
 # FFmpeg Video and Image Status
 SOURCE_ERROR = -1  # type: int
 """See FFmpeg Video and Image classes status attributes."""
+
 SOURCE_EMPTY = 0  # type: int
 """See FFmpeg Video and Image classes status attributes."""
+
 SOURCE_READY = 1  # type: int
 """See FFmpeg Video and Image classes status attributes."""
+
 SOURCE_PLAYING = 2  # type: int
 """See FFmpeg Video and Image classes status attributes."""
+
 SOURCE_STOPPED = 3  # type: int
 """See FFmpeg Video and Image classes status attributes."""
 
