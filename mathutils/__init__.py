@@ -802,7 +802,7 @@ class Quaternion:
 
         pass
 
-    def to_euler(self, order, euler_compat):
+    def to_euler(self, order="", euler_compat=None):
         # type: (str, Euler) -> Euler
         """Return Euler representation of the quaternion.
 
