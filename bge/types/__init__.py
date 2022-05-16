@@ -1501,23 +1501,32 @@ class BL_ArmatureConstraint(PyObjectPlus):
         self.ik_mode = 0
 
 class BL_ArmatureObject(KX_GameObject):
-    """base class - KX_GameObject
-
-    class bge.BL_ArmatureObject(KX_GameObject)
-
-    An armature object."""
+    """An armature object."""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.constraints = 0
-        self.channels = 0
+        """The list of armature constraint defined on this armature. Elements of the list can be accessed by index or string. The key format for string access is '<bone_name>:<constraint_name>'."""
+
+        self.channels = []  # type: list[BL_ArmatureChannel]
+        """The list of armature channels. Elements of the list can be accessed by index or name the bone."""
 
     def update(self):
+        # type: () -> None
         """Ensures that the armature will be updated on next graphic frame.
 
         This action is unecessary if a KX_ArmatureActuator with mode run is active or if an action is playing. Use this function in other cases. It must be called on each frame to ensure that the armature is updated continously."""
+
         pass
 
-    pass
+    def draw(self):
+        # type: () -> None
+        """Draw lines that represent armature to view it in real time."""
+
+        pass
+
 
 class BL_Shader(PyObjectPlus):
     """base class - PyObjectPlus
@@ -2115,27 +2124,30 @@ class KX_ConstraintWrapper(PyObjectPlus):
     pass
 
 class KX_FontObject(KX_GameObject):
-    """base class - KX_GameObject
-
-    class bge.KX_FontObject(KX_GameObject)
-
-    A Font object.
-
-    # Display a message about the exit key using a Font object.
-    import bge
-
-    co = bge.logic.getCurrentController()
-    font = co.owner
-
-    exit_key = bge.events.EventToString(bge.logic.getExitKey())
-
-    if exit_key.endswith("KEY"):
-        exit_key = exit_key[:-3]
-
-    font.text = "Press key '%s' to quit the game." % exit_key"""
+    """A Font object."""
 
     def __init__(self):
-        self.text = 0
+        # type: () -> None
+        super().__init__()
+
+        self.text = ""  # type: str
+        """The text displayed by this Font object."""
+
+        self.resolution = 0.0  # type: float
+        """The resolution of the font police.
+
+        Warning:
+            High resolution can use a lot of memory and may crash."""
+
+        self.size = 0.0  # type: float
+        """The size (scale factor) of the font object, scaled from font object origin (affects text resolution).
+
+        Warning:
+            High size can use a lot of memory and may crash."""
+
+        self.dimensions = None  # type: _Vector
+        """The size (width and height) of the current text in Blender Units."""
+
 
 class KX_GameActuator(SCA_IActuator):
     """base class - SCA_IActuator
@@ -2166,25 +2178,27 @@ class KX_IpoActuator(SCA_IActuator):
         self.useChildren = 0
 
 class KX_LibLoadStatus(PyObjectPlus):
-    """base class - PyObjectPlus
-
-    class bge.KX_LibLoadStatus(PyObjectPlus)
-
-    An object providing information about a LibLoad() operation.
-
-    # Print a message when an async LibLoad is done
-    import bge
-
-    def finished_cb(status):
-        print("Library (%s) loaded in %.2fms." % (status.libraryName, status.timeTaken))
-
-    bge.logic.LibLoad('myblend.blend', 'Scene', async=True).onFinish = finished_cb"""
+    """An object providing information about a LibLoad() operation."""
 
     def __init__(self):
-        self.onFinish = 0
-        self.progress = 0
-        self.libraryName = 0
-        self.timeTaken = 0
+        # type: () -> None
+        super().__init__()
+
+        self.onFinish = None  # type: _Callable
+        """A callback that gets called when the lib load is done."""
+
+        self.finished = False  # type: bool
+        """The current status of the lib load."""
+
+        self.progress = 0.0  # type: float
+        """The current progress of the lib load as a normalized value from 0.0 to 1.0."""
+
+        self.libraryName = ""  # type: str
+        """The name of the library being loaded (the first argument to LibLoad)."""
+
+        self.timeTaken = 0.0  # type: float
+        """The amount of time, in seconds, the lib load took (0 until the operation is complete)."""
+
 
 class KX_LightObject(KX_GameObject):
     """base class - KX_GameObject
