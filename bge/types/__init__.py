@@ -1412,133 +1412,357 @@ class SCA_XORController(SCA_IController):
 
 
 class BL_ActionActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.BL_ActionActuator(SCA_IActuator)
-
-    Action Actuators apply an action to an actor."""
+    """Action Actuators apply an action to an actor."""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.action = ""  # type: str
+        """The name of the action to set as the current action."""
+
         self.frameStart = 0.0  # type: float
+        """Specifies the starting frame of the animation."""
+
         self.frameEnd = 0.0  # type: float
+        """Specifies the ending frame of the animation."""
+
         self.blendIn = 0.0  # type: float
+        """Specifies the number of frames of animation to generate when making transitions between actions."""
+
         self.priority = 0  # type: int
+        """Sets the priority of this actuator. Actuators will lower priority numbers will override actuators with higher numbers."""
+
         self.frame = 0.0  # type: float
+        """Sets the current frame for the animation."""
+
         self.propName = ""  # type: str
-        self.blendTime = 0.0  # type: float
+        """Sets the property to be used in FromProp playback mode."""
+
         self.mode = 0  # type: int
+        """The operation mode of the actuator. Can be one of these constants."""
+
+        self.blendTime = 0.0  # type: float
+        """Sets the internal frame timer. This property must be in the range from 0.0 to blendIn."""
+
         self.useContinue = True  # type: bool
+        """The actions continue option, True or False. When True, the action will always play from where last left off, otherwise negative events to this actuator will reset it to its start frame."""
+
         self.framePropName = ""  # type: str
+        """The name of the property that is set to the current frame number."""
+
 
 class BL_ArmatureActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.BL_ArmatureActuator(SCA_IActuator)
-
-    Armature Actuators change constraint condition on armatures."""
+    """Armature Actuators change constraint condition on armatures."""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.type = 0  # type: int
-        self.constraint = BL_ArmatureConstraint()
-        self.target = KX_GameObject()
-        self.subtarget = KX_GameObject()
+        """The type of action that the actuator executes when it is active."""
+
+        self.constraint = None  # type: BL_ArmatureConstraint
+        """The constraint object this actuator is controlling."""
+
+        self.target = None  # type: KX_GameObject
+        """The object that this actuator will set as primary target to the constraint it controls."""
+
+        self.subtarget = None  # type: KX_GameObject
+        """The object that this actuator will set as secondary target to the constraint it controls.
+
+        Note:
+            Currently, the only secondary target is the pole target for IK constraint."""
+
         self.weight = 0.0  # type: float
+        """The weight this actuator will set on the constraint it controls.
+
+        Notes:
+            - Currently only the IK constraint has a weight. It must be a value between 0 and 1.
+            - A weight of 0 disables a constraint while still updating constraint runtime values (see BL_ArmatureConstraint)"""
+
         self.influence = 0.0  # type: float
+        """The influence this actuator will set on the constraint it controls."""
+
 
 class BL_ArmatureBone(PyObjectPlus):
-    """base class - PyObjectPlus
-
-    class bge.BL_ArmatureBone(PyObjectPlus)
-
-    Proxy to Blender bone structure. All fields are read-only and comply to RNA names. All space attribute correspond to the rest pose."""
+    """Proxy to Blender bone structure. All fields are read-only and comply to RNA names. All space attribute correspond to the rest pose."""
 
     def __init__(self):
-        from mathutils import Vector, Matrix
+        # type: () -> None
+        super().__init__()
 
-        self.parent = BL_ArmatureBone
-        self.children = [BL_ArmatureBone]
+        self.parent = None  # type: BL_ArmatureBone
+        """Parent bone, or None for root bone."""
+
+        self.children = []  # type: list[BL_ArmatureBone]
+        """List of bone's children."""
+
         self.name = ""  # type: str
+        """Bone name."""
+
         self.connected = True  # type: bool
+        """True when the bone head is struck to the parent's tail."""
+
         self.hinge = True  # type: bool
+        """True when bone doesn't inherit rotation or scale from parent bone."""
+
         self.inherit_scale = True  # type: bool
+        """True when bone inherits scaling from parent bone."""
+
         self.bbone_segments = 0  # type: int
+        """Number of B-bone segments."""
+
         self.roll = 0.0  # type: float
-        self.head = Vector(None)
-        self.tail = Vector(None)
+        """Bone rotation around head-tail axis."""
+
+        self.head = None  # type: _Vector
+        """Location of head end of the bone in parent bone space."""
+
+        self.tail = None  # type: _Vector
+        """Location of head end of the bone in parent bone space."""
+
         self.length = 0.0  # type: float
-        self.arm_head = Vector(None)
-        self.arm_tail = Vector(None)
-        self.arm_mat = Matrix(None)
-        self.bone_mat = Matrix(None)
+        """Bone length."""
+
+        self.arm_head = None  # type: _Vector
+        """Location of head end of the bone in armature space."""
+
+        self.arm_tail = None  # type: _Vector
+        """Location of tail end of the bone in armature space."""
+
+        self.arm_mat = None  # type: _Matrix
+        """Matrix of the bone head in armature space.
+
+        Note:
+            This matrix has no scale part."""
+
+        self.bone_mat = None  # type: _Matrix
+        """Rotation matrix of the bone in parent bone space."""
+
 
 class BL_ArmatureChannel(PyObjectPlus):
-    """base class - PyObjectPlus
-
-    class bge.BL_ArmatureChannel(PyObjectPlus)
-
-    Proxy to armature pose channel. Allows to read and set armature pose. The attributes are identical to RNA attributes, but mostly in read-only mode."""
+    """Proxy to armature pose channel. Allows to read and set armature pose. The attributes are identical to RNA attributes, but mostly in read-only mode."""
 
     def __init__(self):
-        self.name = 0
-        self.bone = 0
-        self.parent = 0
-        self.has_ik = 0
-        self.ik_dof_x = 0
-        self.ik_dof_y = 0
-        self.ik_dof_z = 0
-        self.ik_limit_x = 0
-        self.ik_limit_y = 0
-        self.ik_limit_z = 0
-        self.ik_rot_control = 0
-        self.ik_lin_control = 0
-        self.location = 0
-        self.scale = 0
-        self.rotation_quaternion = 0
-        self.rotation_euler = 0
-        self.rotation_mode = 0
-        self.channel_matrix = 0
-        self.pose_matrix = 0
-        self.pose_head = 0
-        self.pose_tail = 0
-        self.ik_min_x = 0
-        self.ik_max_x = 0
-        self.ik_min_y = 0
-        self.ik_max_y = 0
-        self.ik_min_z = 0
-        self.ik_max_z = 0
-        self.ik_stiffness_x = 0
-        self.ik_stiffness_y = 0
-        self.ik_stiffness_z = 0
-        self.ik_stretch = 0
-        self.ik_rot_weight = 0
-        self.ik_lin_weight = 0
-        self.joint_rotation = 0
+        # type: () -> None
+        super().__init__()
+
+        self.name = ""  # type: str
+        """Channel name (=bone name), read-only."""
+
+        self.bone = None  # type: BL_ArmatureBone
+        """Return the bone object corresponding to this pose channel, read-only."""
+
+        self.parent = None  # type: BL_ArmatureChannel
+        """Return the parent channel object, None if root channel, read-only."""
+
+        self.has_ik = False  # type: bool
+        """True if the bone is part of an active IK chain, read-only. This flag is not set when an IK constraint is defined but not enabled (miss target information for example)."""
+
+        self.ik_dof_x = False  # type: bool
+        """True if the bone is free to rotation in the X axis, read-only."""
+
+        self.ik_dof_y = False  # type: bool
+        """True if the bone is free to rotation in the Y axis, read-only."""
+
+        self.ik_dof_z = False  # type: bool
+        """True if the bone is free to rotation in the Z axis, read-only."""
+
+        self.ik_limit_x = False  # type: bool
+        """True if a limit is imposed on X rotation, read-only."""
+
+        self.ik_limit_y = False  # type: bool
+        """True if a limit is imposed on Y rotation, read-only."""
+
+        self.ik_limit_z = False  # type: bool
+        """True if a limit is imposed on Z rotation, read-only."""
+
+        self.ik_rot_control = False  # type: bool
+        """True if channel rotation should applied as IK constraint, read-only."""
+
+        self.ik_lin_control = False  # type: bool
+        """True if channel size should applied as IK constraint, read-only."""
+
+        self.location = None  # type: _Vector
+        """Displacement of the bone head in armature local space, read-write.
+
+        Notes:
+            - You can only move a bone if it is unconnected to its parent. An action playing on the armature may change the value. An IK chain does not update this value, see joint_rotation.
+            - Changing this field has no immediate effect, the pose is updated when the armature is updated during the graphic render (see BL_ArmatureObject.update)."""
+
+        self.scale = None  # type: _Vector
+        """Scale of the bone relative to its parent, read-write.
+
+        Notes:
+            - An action playing on the armature may change the value. An IK chain does not update this value, see joint_rotation.
+            - Changing this field has no immediate effect, the pose is updated when the armature is updated during the graphic render (see BL_ArmatureObject.update)"""
+
+        self.rotation_quaternion = None  # type: _Vector
+        """Rotation of the bone relative to its parent expressed as a quaternion, read-write.
+
+        Notes:
+            - This field is only used if rotation_mode is 0. An action playing on the armature may change the value. An IK chain does not update this value, see joint_rotation.
+            - Changing this field has no immediate effect, the pose is updated when the armature is updated during the graphic render (see BL_ArmatureObject.update)"""
+
+        self.rotation_euler = None  # type: _Vector
+        """Rotation of the bone relative to its parent expressed as a set of euler angles, read-write.
+
+        Notes:
+            - This field is only used if rotation_mode is > 0. You must always pass the angles in [X, Y, Z] order; the order of applying the angles to the bone depends on rotation_mode. An action playing on the armature may change this field. An IK chain does not update this value, see joint_rotation.
+            - Changing this field has no immediate effect, the pose is updated when the armature is updated during the graphic render (see BL_ArmatureObject.update)"""
+
+        self.rotation_mode = 0  # type: int
+        """Method of updating the bone rotation, read-write."""
+
+        self.channel_matrix = None  # type: _Matrix
+        """Pose matrix in bone space (deformation of the bone due to action, constraint, etc), Read-only. This field is updated after the graphic render, it represents the current pose."""
+
+        self.pose_matrix = None  # type: _Matrix
+        """Pose matrix in armature space, read-only, This field is updated after the graphic render, it represents the current pose."""
+
+        self.pose_head = None  # type: _Vector
+        """Position of bone head in armature space, read-only."""
+
+        self.pose_tail = None  # type: _Vector
+        """Position of bone tail in armature space, read-only."""
+
+        self.ik_min_x = 0.0  # type: float
+        """Minimum value of X rotation in degree (<= 0) when X rotation is limited (see ik_limit_x), read-only."""
+
+        self.ik_max_x = 0.0  # type: float
+        """Maximum value of X rotation in degree (>= 0) when X rotation is limited (see ik_limit_x), read-only."""
+
+        self.ik_min_y = 0.0  # type: float
+        """Minimum value of Y rotation in degree (<= 0) when Y rotation is limited (see ik_limit_y), read-only."""
+
+        self.ik_max_y = 0.0  # type: float
+        """Maximum value of Y rotation in degree (>= 0) when Y rotation is limited (see ik_limit_y), read-only."""
+
+        self.ik_min_z = 0.0  # type: float
+        """Minimum value of Z rotation in degree (<= 0) when Z rotation is limited (see ik_limit_z), read-only."""
+
+        self.ik_max_z = 0.0  # type: float
+        """Maximum value of Z rotation in degree (>= 0) when Z rotation is limited (see ik_limit_z), read-only."""
+
+        self.ik_stiffness_x = 0.0  # type: float
+        """Bone rotation stiffness in X axis, read-only."""
+
+        self.ik_stiffness_y = 0.0  # type: float
+        """Bone rotation stiffness in Y axis, read-only."""
+
+        self.ik_stiffness_z = 0.0  # type: float
+        """Bone rotation stiffness in Z axis, read-only."""
+
+        self.ik_stretch = 0.0  # type: float
+        """Ratio of scale change that is allowed, 0=bone can't change size, read-only."""
+
+        self.ik_rot_weight = 0.0  # type: float
+        """Weight of rotation constraint when ik_rot_control is set, read-write."""
+
+        self.ik_lin_weight = 0.0  # type: float
+        """Weight of size constraint when ik_lin_control is set, read-write."""
+
+        self.joint_rotation = None  # type: _Vector
+        """Control bone rotation in term of joint angle (for robotic applications), read-write.
+
+        When writing to this attribute, you pass a [x, y, z] vector and an appropriate set of euler angles or quaternion is calculated according to the rotation_mode.
+
+        When you read this attribute, the current pose matrix is converted into a [x, y, z] vector representing the joint angles.
+
+        The value and the meaning of the x, y, z depends on the ik_dof_x/ik_dof_y/ik_dof_z attributes:
+
+        - 1DoF joint X, Y or Z: the corresponding x, y, or z value is used an a joint angle in radiant
+
+        - 2DoF joint X+Y or Z+Y: treated as 2 successive 1DoF joints: first X or Z, then Y. The x or z value is used as a joint angle in radiant along the X or Z axis, followed by a rotation along the new Y axis of y radiants.
+
+        - 2DoF joint X+Z: treated as a 2DoF joint with rotation axis on the X/Z plane. The x and z values are used as the coordinates of the rotation vector in the X/Z plane.
+
+        - 3DoF joint X+Y+Z: treated as a revolute joint. The [x, y, z] vector represents the equivalent rotation vector to bring the joint from the rest pose to the new pose.
+
+        Notes:
+        - The bone must be part of an IK chain if you want to set the ik_dof_x/ik_dof_y/ik_dof_z attributes via the UI, but this will interfere with this attribute since the IK solver will overwrite the pose. You can stay in control of the armature if you create an IK constraint but do not finalize it (e.g. don't set a target) the IK solver will not run but the IK panel will show up on the UI for each bone in the chain.
+        - [0, 0, 0] always corresponds to the rest pose.
+        - You must request the armature pose to update and wait for the next graphic frame to see the effect of setting this attribute (see BL_ArmatureObject.update).
+        - You can read the result of the calculation in rotation or euler_rotation attributes after setting this attribute."""
+
 
 class BL_ArmatureConstraint(PyObjectPlus):
-    """base class - PyObjectPlus
+    """Proxy to Armature Constraint. Allows to change constraint on the fly. Obtained through BL_ArmatureObject.constraints.
 
-    class bge.BL_ArmatureConstraint(PyObjectPlus)
-
-    Proxy to Armature Constraint. Allows to change constraint on the fly. Obtained through BL_ArmatureObject.constraints.
-
-    Note: Not all armature constraints are supported in the GE."""
+    Note:
+        Not all armature constraints are supported in the GE."""
 
     def __init__(self):
-        self.type = 0
-        self.name = 0
-        self.enforce = 0
-        self.headtail = 0
-        self.lin_error = 0
-        self.rot_error = 0
-        self.target = 0
-        self.subtarget = 0
-        self.active = 0
-        self.ik_weight = 0
-        self.ik_type = 0
-        self.ik_flag = 0
-        self.ik_dist = 0
-        self.ik_mode = 0
+        # type: () -> None
+        super().__init__()
+
+        self.type = 0  # type: int
+        """Type of constraint, (read-only)."""
+
+        self.name = ""  # type: str
+        """Name of constraint constructed as <bone_name>:<constraint_name>. constraints list.
+
+        This name is also the key subscript on BL_ArmatureObject."""
+
+        self.enforce = 0.0  # type: float
+        """fraction of constraint effect that is enforced. Between 0 and 1."""
+
+        self.headtail = 0.0  # type: float
+        """Position of target between head and tail of the target bone: 0=head, 1=tail.
+
+        Note:
+            Only used if the target is a bone (i.e target object is an armature."""
+
+        self.lin_error = 0.0  # type: float
+        """runtime linear error (in Blender units) on constraint at the current frame.
+
+        This is a runtime value updated on each frame by the IK solver. Only available on IK constraint and iTaSC solver."""
+
+        self.rot_error = 0.0  # type: float
+        """Runtime rotation error (in radiant) on constraint at the current frame.
+
+        This is a runtime value updated on each frame by the IK solver. Only available on IK constraint and iTaSC solver.
+
+        It is only set if the constraint has a rotation part, for example, a CopyPose+Rotation IK constraint."""
+
+        self.target = None  # type: KX_GameObject
+        """Primary target object for the constraint. The position of this object in the GE will be used as target for the constraint."""
+
+        self.subtarget = None  # type: KX_GameObject
+        """Secondary target object for the constraint. The position of this object in the GE will be used as secondary target for the constraint.
+
+        Currently this is only used for pole target on IK constraint."""
+
+        self.active = True  # type: bool
+        """True if the constraint is active.
+
+        Note:
+            An inactive constraint does not update lin_error and rot_error."""
+
+        self.ik_weight = 0.0  # type: float
+        """Weight of the IK constraint between 0 and 1.
+
+        Only defined for IK constraint."""
+
+        self.ik_type = 0  # type: int
+        """Type of IK constraint, (read-only).
+
+        Use one of these constants."""
+
+        self.ik_flag = 0  # type: int
+        """Combination of IK constraint option flags, read-only.
+
+        Use one of these constants."""
+
+        self.ik_dist = 0.0  # type: float
+        """Distance the constraint is trying to maintain with target, only used when ik_type=CONSTRAINT_IK_DISTANCE."""
+
+        self.ik_mode = 0  # type: int
+        """Use one of these constants.
+
+        Additional mode for IK constraint. Currently only used for Distance constraint."""
+
 
 class BL_ArmatureObject(KX_GameObject):
     """An armature object."""
@@ -2481,44 +2705,60 @@ class KX_NavMeshObject(KX_GameObject):
 
 
 class KX_NearSensor(KX_TouchSensor):
-
-    """base class - KX_TouchSensor
-
-    class bge.KX_NearSensor(KX_TouchSensor)
-
-    A near sensor is a specialised form of touch sensor."""
+    """A near sensor is a specialised form of touch sensor."""
 
     def __init__(self):
-        self.distance = 0
-        self.resetDistance = 0
+        # type: () -> None
+        super().__init__()
+
+        self.distance = 0.0  # type: float
+        """The near sensor activates when an object is within this distance."""
+
+        self.resetDistance = 0.0  # type: float
+        """The near sensor deactivates when the object exceeds this distance."""
+
 
 class KX_NetworkMessageActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.KX_NetworkMessageActuator(SCA_IActuator)
-
-    Message Actuator"""
+    """Message Actuator"""
 
     def __init__(self):
-        self.propName = 0
-        self.subject = 0
-        self.body = 0
-        self.usePropBody = 0
+        # type: () -> None
+        super().__init__()
+
+        self.propName = ""  # type: str
+        """Messages will only be sent to objects with the given property name."""
+
+        self.subject = ""  # type: str
+        """The subject field of the message."""
+
+        self.body = ""  # type: str
+        """The body of the message."""
+
+        self.usePropBody = False  # type: bool
+        """Send a property instead of a regular body message."""
+
 
 class KX_NetworkMessageSensor(SCA_ISensor):
-    """base class - SCA_ISensor
-
-    class bge.KX_NetworkMessageSensor(SCA_ISensor)
-
-    The Message Sensor logic brick.
+    """The Message Sensor logic brick.
 
     Currently only loopback (local) networks are supported."""
 
     def __init__(self):
-        self.subject = 0
-        self.frameMessageCount = 0
-        self.subjects = 0
-        self.bodies = 0
+        # type: () -> None
+        super().__init__()
+
+        self.subject = ""  # type: str
+        """The subject the sensor is looking for."""
+
+        self.frameMessageCount = 0  # type: int
+        """The number of messages received since the last frame. (read-only)."""
+
+        self.subjects = []  # type: list[str]
+        """The list of message subjects received. (read-only)."""
+
+        self.bodies = []  # type: list[str]
+        """The list of message bodies received. (read-only)."""
+
 
 class KX_ObjectActuator(SCA_IActuator):
     """base class - SCA_IActuator
