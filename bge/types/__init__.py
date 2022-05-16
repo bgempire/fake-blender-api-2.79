@@ -507,286 +507,326 @@ class KX_GameObject(SCA_IObject):
         pass
 
     def applyImpulse(self, point, impulse, local=False):
+        # type: (_Vector, _Vector, bool) -> None
         """Applies an impulse to the game object.
 
         This will apply the specified impulse to the game object at the specified point. If point != position, applyImpulse will also change the object's angular momentum. Otherwise, only linear momentum will change.
 
         Args:
-        point (point [ix, iy, iz] the point to apply the impulse to (in world or local coordinates)): the point to apply the impulse to (in world or local coordinates)
-        impulse (3D Vector): impulse vector.
-        local (boolean) -
-        False: you get the "global" impulse ie: relative to world coordinates with world orientation.
-        True: you get the "local" impulse ie: relative to local coordinates with object orientation."""
+            point (point [ix, iy, iz] the point to apply the impulse to (in world or local coordinates)): the point to apply the impulse to (in world or local coordinates)
+            impulse (3D Vector): impulse vector.
+            local (boolean): if False you get the "global" impulse (relative to world coordinates with world orientation), if True you get the "local" impulse (relative to local coordinates with object orientation)."""
+
         pass
 
     def setDamping(self, linear_damping, angular_damping):
+        # type: (float, float) -> None
         """Sets both the linearDamping and angularDamping simultaneously. This is more efficient than setting both properties individually.
 
         Args:
-        linear_damping (float ? [0, 1]): Linear ("translational") damping factor.
-        angular_damping (float ? [0, 1]): Angular ("rotational") damping factor."""
+            linear_damping (float ? [0, 1]): Linear ("translational") damping factor.
+            angular_damping (float ? [0, 1]): Angular ("rotational") damping factor."""
+
         pass
 
     def suspendPhysics(self, freeConstraints=False):
+        # type: (bool) -> None
         """Suspends physics for this object.
 
         Args:
-        freeConstraints (bool): When set to True physics constraints used by the object are deleted. Else when False (the default) constraints are restored when restoring physics."""
+            freeConstraints (bool): When set to True physics constraints used by the object are deleted. Else when False (the default) constraints are restored when restoring physics."""
+
         pass
 
     def restorePhysics(self):
+        # type: () -> None
         """Resumes physics for this object. Also reinstates collisions."""
+
         pass
 
     def suspendDynamics(self, ghost=False):
+        # type: (bool) -> None
         """Suspends physics for this object.
 
         Args:
-        ghost (bool): When set to True, collisions with the object will be ignored, similar to the "ghost" checkbox in Blender. When False (the default), the object becomes static but still collide with other objects.
+            ghost (bool): When set to True, collisions with the object will be ignored, similar to the "ghost" checkbox in Blender. When False (the default), the object becomes static but still collide with other objects.
 
-        See also isSuspendDynamics allows you to inspect whether the object is in a suspended state."""
+        Note:
+            See also isSuspendDynamics allows you to inspect whether the object is in a suspended state."""
         pass
 
     def restoreDynamics(self):
+        # type: () -> None
         """Resumes physics for this object. Also reinstates collisions; the object will no longer be a ghost.
 
-        Note: The objects linear velocity will be applied from when the dynamics were suspended."""
+        Note:
+            The objects linear velocity will be applied from when the dynamics were suspended."""
+
         pass
 
     def enableRigidBody(self):
+        # type: () -> None
         """Enables rigid body physics for this object.
 
         Rigid body physics allows the object to roll on collisions."""
+
         pass
 
     def disableRigidBody(self):
+        # type: () -> None
         """Disables rigid body physics for this object."""
+
         pass
 
     def setParent(self, parent, compound=True, ghost=True):
+        # type: (KX_GameObject, bool, bool) -> None
         """Sets this object's parent. Control the shape status with the optional compound and ghost Args:
 
         In that case you can control if it should be ghost or not:
 
         Args:
-        parent (KX_GameObject): new parent object.
-        compound (boolean) -
-        whether the shape should be added to the parent compound shape.
-        True: the object shape should be added to the parent compound shape.
-        False: the object should keep its individual shape.
-        ghost (boolean) -
-        whether the object should be ghost while parented.
-        True: if the object should be made ghost while parented.
-        False: if the object should be solid while parented.
+            parent (KX_GameObject): new parent object.
+            compound (boolean): whether the shape should be added to the parent compound shape. If True the object shape should be added to the parent compound shape, if False the object should keep its individual shape.
+            ghost (boolean): whether the object should be ghost while parented. If True the object should be made ghost while parented, if False the object should be solid while parented.
 
-        Note: If the object type is sensor, it stays ghost regardless of ghost parameter"""
+        Note:
+            If the object type is sensor, it stays ghost regardless of ghost parameter"""
+
         pass
 
     def removeParent(self):
+        # type: () -> None
         """Removes this objects parent."""
+
         pass
 
     def getPhysicsId(self):
+        # type: () -> int
         """Returns the user data object associated with this game object's physics controller."""
-        return int()
+
+        pass
 
     def getPropertyNames(self):
+        # type: () -> list[str]
         """Gets a list of all property names.
 
-        Returns: All property names for this object.
+        Returns:
+            list: All property names for this object."""
 
-        Return type: list"""
-        return list()
+        pass
 
-    def getDistanceTo(self):
-        """Args:	other (KX_GameObject or list [x, y, z]): a point or another KX_GameObject to measure the distance to.
+    def getDistanceTo(self, other):
+        # type: (KX_GameObject | _Vector) -> float
+        """Get distance to another object or point.
+
+        Args:
+            other (KX_GameObject or list [x, y, z]): a point or another KX_GameObject to measure the distance to.
 
         Returns:
-        distance to another object or point.
+            float: distance to another object or point."""
 
-        Return type:
-        float"""
-        return float()
+        pass
 
     def getVectTo(self, other):
+        # type: (KX_GameObject | _Vector) -> tuple[float, _Vector, _Vector]
         """Returns the vector and the distance to another object or point. The vector is normalized unless the distance is 0, in which a zero length vector is returned.
 
         Args:
-        other (KX_GameObject or list [x, y, z]): a point or another KX_GameObject to get the vector and distance to.
+            other (KX_GameObject or list [x, y, z]): a point or another KX_GameObject to get the vector and distance to.
 
         Returns:
-        (distance, globalVector(3), localVector(3))
+            tuple: (distance, globalVector(3), localVector(3)) as 3-tuple (float, 3-tuple (x, y, z), 3-tuple (x, y, z))"""
 
-        Return type:
-        3-tuple (float, 3-tuple (x, y, z), 3-tuple (x, y, z))"""
-        from mathutils import Vector
-        return (float(), Vector(None), Vector(None))
+        pass
 
-    def rayCastTo(self, other, dist=0, prop=""):
+    def rayCastTo(self, other, dist=0.0, prop=""):
+        # type: (KX_GameObject | _Vector, float, str) -> KX_GameObject
         """Look towards another point/object and find first object hit within dist that matches prop.
 
         The ray is always casted from the center of the object, ignoring the object itself. The ray is casted towards the center of another object or an explicit [x, y, z] point. Use rayCast() if you need to retrieve the hit point
 
         Args:
-        other (KX_GameObject or 3-tuple): [x, y, z] or object towards which the ray is casted
-        dist (float): max distance to look (can be negative => look behind); 0 or omitted => detect up to other
-        prop (string): property name that object must have; can be omitted => detect any object
+            other (KX_GameObject or 3-tuple): [x, y, z] or object towards which the ray is casted
+            dist (float): max distance to look (can be negative => look behind); 0 or omitted => detect up to other
+            prop (string): property name that object must have; can be omitted => detect any object
 
         Returns:
-        the first object hit or None if no object or object does not match prop
+            KX_GameObject: the first object hit or None if no object or object does not match prop"""
 
-        Return type:
-        KX_GameObject"""
-        return KX_GameObject()
+        pass
 
     def rayCast(self, objto, objfrom=None, dist=0, prop="", face=False, xray=False, poly=0, mask=0xFFFF):
+        # type: (KX_GameObject | _Vector, _Vector, float, str, bool, bool, int, int) -> tuple[KX_GameObject, _Vector, _Vector, KX_PolyProxy, _Vector]
         """Look from a point/object to another point/object and find first object hit within dist that matches prop. if poly is 0, returns a 3-tuple with object reference, hit point and hit normal or (None, None, None) if no hit. if poly is 1, returns a 4-tuple with in addition a KX_PolyProxy as 4th element. if poly is 2, returns a 5-tuple with in addition a 2D vector with the UV mapping of the hit point as 5th element.
 
-        Return type:
-        3-tuple (KX_GameObject, 3-tuple (x, y, z), 3-tuple (nx, ny, nz))
-        or 4-tuple (KX_GameObject, 3-tuple (x, y, z), 3-tuple (nx, ny, nz), KX_PolyProxy)
-        or 5-tuple (KX_GameObject, 3-tuple (x, y, z), 3-tuple (nx, ny, nz), KX_PolyProxy, 2-tuple (u, v))
+        Args:
+            objto (KX_GameObject or 3-tuple): [x, y, z] or object to which the ray is casted
+            objfrom (KX_GameObject or 3-tuple or None): [x, y, z] or object from which the ray is casted; None or omitted => use self object center
+            dist (float): max distance to look (can be negative => look behind); 0 or omitted => detect up to to
+            prop (string): property name that object must have; can be omitted or "" => detect any object
+            face (integer): normal option. 1=>return face normal; 0 or omitted => normal is oriented towards origin
+            xray (integer): X-ray option. 1=>skip objects that don't match prop; 0 or omitted => stop on first object
+            poly (integer): polygon option. 0, 1 or 2 to return a 3-, 4- or 5-tuple with information on the face hit. 0 or omitted return value is a 3-tuple (object, hitpoint, hitnormal) or (None, None, None) if no hit. 1 return value is a 4-tuple and the 4th element is a KX_PolyProxy or None if no hit or the object doesn't use a mesh collision shape. 2 return value is a 5-tuple and the 5th element is a 2-tuple (u, v) with the UV mapping of the hit point or None if no hit, or the object doesn't use a mesh collision shape, or doesn't have a UV mapping.
+            mask (bitfield): collision mask. The collision mask (16 layers mapped to a 16-bit integer) is combined with each object's collision group, to hit only a subset of the objects in the scene. Only those objects for which collisionGroup & mask is true can be hit.
 
-        Note: The ray ignores the object on which the method is called. It is casted from/to object center or explicit [x, y, z] points."""
-        from mathutils import Vector
-        return (KX_GameObject(), Vector(None), Vector(None), KX_PolyProxy(), Vector(None))
+        Returns:
+            3-tuple (KX_GameObject, 3-tuple (x, y, z), 3-tuple (nx, ny, nz))
+            or 4-tuple (KX_GameObject, 3-tuple (x, y, z), 3-tuple (nx, ny, nz), KX_PolyProxy)
+            or 5-tuple (KX_GameObject, 3-tuple (x, y, z), 3-tuple (nx, ny, nz), KX_PolyProxy, 2-tuple (u, v))
+
+        Note:
+            The ray ignores the object on which the method is called. It is casted from/to object center or explicit [x, y, z] points."""
+
+        pass
 
     def setCollisionMargin(self, margin):
+        # type: (float) -> None
         """Set the objects collision margin.
 
         Args:
-        margin (float): the collision margin distance in blender units.
+            margin (float): the collision margin distance in blender units.
 
-        Note: If this object has no physics controller (a physics ID of zero), this function will raise RuntimeError."""
+        Note:
+            If this object has no physics controller (a physics ID of zero), this function will raise RuntimeError."""
+
         pass
 
     def sendMessage(self, subject, body="", to=""):
+        # type: (str, str, str) -> None
         """Sends a message.
 
         Args:
-        subject (string): The subject of the message
-        body (string): The body of the message (optional)
-        to (string): The name of the object to send the message to (optional)"""
+            subject (string): The subject of the message
+            body (string): The body of the message (optional)
+            to (string): The name of the object to send the message to (optional)"""
+
         pass
 
-    def reinstancePhysicsMesh(self, gameObject, meshObject, dupli):
+    def reinstancePhysicsMesh(self, gameObject, meshObject=None, dupli=False):
+        # type: (KX_GameObject | str, KX_MeshProxy | str, bool) -> bool
         """Updates the physics system with the changed mesh.
 
         If no arguments are given the physics mesh will be re-created from the first mesh assigned to the game object.
 
         Args:
-        gameObject (string, KX_GameObject or None): optional argument, set the physics shape from this gameObjets mesh.
-        meshObject (string, MeshProxy or None): optional argument, set the physics shape from this mesh.
+            gameObject (string, KX_GameObject or None): optional argument, set the physics shape from this gameObjets mesh.
+            meshObject (string, MeshProxy or None): optional argument, set the physics shape from this mesh.
 
         Returns:
-        True if reinstance succeeded, False if it failed.
+            bool: True if reinstance succeeded, False if it failed.
 
-        Return type:
-        boolean
+        Notes:
+            - If this object has instances the other instances will be updated too.
+            - The gameObject argument has an advantage that it can convert from a mesh with modifiers applied (such as subsurf).
 
-        Note: If this object has instances the other instances will be updated too.
+        Warnings:
+            - Only triangle mesh type objects are supported currently (not convex hull)
+            - If the object is a part of a combound object it will fail (parent or child)
+            - Rebuilding the physics mesh can be slow, running many times per second will give a performance hit."""
 
-        Note: The gameObject argument has an advantage that it can convert from a mesh with modifiers applied (such as subsurf).
-
-        Warning: Only triangle mesh type objects are supported currently (not convex hull)
-
-        Warning: If the object is a part of a combound object it will fail (parent or child)
-
-        Warning: Rebuilding the physics mesh can be slow, running many times per second will give a performance hit."""
-        return bool()
+        pass
 
     def replacePhysicsShape(self, gameObject):
+        # type: (KX_GameObject | str) -> bool
         """Replace the current physics shape.
 
         Args:
-        gameObject (string, KX_GameObject): set the physics shape from this gameObjets."""
+            gameObject (string, KX_GameObject): set the physics shape from this gameObjects."""
+
+        pass
 
     def get(self, key, default=""):
+        # type: (str, object) -> object
         """Return the value matching key, or the default value if its not found.
 
-        return: The key value or a default."""
-        return CValue()
+        Returns:
+            The key value or a default."""
+
+        pass
 
     def playAction(self, name, start_frame, end_frame, layer=0, priority=0, blendin=0, play_mode=1, layer_weight=0.0, ipo_flags=0, speed=1.0, blend_mode=1):
+        # type: (str, float, float, int, int, float, int, float, int, float, int) -> None
         """Plays an action.
 
         Args:
-        name (string): the name of the action
-        start (float): the start frame of the action
-        end (float): the end frame of the action
-        layer (integer): the layer the action will play in (actions in different layers are added/blended together)
-        priority (integer): only play this action if there isn't an action currently playing in this layer with a higher (lower number) priority
-        blendin (float): the amount of blending between this animation and the previous one on this layer
-        play_mode (one of these constants): the play mode
-        layer_weight (float): how much of the previous layer to use for blending
-        ipo_flags (int bitfield): flags for the old IPO behaviors (force, etc)
-        speed (float): the playback speed of the action as a factor (1.0 = normal speed, 2.0 = 2x speed, etc)
-        blend_mode (one of these constants): how to blend this layer with previous layers"""
+            name (string): the name of the action
+            start (float): the start frame of the action
+            end (float): the end frame of the action
+            layer (integer): the layer the action will play in (actions in different layers are added/blended together)
+            priority (integer): only play this action if there isn't an action currently playing in this layer with a higher (lower number) priority
+            blendin (float): the amount of blending between this animation and the previous one on this layer
+            play_mode (one of these constants): the play mode
+            layer_weight (float): how much of the previous layer to use for blending
+            ipo_flags (int bitfield): flags for the old IPO behaviors (force, etc)
+            speed (float): the playback speed of the action as a factor (1.0 = normal speed, 2.0 = 2x speed, etc)
+            blend_mode (one of these constants): how to blend this layer with previous layers"""
+
         pass
 
     def stopAction(self, layer=0):
+        # type: (int) -> None
         """Stop playing the action on the given layer.
 
         Args:
-        layer (integer): The layer to stop playing."""
+            layer (integer): The layer to stop playing."""
+
         pass
 
     def getActionFrame(self, layer=0):
+        # type: (int) -> float
         """Gets the current frame of the action playing in the supplied layer.
 
         Args:
-        layer (integer): The layer that you want to get the frame from.
+            layer (integer): The layer that you want to get the frame from.
 
         Returns:
-        The current frame of the action
+            float: The current frame of the action"""
 
-        Return type:
-        float"""
-        return float()
+        pass
 
     def getActionName(self, layer=0):
+        # type: (int) -> str
         """Gets the name of the current action playing in the supplied layer.
 
         Args:
-        layer (integer): The layer that you want to get the action name from.
+            layer (integer): The layer that you want to get the action name from.
 
         Returns:
-        The name of the current action
+            str: The name of the current action"""
 
-        Return type:
-        string"""
-        return str()
+        pass
 
     def setActionFrame(self, frame, layer=0):
+        # type: (float, int) -> None
         """Set the current frame of the action playing in the supplied layer.
 
         Args:
-        layer (integer): The layer where you want to set the frame
-        frame (float): The frame to set the action to"""
+            layer (integer): The layer where you want to set the frame
+            frame (float): The frame to set the action to"""
+
         pass
 
     def isPlayingAction(self, layer=0):
+        # type: (int) -> bool
         """Checks to see if there is an action playing in the given layer.
 
         Args:
-        layer (integer): The layer to check for a playing action.
+            layer (integer): The layer to check for a playing action.
 
         Returns:
-        Whether or not the action is playing
+            bool: Whether or not the action is playing"""
 
-        Return type:
-        boolean"""
-        return bool()
+        pass
 
     def addDebugProperty(self, name, debug=True):
+        # type: (str, bool) -> None
         """Adds a single debug property to the debug list.
 
         Args:
-        name (string): name of the property that added to the debug list.
-        debug (boolean): the debug state."""
-        pass
+            name (string): name of the property that added to the debug list.
+            debug (boolean): the debug state."""
 
-    pass
+        pass
 
 
 class SCA_ILogicBrick(CValue):
