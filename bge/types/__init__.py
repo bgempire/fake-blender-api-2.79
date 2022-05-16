@@ -2436,63 +2436,49 @@ class KX_MouseFocusSensor(SCA_MouseSensor):
         self.useMaterial = 0
 
 class KX_NavMeshObject(KX_GameObject):
+    """Python interface for using and controlling navigation meshes."""
 
-    """base class - KX_GameObject
-
-    class bge.KX_NavMeshObject(KX_GameObject)
-
-    Python interface for using and controlling navigation meshes."""
-
-    def findPath(self):
+    def findPath(self, start, goal):
+        # type: (_Vector, _Vector) -> list[_Vector]
         """Finds the path from start to goal points.
 
         Args:
-        start - the start point
-        start - 3D Vector
-        goal - the goal point
-        start - 3D Vector
+            start (3D Vector): the start point
+            goal (3D Vector): the goal point
 
         Returns:
-        a path as a list of points
+            list: a path as a list of points"""
 
-        Return type:
-        list of points"""
-        return []
+        pass
 
-    def raycast(self):
+    def raycast(self, start, goal):
+        # type: (_Vector, _Vector) -> float
         """Raycast from start to goal points.
 
         Args:
-        start - the start point
-        start - 3D Vector
-        goal - the goal point
-        start - 3D Vector
+            start (3D Vector): the start point
+            goal (3D Vector): the goal point
 
         Returns:
-        the hit factor
+            float: the hit factor"""
 
-        Return type:
-        float"""
-        return 0.0
+        pass
 
-    def draw(self):
+    def draw(self, mode):
+        # type: (int) -> None
         """Draws a debug mesh for the navigation mesh.
 
         Args:
-        mode - the drawing mode (one of these constants)
-        mode - integer
+            mode (integer): the drawing mode (one of these constants)"""
 
-        Returns:
-        None"""
-        return None
+        pass
 
     def rebuild(self):
-        """Rebuild the navigation mesh.
+        # type: () -> None
+        """Rebuild the navigation mesh."""
 
-        Returns: None"""
-        return None
+        pass
 
-    pass
 
 class KX_NearSensor(KX_TouchSensor):
 
@@ -2914,22 +2900,30 @@ class KX_Scene(PyObjectPlus):
 
 
 class KX_SceneActuator(SCA_IActuator):
-    """base class - SCA_IActuator
+    """Scene Actuator logic brick.
 
-    class bge.KX_SceneActuator(SCA_IActuator)
-
-    Scene Actuator logic brick.
-
-    Warning: Scene actuators that use a scene name will be ignored if at game start, the named scene doesn't exist or is empty
-    This will generate a warning in the console:
-
-    Error: GameObject 'Name' has a SceneActuator 'ActuatorName' (SetScene) without scene"""
+    Warning:
+        Scene actuators that use a scene name will be ignored if at game start, the named scene doesn't exist or is empty. This will generate a warning in the console: Error: GameObject 'Name' has a SceneActuator 'ActuatorName' (SetScene) without scene"""
 
     def __init__(self):
-        self.scene = 0
-        self.camera = 0
-        self.useRestart = 0
-        self.mode = 0
+        # type: () -> None
+        super().__init__()
+
+        self.scene = ""  # type: str
+        """The name of the scene to change to/overlay/underlay/remove/suspend/resume."""
+
+        self.camera = None  # type: KX_Camera
+        """The camera to change to. KX_Camera on read, string or KX_Camera on write.
+
+        Note:
+            When setting the attribute, you can use either a KX_Camera or the name of the camera."""
+
+        self.useRestart = False  # type: bool
+        """Set flag to True to restart the scene."""
+
+        self.mode = 0  # type: int
+        """The mode of the actuator."""
+
 
 class KX_SoundActuator(SCA_IActuator):
     """base class - SCA_IActuator
@@ -2979,53 +2973,88 @@ class KX_SoundActuator(SCA_IActuator):
     pass
 
 class KX_StateActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.KX_StateActuator(SCA_IActuator)
-
-    State actuator changes the state mask of parent object."""
+    """State actuator changes the state mask of parent object."""
 
     def __init__(self):
-        self.operation = 0
-        self.mask = 0
+        # type: () -> None
+        super().__init__()
+
+        self.operation = 0  # type: int
+        """Type of bit operation to be applied on object state mask."""
+
+        self.mask = 0  # type: int
+        """Value that defines the bits that will be modified by the operation.
+
+        - The bits that are 1 in the mask will be updated in the object state.
+        - The bits that are 0 are will be left unmodified expect for the Copy operation which copies the mask to the object state."""
+
 
 class KX_SteeringActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.KX_SteeringActuator(SCA_IActuator)
-
-    Steering Actuator for navigation."""
+    """Steering Actuator for navigation."""
 
     def __init__(self):
-        self.behavior = 0
-        self.velocity = 0
-        self.acceleration = 0
-        self.turnspeed = 0
-        self.distance = 0
-        self.target = 0
-        self.navmesh = 0
-        self.selfterminated = 0
-        self.enableVisualization = 0
-        self.pathUpdatePeriod = 0
+        # type: () -> None
+        super().__init__()
+
+        self.behavior = 0  # type: int
+        """The steering behavior to use."""
+
+        self.velocity = 0.0  # type: float
+        """Velocity magnitude."""
+
+        self.acceleration = 0.0  # type: float
+        """Max acceleration."""
+
+        self.turnspeed = 0.0  # type: float
+        """Max turn speed."""
+
+        self.distance = 0.0  # type: float
+        """Relax distance."""
+
+        self.target = None  # type: KX_GameObject
+        """Target object."""
+
+        self.navmesh = None  # type: KX_NavMeshObject | KX_GameObject
+        """Navigation mesh"""
+
+        self.selfterminated = False  # type: bool
+        """Terminate when target is reached."""
+
+        self.enableVisualization = False  # type: bool
+        """Enable debug visualization."""
+
+        self.pathUpdatePeriod = 0  # type: int
+        """Path update period."""
+
+        self.path = []  # type: list[_Vector]
+        """Path point list."""
+
 
 class KX_TrackToActuator(SCA_IActuator):
-    """base class - SCA_IActuator
+    """Edit Object actuator in Track To mode.
 
-    class bge.KX_TrackToActuator(SCA_IActuator)
-
-    Edit Object actuator in Track To mode.
-
-    Warning: Track To Actuators will be ignored if at game start, the object to track to is invalid.
-    This will generate a warning in the console:
-
-    GameObject 'Name' no object in EditObjectActuator 'ActuatorName'"""
+    Warning:
+        Track To Actuators will be ignored if at game start, the object to track to is invalid. This will generate a warning in the console: GameObject 'Name' no object in EditObjectActuator 'ActuatorName'"""
 
     def __init__(self):
-        self.object = 0
-        self.time = 0
-        self.use3D = 0
-        self.upAxis = 0
-        self.trackAxis = 0
+        # type: () -> None
+        super().__init__()
+
+        self.object = None  # type: KX_GameObject
+        """The object this actuator tracks."""
+
+        self.time = 0  # type: int
+        """The time in frames with which to delay the tracking motion."""
+
+        self.use3D = False  # type: bool
+        """If tracking motion will use 3D."""
+
+        self.upAxis = 0  # type: int
+        """The axis that points upward."""
+
+        self.trackAxis = 0  # type: int
+        """The axis that points to the target object."""
+
 
 class KX_VehicleWrapper(PyObjectPlus):
     """base class - PyObjectPlus
