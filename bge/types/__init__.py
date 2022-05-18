@@ -1987,23 +1987,42 @@ class BL_Shader(PyObjectPlus):
     pass
 
 class BL_ShapeActionActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.BL_ShapeActionActuator(SCA_IActuator)
-
-    ShapeAction Actuators apply an shape action to an mesh object."""
+    """ShapeAction Actuators apply an shape action to an mesh object."""
 
     def __init__(self):
-        self.action = 0
-        self.frameStart = 0
-        self.frameEnd = 0
-        self.blendIn = 0
-        self.priority = 0
-        self.frame = 0
-        self.propName = 0
-        self.blendTime = 0
-        self.mode = 0
-        self.framePropName = 0
+        # type: () -> None
+        super().__init__()
+
+        self.action = ""  # type: str
+        """The name of the action to set as the current shape action."""
+
+        self.frameStart = 0.0  # type: float
+        """Specifies the starting frame of the shape animation."""
+
+        self.frameEnd = 0.0  # type: float
+        """Specifies the ending frame of the shape animation."""
+
+        self.blendIn = 0.0  # type: float
+        """Specifies the number of frames of animation to generate when making transitions between actions."""
+
+        self.priority = 0  # type: int
+        """Sets the priority of this actuator. Actuators will lower priority numbers will override actuators with higher numbers."""
+
+        self.frame = 0.0  # type: float
+        """Sets the current frame for the animation."""
+
+        self.propName = ""  # type: str
+        """Sets the property to be used in FromProp playback mode."""
+
+        self.blendTime = 0.0  # type: float
+        """Sets the internal frame timer. This property must be in the range from 0.0 to blendin."""
+
+        self.mode = 0  # type: int
+        """The operation mode of the actuator. Can be one of these constants."""
+
+        self.framePropName = ""  # type: str
+        """The name of the property that is set to the current frame number."""
+
 
 class KX_TouchSensor(SCA_ISensor):
     """base class - SCA_ISensor
