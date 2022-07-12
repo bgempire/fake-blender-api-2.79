@@ -1355,22 +1355,59 @@ class SCA_PythonController(SCA_IController):
 
         pass
 
+
 class SCA_PythonJoystick(PyObjectPlus):
-
-    """base class - PyObjectPlus
-
-    class bge.SCA_PythonJoystick(PyObjectPlus)
-
-    A Python interface to a joystick."""
+    """A Python interface to a joystick."""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.name = ""  # type: str
-        self.activeButtons = [int()]
-        self.axisValues = [int()]
-        self.hatValues = [int()]
+        """The name assigned to the joystick by the operating system. (read-only)"""
+
+        self.activeButtons = []  # type: list[int]
+        """A list of active button values. (read-only)"""
+
+        self.axisValues = []  # type: list[int]
+        """The state of the joysticks axis as a list of values numAxis long. (read-only).
+
+        Each specifying the value of an axis between -1.0 and 1.0 depending on how far the axis is pushed, 0 for nothing.
+        The first 2 values are used by most joysticks and gamepads for directional control.
+        3rd and 4th values are only on some joysticks and can be used for arbitary controls."""
+
+        self.hatValues = []  # type: list[int]
+        """The state of the joysticks hats as a list of values numHats long. (read-only).
+
+        Each specifying the direction of the hat from 1 to 12, 0 when inactive.
+
+        Hat directions are as follows:
+
+        - 0: None
+        - 1: Up
+        - 2: Right
+        - 4: Down
+        - 8: Left
+        - 3: Up - Right
+        - 6: Down - Right
+        - 12: Down - Left
+        - 9: Up - Left
+
+        Note:
+            Deprecated. Use activeButtons instead."""
+
         self.numAxis = 0  # type: int
+        """The number of axes for the joystick at this index. (read-only)."""
+
         self.numButtons = 0  # type: int
+        """The number of buttons for the joystick at this index. (read-only)."""
+
         self.numHats = 0  # type: int
+        """The number of hats for the joystick at this index. (read-only).
+
+        Note:
+            Deprecated. Use numButtons instead."""
+
 
 class SCA_PythonKeyboard(PyObjectPlus):
     """The current keyboard."""
@@ -1422,7 +1459,6 @@ class SCA_PythonMouse(PyObjectPlus):
 
         self.visible = True  # type: bool
         """The visibility of the mouse cursor."""
-
 
 class SCA_RandomActuator(SCA_IActuator):
 
@@ -1502,6 +1538,7 @@ class SCA_RandomActuator(SCA_IActuator):
         pass
 
     pass
+
 
 class SCA_RandomSensor(SCA_ISensor):
     """This sensor activates randomly."""
@@ -1913,7 +1950,6 @@ class BL_ArmatureObject(KX_GameObject):
 
         pass
 
-
 class BL_Shader(PyObjectPlus):
     """base class - PyObjectPlus
 
@@ -2108,6 +2144,7 @@ class BL_Shader(PyObjectPlus):
 
     pass
 
+
 class BL_ShapeActionActuator(SCA_IActuator):
     """ShapeAction Actuators apply an shape action to an mesh object."""
 
@@ -2147,31 +2184,58 @@ class BL_ShapeActionActuator(SCA_IActuator):
 
 
 class KX_TouchSensor(SCA_ISensor):
-    """base class - SCA_ISensor
-
-    class bge.KX_TouchSensor(SCA_ISensor)
-
-    Touch sensor detects collisions between objects."""
+    """Touch sensor detects collisions between objects."""
 
     def __init__(self):
-        self.propName = 0
-        self.useMaterial = 0
-        self.usePulseCollision = 0
-        self.hitObject = 0
-        self.hitObjectList = 0
-        self.hitMaterial = 0
+        # type: () -> None
+        super().__init__()
+
+        self.propName = ""  # type: str
+        """The property or material to collide with."""
+
+        self.useMaterial = False  # type: bool
+        """Determines if the sensor is looking for a property or material. KX_True = Find material; KX_False = Find property."""
+
+        self.usePulseCollision = False  # type: bool
+        """When enabled, changes to the set of colliding objects generate a pulse."""
+
+        self.hitObject = None  # type: KX_GameObject
+        """The last collided object. (read-only)."""
+
+        self.hitObjectList = []  # type: list[KX_GameObject]
+        """A list of colliding objects. (read-only)."""
+
+        self.hitMaterial = ""  # type: str
+        """The material of the object in the face hit by the ray. (read-only)."""
+
 
 class KX_ArmatureSensor(SCA_ISensor):
-    """base class - SCA_ISensor
-
-    class bge.KX_ArmatureSensor(SCA_ISensor)
-
-    Armature sensor detect conditions on armatures."""
+    """Armature sensor detect conditions on armatures."""
 
     def __init__(self):
-        self.type = 0
-        self.constraint = 0
-        self.value = 0
+        # type: () -> None
+        super().__init__()
+
+        self.type = 0  # type: int
+        """The type of measurement that the sensor make when it is active. Can be one of these constants:
+
+        - bge.logic.KX_ARMSENSOR_STATE_CHANGED
+        - bge.logic.KX_ARMSENSOR_LIN_ERROR_BELOW
+        - bge.logic.KX_ARMSENSOR_LIN_ERROR_ABOVE
+        - bge.logic.KX_ARMSENSOR_ROT_ERROR_BELOW
+        - bge.logic.KX_ARMSENSOR_ROT_ERROR_ABOVE"""
+
+        self.constraint = None  # type: BL_ArmatureConstraint
+        """The constraint object this sensor is watching."""
+
+        self.value = 0.0  # type: float
+        """The threshold used in the comparison with the constraint error.
+
+        - The linear error is only updated on CopyPose/Distance IK constraint with iTaSC solver.
+        - The rotation error is only updated on CopyPose+rotation IK constraint with iTaSC solver.
+        - The linear error on CopyPose is always >= 0: it is the norm of the distance between the target and the bone.
+        - The rotation error on CopyPose is always >= 0: it is the norm of the equivalent rotation vector between the bone and the target orientations.
+        - The linear error on Distance can be positive if the distance between the bone and the target is greater than the desired distance, and negative if the distance is smaller."""
 
 class KX_BlenderMaterial(PyObjectPlus):
     """base class - PyObjectPlus
