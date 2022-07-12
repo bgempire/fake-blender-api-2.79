@@ -1460,84 +1460,116 @@ class SCA_PythonMouse(PyObjectPlus):
         self.visible = True  # type: bool
         """The visibility of the mouse cursor."""
 
+
 class SCA_RandomActuator(SCA_IActuator):
-
-    """base class - SCA_IActuator
-
-    class bge.SCA_RandomActuator(SCA_IActuator)
-
-    Random Actuator"""
+    """Random Actuator"""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.seed = 0  # type: int
+        """Seed of the random number generator."""
+
         self.para1 = 0.0  # type: float
+        """The first parameter of the active distribution.
+
+        Refer to the documentation of the generator types for the meaning of this value."""
+
         self.para2 = 0.0  # type: float
+        """The second parameter of the active distribution.
+
+        Refer to the documentation of the generator types for the meaning of this value."""
+
         self.distribution = 0  # type: int
+        """Distribution type. (read-only).
+
+        Can be one of these constants:
+
+        - bge.logic.KX_RANDOMACT_BOOL_CONST = 1
+        - bge.logic.KX_RANDOMACT_BOOL_UNIFORM = 2
+        - bge.logic.KX_RANDOMACT_BOOL_BERNOUILLI = 3
+        - bge.logic.KX_RANDOMACT_INT_CONST = 4
+        - bge.logic.KX_RANDOMACT_INT_UNIFORM = 5
+        - bge.logic.KX_RANDOMACT_INT_POISSON = 6
+        - bge.logic.KX_RANDOMACT_FLOAT_CONST = 7
+        - bge.logic.KX_RANDOMACT_FLOAT_UNIFORM = 8
+        - bge.logic.KX_RANDOMACT_FLOAT_NORMAL = 9
+        - bge.logic.KX_RANDOMACT_FLOAT_NEGATIVE_EXPONENTIAL = 10"""
+
         self.propName = ""  # type: str
+        """The name of the property to set with the random value.
+
+        If the generator and property types do not match, the assignment is ignored."""
 
     def setBoolConst(self, value):
+        # type: (bool) -> None
         """Sets this generator to produce a constant boolean value.
 
         Args:
-        value (boolean): The value to return."""
+            value (boolean): The value to return."""
         pass
 
-    def setBoolUniform(self, ):
+    def setBoolUniform(self):
+        # type: () -> None
         """Sets this generator to produce a uniform boolean distribution.
 
         The generator will generate True or False with 50% chance."""
         pass
 
     def setBoolBernouilli(self, value):
+        # type: (float) -> None
         """Sets this generator to produce a Bernouilli distribution.
 
         Args:
-        value (float) -
-        Specifies the proportion of False values to produce.
-        0.0: Always generate True
-        1.0: Always generate False"""
+            value (float): Specifies the proportion of False values to produce. 0.0: Always generate True, 1.0: Always generate False"""
         pass
 
     def setIntConst(self, value):
+        # type: (int) -> None
         """Sets this generator to always produce the given value.
 
         Args:
-        value (integer): the value this generator produces."""
+            value (int): the value this generator produces."""
         pass
 
     def setIntUniform(self, lower_bound, upper_bound):
+        # type: (int, int) -> None
         """Sets this generator to produce a random value between the given lower and upper bounds (inclusive)."""
         pass
 
     def setIntPoisson(self, value):
+        # type: (int) -> None
         """Generate a Poisson-distributed number.
 
-        This performs a series of Bernouilli tests with parameter value. It returns the number of tries needed to achieve succes."""
+        This performs a series of Bernouilli tests with parameter value. It returns the number of tries needed to achieve success."""
         pass
 
     def setFloatConst(self, value):
+        # type: (float) -> None
         """Always generate the given value."""
         pass
 
     def setFloatUniform(self, lower_bound, upper_bound):
+        # type: (float, float) -> None
         """Generates a random float between lower_bound and upper_bound with a uniform distribution."""
         pass
 
     def setFloatNormal(self, mean, standard_deviation):
+        # type: (float, float) -> None
         """Generates a random float from the given normal distribution.
 
         Args:
-        mean (float): The mean (average) value of the generated numbers
-        standard_deviation (float): The standard deviation of the generated numbers."""
+            mean (float): The mean (average) value of the generated numbers
+            standard_deviation (float): The standard deviation of the generated numbers."""
         pass
 
     def setFloatNegativeExponential(self, half_life):
+        # type: (float) -> None
         """Generate negative-exponentially distributed numbers.
 
         The half-life 'time' is characterized by half_life."""
         pass
-
-    pass
 
 
 class SCA_RandomSensor(SCA_ISensor):
@@ -2964,7 +2996,6 @@ class KX_NetworkMessageSensor(SCA_ISensor):
         self.bodies = []  # type: list[str]
         """The list of message bodies received. (read-only)."""
 
-
 class KX_ObjectActuator(SCA_IActuator):
     """base class - SCA_IActuator
 
@@ -2992,18 +3023,29 @@ class KX_ObjectActuator(SCA_IActuator):
         self.pid = 0
         self.reference = 0
 
+
 class KX_ParentActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.KX_ParentActuator(SCA_IActuator)
-
-    The parent actuator can set or remove an objects parent object."""
+    """The parent actuator can set or remove an objects parent object."""
 
     def __init__(self):
-        self.object = 0
-        self.mode = 0
-        self.compound = 0
-        self.ghost = 0
+        # type: () -> None
+        super().__init__()
+
+        self.object = None  # type: KX_GameObject
+        """the object this actuator sets the parent too."""
+
+        self.mode = 0  # type: int
+        """The mode of this actuator."""
+
+        self.compound = False  # type: bool
+        """Whether the object shape should be added to the parent compound shape when parenting.
+
+        Effective only if the parent is already a compound shape."""
+
+        self.ghost = False  # type: bool
+        """Whether the object should be made ghost when parenting.
+
+        Effective only if the shape is not added to the parent compound shape."""
 
 class KX_PolyProxy(SCA_IObject):
     """base class - SCA_IObject
@@ -3119,107 +3161,158 @@ class KX_PolyProxy(SCA_IObject):
 
     pass
 
+
 class KX_RadarSensor(KX_NearSensor):
-    """base class - KX_NearSensor
-
-    class bge.KX_RadarSensor(KX_NearSensor)
-
-    Radar sensor is a near sensor with a conical sensor object."""
+    """Radar sensor is a near sensor with a conical sensor object."""
 
     def __init__(self):
-        self.coneOrigin = 0
-        self.coneTarget = 0
-        self.distance = 0
-        self.angle = 0
-        self.axis = 0
+        # type: () -> None
+        super().__init__()
+
+        self.coneOrigin = []  # type: list[float, float, float]
+        """The origin of the cone with which to test. The origin is in the middle of the cone. (read-only)."""
+
+        self.coneTarget = []  # type: list[float, float, float]
+        """The center of the bottom face of the cone with which to test. (read-only)."""
+
+        self.distance = 0.0  # type: float
+        """The height of the cone with which to test."""
+
+        self.angle = 0.0  # type: float
+        """The angle of the cone (in degrees) with which to test."""
+
+        self.axis = 0  # type: int
+        """The axis on which the radar cone is cast. Can be one of these constants."""
+
 
 class KX_RaySensor(SCA_ISensor):
-    """base class - SCA_ISensor
-
-    class bge.KX_RaySensor(SCA_ISensor)
-
-    A ray sensor detects the first object in a given direction."""
+    """A ray sensor detects the first object in a given direction."""
 
     def __init__(self):
-        self.propName = 0
-        self.range = 0
-        self.useMaterial = 0
-        self.useXRay = 0
-        self.hitObject = 0
-        self.hitPosition = 0
-        self.hitNormal = 0
-        self.hitMaterial = 0
-        self.rayDirection = 0
-        self.axis = 0
+        # type: () -> None
+        super().__init__()
+
+        self.propName = ""  # type: str
+        """The property the ray is looking for."""
+
+        self.range = 0.0  # type: float
+        """The distance of the ray."""
+
+        self.useMaterial = False  # type: bool
+        """Whether or not to look for a material (false = property)."""
+
+        self.useXRay = False  # type: bool
+        """Whether or not to use XRay."""
+
+        self.mask = 0  # type: int
+        """The collision mask (16 layers mapped to a 16-bit integer) combined with each
+        object's collision group, to hit only a subset of the objects in the scene.
+        Only those objects for which collisionGroup & mask is true can be hit."""
+
+        self.hitObject = None  # type: KX_GameObject
+        """The game object that was hit by the ray. (read-only)."""
+
+        self.hitPosition = None  # type: _Vector
+        """The position (in worldcoordinates) where the object was hit by the ray. (read-only)."""
+
+        self.hitNormal = None  # type: _Vector
+        """The normal (in worldcoordinates) of the object at the location where the object was hit by the ray. (read-only)."""
+
+        self.hitMaterial = ""  # type: str
+        """The material of the object in the face hit by the ray. (read-only)."""
+
+        self.rayDirection = None  # type: _Vector
+        """The direction from the ray (in worldcoordinates). (read-only)."""
+
+        self.axis = 0  # type: int
+        """The axis the ray is pointing on. Can be one of these constants."""
+
 
 class KX_SCA_AddObjectActuator(SCA_IActuator):
-    """base class - SCA_IActuator
+    """Edit Object Actuator (in Add Object Mode)
 
-    class bge.KX_SCA_AddObjectActuator(SCA_IActuator)
-
-    Edit Object Actuator (in Add Object Mode)
-
-    Warning: An Add Object actuator will be ignored if at game start, the linked object doesn't exist (or is empty) or the linked object is in an active layer.
-
-    Error: GameObject 'Name' has a AddObjectActuator 'ActuatorName' without object (in 'nonactive' layer)"""
+    Note:
+        An Add Object actuator will be ignored if at game start, the linked object doesn't exist (or is empty) or the linked object is in an active layer."""
 
     def __init__(self):
-        self.object = 0
-        self.objectLastCreated = 0
-        self.time = 0
-        self.linearVelocity = 0
-        self.angularVelocity = 0
+        # type: () -> None
+        super().__init__()
+
+        self.object = None  # type: KX_GameObject
+        """The object this actuator adds."""
+
+        self.objectLastCreated = None  # type: KX_GameObject
+        """The last added object from this actuator (read-only)."""
+
+        self.time = 0.0  # type: float
+        """The lifetime of added objects, in frames. Set to 0 to disable automatic deletion."""
+
+        self.linearVelocity = []  # type: list[float, float, float]
+        """The initial linear velocity of added objects."""
+
+        self.angularVelocity = []  # type: list[float, float, float]
+        """The initial angular velocity of added objects."""
 
     def instantAddObject(self):
         """Adds the object without needing to calling SCA_PythonController.activate()
 
-        Note: Use objectLastCreated to get the newly created object."""
+        Note:
+            Use objectLastCreated to get the newly created object."""
         pass
 
-    pass
 
 class KX_SCA_DynamicActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.KX_SCA_DynamicActuator(SCA_IActuator)
-
-    Dynamic Actuator."""
+    """Dynamic Actuator."""
 
     def __init__(self):
-        self.mode = 0
-        self.mass = 0
+        # type: () -> None
+        super().__init__()
+
+        self.mode = 0  # type: int
+        """The type of operation of the actuator, 0-4.
+
+        - KX_DYN_RESTORE_DYNAMICS = 0
+        - KX_DYN_DISABLE_DYNAMICS = 1
+        - KX_DYN_ENABLE_RIGID_BODY = 2
+        - KX_DYN_DISABLE_RIGID_BODY = 3
+        - KX_DYN_SET_MASS = 4"""
+
+        self.mass = 0.0  # type: float
+        """The mass value for the KX_DYN_SET_MASS operation."""
+
 
 class KX_SCA_EndObjectActuator(SCA_IActuator):
-    """base class - SCA_IActuator
+    """Edit Object Actuator (in End Object mode).
 
-    class bge.KX_SCA_EndObjectActuator(SCA_IActuator)
+    This actuator has no Python methods."""
 
-    Edit Object Actuator (in End Object mode)
-
-    This actuator has no python methods."""
     pass
+
 
 class KX_SCA_ReplaceMeshActuator(SCA_IActuator):
-    """base class - SCA_IActuator
+    """Edit Object actuator, in Replace Mesh mode.
 
-    class bge.KX_SCA_ReplaceMeshActuator(SCA_IActuator)
-
-    Edit Object actuator, in Replace Mesh mode.
-
-    Warning: Replace mesh actuators will be ignored if at game start, the named mesh doesn't exist.
-    This will generate a warning in the console
-
-    Error: GameObject 'Name' ReplaceMeshActuator 'ActuatorName' without object"""
+    Note:
+        Replace mesh actuators will be ignored if at game start, the named mesh doesn't exist. This will generate a warning in the console."""
 
     def __init__(self):
-        self.mesh = 0
-        self.useDisplayMesh = 0
-        self.usePhysicsMesh = 0
+        # type: () -> None
+        super().__init__()
+
+        self.mesh = None  # type: KX_MeshProxy
+        """MeshProxy or the name of the mesh that will replace the current one. Set to None to disable actuator."""
+
+        self.useDisplayMesh = False  # type: bool
+        """When true the displayed mesh is replaced."""
+
+        self.usePhysicsMesh = False  # type: bool
+        """When true the physics mesh is replaced."""
 
     def instantReplaceMesh(self):
+        # type: () -> None
+        """Immediately replace mesh without delay."""
         pass
 
-    pass
 
 class KX_Scene(PyObjectPlus):
     """An active scene that gives access to objects, cameras, lights and scene attributes.
@@ -3369,7 +3462,6 @@ class KX_SceneActuator(SCA_IActuator):
         self.mode = 0  # type: int
         """The mode of the actuator."""
 
-
 class KX_SoundActuator(SCA_IActuator):
     """base class - SCA_IActuator
 
@@ -3416,6 +3508,7 @@ class KX_SoundActuator(SCA_IActuator):
         return None
 
     pass
+
 
 class KX_StateActuator(SCA_IActuator):
     """State actuator changes the state mask of parent object."""
@@ -3499,7 +3592,6 @@ class KX_TrackToActuator(SCA_IActuator):
 
         self.trackAxis = 0  # type: int
         """The axis that points to the target object."""
-
 
 class KX_VehicleWrapper(PyObjectPlus):
     """base class - PyObjectPlus
@@ -3806,6 +3898,7 @@ class KX_VertexProxy(SCA_IObject):
 
     pass
 
+
 class KX_VisibilityActuator(SCA_IActuator):
     """Visibility Actuator."""
 
@@ -3856,10 +3949,12 @@ class KX_WorldInfo(PyObjectPlus):
         """The type of mist - must be KX_MIST_QUADRATIC, KX_MIST_LINEAR or KX_MIST_INV_QUADRATIC"""
 
         self.mistColor =  None  # type: _Color
-        """The color of the mist. Black = [0.0, 0.0, 0.0], White = [1.0, 1.0, 1.0]. Mist and background color sould always set to the same color."""
+        """The color of the mist. Black = [0.0, 0.0, 0.0], White = [1.0, 1.0, 1.0].
+        Mist and background color sould always set to the same color."""
 
         self.horizonColor = None  # type: _Vector
-        """The horizon color. Black = [0.0, 0.0, 0.0, 1.0], White = [1.0, 1.0, 1.0, 1.0]. Mist and horizon color should always be set to the same color."""
+        """The horizon color. Black = [0.0, 0.0, 0.0, 1.0], White = [1.0, 1.0, 1.0, 1.0].
+        Mist and horizon color should always be set to the same color."""
 
         self.zenithColor = None  # type: _Vector
         """The zenith color. Black = [0.0, 0.0, 0.0, 1.0], White = [1.0, 1.0, 1.0, 1.0]."""
@@ -3883,7 +3978,8 @@ class KX_WorldInfo(PyObjectPlus):
         """White: returns 0 SkyColor: returns 1 SkyTexture: returns 2"""
 
         self.backgroundColor = None  # type: _Color
-        """The color of the background. Black = [0.0, 0.0, 0.0], White = [1.0, 1.0, 1.0]. Mist and background color sould always set to the same color."""
+        """The color of the background. Black = [0.0, 0.0, 0.0], White = [1.0, 1.0, 1.0].
+        Mist and background color sould always set to the same color."""
 
 
 class KX_PythonComponent(CValue):
