@@ -1022,110 +1022,233 @@ class SCA_DelaySensor(SCA_ISensor):
         """1 if the OFF-ON cycle should be repeated indefinately, 0 if it should run once."""
 
 
-class SCA_JoystickSensor(SCA_ISensor):
-
-    """base class - SCA_ISensor
-
-    class bge.SCA_JoystickSensor(SCA_ISensor)
-
-    This sensor detects player joystick events."""
+class SCA_InputEvent(PyObjectPlus):
+    """Events for a keyboard or mouse input."""
 
     def __init__(self):
-        self.axisValues = [int()]
+        # type: () -> None
+        super().__init__()
+
+        self.status = []  # type: list[int]
+        """A list of existing status of the input from the last frame.
+        Can contain bge.logic.KX_INPUT_NONE and bge.logic.KX_INPUT_ACTIVE.
+        The list always contains one value.
+        The first value of the list is the last value of the list in the last frame. (read-only)"""
+
+        self.queue = []  # type: list[int]
+        """A list of existing events of the input from the last frame.
+        Can contain bge.logic.KX_INPUT_JUST_ACTIVATED and bge.logic.KX_INPUT_JUST_RELEASED.
+        The list can be empty. (read-only)"""
+
+        self.values = []  # type: list[int]
+        """A list of existing value of the input from the last frame.
+        For keyboard it contains 1 or 0 and for mouse the coordinate of the mouse or the movement of the wheel mouse.
+        The list contains always one value, the size of the list is the same than queue + 1 only for keyboard inputs.
+        The first value of the list is the last value of the list in the last frame. (read-only)"""
+
+        self.inactive = False  # type: bool
+        """True if the input was inactive from the last frame."""
+
+        self.active = False  # type: bool
+        """True if the input was active from the last frame."""
+
+        self.activated = False  # type: bool
+        """True if the input was activated from the last frame."""
+
+        self.released = False  # type: bool
+        """True if the input was released from the last frame."""
+
+        self.type = 0  # type: int
+        """The type of the input. One of these constants: bge.logic.KX_INPUT_NONE, bge.logic.KX_INPUT_JUST_ACTIVATED, bge.logic.KX_INPUT_ACTIVE, bge.logic.KX_INPUT_JUST_RELEASED."""
+
+
+class SCA_JoystickSensor(SCA_ISensor):
+    """This sensor detects player joystick events."""
+
+    def __init__(self):
+        # type: () -> None
+        super().__init__()
+
+        self.axisValues = []  # type: list[int]
+        """The state of the joysticks axis as a list of values numAxis long. (read-only).
+
+        Each specifying the value of an axis between -32767 and 32767 depending on how far the axis is pushed, 0 for nothing.
+        The first 2 values are used by most joysticks and game-pads for directional control.
+        3rd and 4th values are only on some joysticks and can be used for arbitrary controls."""
+
         self.axisSingle = 0  # type: int
-        self.hatValues = [int()]
+        """Like axisValues but returns a single axis value that is set by the sensor. (read-only).
+
+        Note:
+            Only use this for "Single Axis" type sensors otherwise it will raise an error."""
+
+        self.hatValues = []
+        """The state of the joysticks hats as a list of values numHats long. (read-only).
+
+        Each specifying the direction of the hat from 1 to 12, 0 when inactive.
+
+        Hat directions are as follows:
+        - 0: None
+        - 1: Up
+        - 2: Right
+        - 4: Down
+        - 8: Left
+        - 3: Up - Right
+        - 6: Down - Right
+        - 12: Down - Left
+        - 9: Up - Left
+
+        Note:
+            Deprecated. Use button instead."""
+
         self.hatSingle = 0  # type: int
+        """Like hatValues but returns a single hat direction value that is set by the sensor. (read-only).
+
+        Note:
+            Deprecated. Use button instead."""
+
         self.numAxis = 0  # type: int
+        """The number of axes for the joystick at this index. (read-only)."""
+
         self.numButtons = 0  # type: int
+        """The number of buttons for the joystick at this index. (read-only)."""
+
         self.numHats = 0  # type: int
+        """The number of hats for the joystick at this index. (read-only).
+
+        Note:
+            Deprecated. Use numButtons instead."""
+
         self.connected = True  # type: bool
+        """True if a joystick is connected at this joysticks index. (read-only)."""
+
         self.index = 0  # type: int
+        """The joystick index to use (from 0 to 7). The first joystick is always 0."""
+
         self.threshold = 0  # type: int
+        """Axis threshold. Joystick axis motion below this threshold wont trigger an event. Use values between (0 and 32767), lower values are more sensitive."""
+
         self.button = 0  # type: int
-        self.axis = [int(), int()]
-        self.hat = [int(), int()]
+        """The button index the sensor reacts to (first button = 0). When the “All Events” toggle is set, this option has no effect."""
+
+        self.axis = [0, 0]  # type: list[int]
+        """The axis this sensor reacts to, as a list of two values [axisIndex, axisDirection]
+
+        - axisIndex: the axis index to use when detecting axis movement, 1=primary directional control, 2=secondary directional control.
+        - axisDirection: 0 = right, 1 = up, 2 = left, 3 = down."""
+
+        self.hat = [0, 0]  # type: list[int]
+        """The hat the sensor reacts to, as a list of two values: [hatIndex, hatDirection]
+
+        - hatIndex: the hat index to use when detecting hat movement, 1 = primary hat, 2 = secondary hat (4 max).
+        - hatDirection: 1-12.
+
+        Note:
+            Deprecated. Use button instead"""
 
     def getButtonActiveList(self):
-        """Returns:
-        A list containing the indicies of the currently pressed buttons.
-
-        Return type:
-        list"""
-        return [int(), int()]
-
-    def getButtonStatus(self, buttonIndex):
-        """Args:
-        buttonIndex (integer): the button index, 0=first button
+        # type: () -> list[int]
+        """Get a list containing the indices of the currently pressed buttons.
 
         Returns:
-        The current pressed state of the specified button.
+            list: A list containing the indices of the currently pressed buttons."""
 
-        Return type:
-        boolean"""
-        return bool()
+        pass
 
-    pass
+    def getButtonStatus(self, buttonIndex):
+        # type: (int) -> bool
+        """Get the current pressed state of the specified button.
+
+        Args:
+            buttonIndex (integer): the button index, 0=first button
+
+        Returns:
+            bool: The current pressed state of the specified button."""
+
+        pass
+
 
 class SCA_KeyboardSensor(SCA_ISensor):
-
-    """base class - SCA_ISensor
-
-    class bge.SCA_KeyboardSensor(SCA_ISensor)
-
-    A keyboard sensor detects player key presses.
+    """A keyboard sensor detects player key presses.
 
     See module bge.events for keycode values."""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.key = 0  # type: int
+        """The key code this sensor is looking for."""
+
         self.hold1 = 0  # type: int
+        """The key code for the first modifier this sensor is looking for."""
+
         self.hold2 = 0  # type: int
+        """The key code for the second modifier this sensor is looking for."""
+
         self.toggleProperty = ""  # type: str
+        """The name of the property that indicates whether or not to log keystrokes as a string."""
+
         self.targetProperty = ""  # type: str
+        """The name of the property that receives keystrokes in case in case a string is logged."""
+
         self.useAllKeys = True  # type: bool
-        self.events = [[int(), int()]]
+        """Flag to determine whether or not to accept all keys."""
+
+        self.inputs = {}  # type: dict[int, SCA_InputEvent]
+        """A list of pressed keys that have either been pressed, just released or active this frame. (read-only)."""
+
+        self.events = {}  # type: dict[int, int]
+        """A list of pressed keys that have either been pressed, or just released, or are active this frame. (read-only).
+
+        Note:
+            Deprecated since version use: inputs"""
 
     def getKeyStatus(self, keycode):
+        # type: (int) -> int
         """Get the status of a key.
 
         Args:
-        keycode (integer): The code that represents the key you want to get the state of, use one of these constants
+            keycode (int): The code that represents the key you want to get the state of, use one of bge.events constants
 
         Returns:
-        The state of the given key, can be one of these constants
+            int: The state of the given key, can be one of these constants: bge.logic.KX_INPUT_NONE, bge.logic.KX_INPUT_JUST_ACTIVATED, bge.logic.KX_INPUT_ACTIVE, bge.logic.KX_INPUT_JUST_RELEASED."""
 
-        Return type:
-        int"""
-        return int()
+        pass
 
-    pass
 
 class SCA_MouseSensor(SCA_ISensor):
-
-    """base class - SCA_ISensor
-
-    class bge.SCA_MouseSensor(SCA_ISensor)
-
-    Mouse Sensor logic brick."""
+    """Mouse Sensor logic brick."""
 
     def __init__(self):
-        self.position = [int(), int()]
-        self.mode = 0  # type: int
+        # type: () -> None
+        super().__init__()
 
-    def getButtonStatus(self):
+        self.position = (0, 0)  # type: tuple[int, int]
+        """Current [x, y] coordinates of the mouse, in frame coordinates (pixels)."""
+
+        self.mode = 0  # type: int
+        """Sensor mode. One of the following constants:
+
+        - KX_MOUSESENSORMODE_LEFTBUTTON = 1
+        - KX_MOUSESENSORMODE_MIDDLEBUTTON = 2
+        - KX_MOUSESENSORMODE_RIGHTBUTTON = 3
+        - KX_MOUSESENSORMODE_WHEELUP = 4
+        - KX_MOUSESENSORMODE_WHEELDOWN = 5
+        - KX_MOUSESENSORMODE_MOVEMENT = 6"""
+
+    def getButtonStatus(self, button):
+        # type: (int) -> int
         """Get the mouse button status.
 
         Args:
-        button (int): The code that represents the key you want to get the state of, use one of these constants
+            button (int): The code that represents the key you want to get the state of, use one of bge.events constants.
 
         Returns:
-        The state of the given key, can be one of these constants
+            int: The state of the given key, can be one of these constants: bge.logic.KX_INPUT_NONE, bge.logic.KX_INPUT_JUST_ACTIVATED, bge.logic.KX_INPUT_ACTIVE, bge.logic.KX_INPUT_JUST_RELEASED."""
 
-        Return type:
-        int"""
-        return int()
+        pass
 
-    pass
 
 class SCA_NANDController(SCA_IController):
     """An NAND controller activates when all linked sensors are not active.
@@ -1231,7 +1354,6 @@ class SCA_PythonController(SCA_IController):
             actuator (actuator or the actuator name as a string): The actuator to operate on."""
 
         pass
-
 
 class SCA_PythonJoystick(PyObjectPlus):
 
