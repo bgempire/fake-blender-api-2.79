@@ -2343,7 +2343,123 @@ class KX_BlenderMaterial(PyObjectPlus):
         integer"""
         return 0
 
+
+class BL_Texture(CValue):
+    """A texture object that contains attributes of a material texture."""
+
+    def __init__(self):
+        # type: () -> None
+        super().__init__()
+
+        self.diffuseIntensity = 0.0  # type: float
+        """Amount texture affects diffuse reflectivity."""
+
+        self.diffuseFactor = 0.0  # type: float
+        """Amount texture affects diffuse color."""
+
+        self.alpha = 0.0  # type: float
+        """Amount texture affects alpha."""
+
+        self.specularIntensity = 0.0  # type: float
+        """Amount texture affects specular reflectivity."""
+
+        self.specularFactor = 0.0  # type: float
+        """Amount texture affects specular color."""
+
+        self.hardness = 0.0  # type: float
+        """Amount texture affects hardness."""
+
+        self.emit = 0.0  # type: float
+        """Amount texture affects emission."""
+
+        self.mirror = 0.0  # type: float
+        """Amount texture affects mirror color."""
+
+        self.normal = 0.0  # type: float
+        """Amount texture affects normal values."""
+
+        self.parallaxBump = 0.0  # type: float
+        """Height of parallax occlusion mapping."""
+
+        self.parallaxStep = 0.0  # type: float
+        """Number of steps to achieve parallax effect."""
+
+        self.lodBias = 0.0  # type: float
+        """Amount bias on mipmapping."""
+
+        self.bindCode = 0  # type: int
+        """Texture bind code/Id/number."""
+
+        self.renderer = None  # type: KX_CubeMap | KX_PlanarMap
+        """Texture renderer of this texture."""
+
+        self.ior = 0.0  # type: float
+        """Index Of Refraction used to compute refraction."""
+
+        self.refractionRatio = 0.0  # type: float
+        """Amount refraction mixed with reflection."""
+
+        self.uvOffset = None  # type: _Vector
+        """Offset applied to texture UV coordinates (mainly translation on U and V axis)."""
+
+        self.uvSize = None  # type: _Vector
+        """Scale applied to texture UV coordinates."""
+
+        self.uvRotation = 0.0  # type: float
+        """Rotation applied to texture UV coordinates."""
+
+
+class KX_TextureRenderer(CValue):
+    """Python API for object doing a render stored in a texture."""
+
+    def __init__(self):
+        # type: () -> None
+        super().__init__()
+
+        self.autoUpdate = False  # type: bool
+        """Choose to update automatically each frame the texture renderer or not."""
+
+        self.viewpointObject = None  # type: KX_GameObject
+        """The object where the texture renderer will render the scene."""
+
+        self.enabled = False  # type: bool
+        """Enable the texture renderer to render the scene."""
+
+        self.ignoreLayers = 0  # type: int
+        """The layers to ignore when rendering."""
+
+        self.clipStart = 0.0  # type: float
+        """The projection view matrix near plane, used for culling."""
+
+        self.clipEnd = 0.0  # type: float
+        """The projection view matrix far plane, used for culling."""
+
+        self.lodDistanceFactor = 0.0  # type: float
+        """The factor to multiply distance to camera to adjust levels of detail.
+        A float < 1.0f will make the distance to camera used to compute levels of detail decrease."""
+
+    def update(self):
+        # type: () -> None
+        """Request to update this texture renderer during the rendering stage.
+        This function is effective only when autoUpdate is disabled."""
+        pass
+
+
+class KX_CubeMap(KX_TextureRenderer):
+    """Python API for realtime cube map textures."""
+
     pass
+
+
+class KX_PlanarMap(KX_TextureRenderer):
+    """Python API for realtime planar map textures."""
+
+    def __init__(self):
+        # type: () -> None
+        super().__init__()
+
+        self.normal = None  # type: _Vector
+        """Plane normal used to compute the reflection or refraction orientation of the render camera."""
 
 class KX_Camera(KX_GameObject):
     """base class - KX_GameObject
