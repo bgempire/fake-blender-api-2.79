@@ -2681,64 +2681,64 @@ class KX_ConstraintActuator(SCA_IActuator):
         self.rayLength = 0
         self.limit = 0
 
+
 class KX_ConstraintWrapper(PyObjectPlus):
-    """base class - PyObjectPlus
-
-    class bge.KX_ConstraintWrapper(PyObjectPlus)
-
-    KX_ConstraintWrapper"""
+    """KX_ConstraintWrapper"""
 
     def __init__(self):
-        self.constraint_id = 0
-        self.constraint_type = 0
+        # type: () -> None
+        super().__init__()
+
+        self.constraint_id = 0  # type: int
+        """Returns the contraint ID (read only)"""
+
+        self.constraint_type = 0  # type: int
+        """Returns the contraint type (read only).
+
+        Can be one of the following constants:
+
+        - bge.constraints.POINTTOPOINT_CONSTRAINT = 1
+        - bge.constraints.LINEHINGE_CONSTRAINT = 2
+        - bge.constraints.ANGULAR_CONSTRAINT = 3
+        - bge.constraints.CONETWIST_CONSTRAINT = 4
+        - bge.constraints.VEHICLE_CONSTRAINT = 11
+        - bge.constraints.GENERIC_6DOF_CONSTRAINT = 12"""
+
+        self.breakingThreshold = 0.0  # type: float
+        """The impulse threshold breaking the constraint, if the constraint is broken enabled is set to False."""
+
+        self.enabled = False  # type: bool
+        """The status of the constraint. Set to True to restore a constraint after breaking."""
 
     def getConstraintId(self):
-        """Returns the contraint ID
+        # type: () -> int
+        """Returns the contraint ID.
 
         Returns:
-        the constraint ID
+            int: the constraint ID"""
+        pass
 
-        Return type:
-        integer"""
-        return 0
-    def setParam(self):
+    def setParam(self, axis, value0, value1):
+        # type: (int, float, float) -> None
         """Set the contraint limits
 
         Args:
-        axis (integer)
-        value0 - Set the minimum limit of the axis
-        value1 - Set the maximum limit of the axis"""
+            axis (integer)
+            value0: Set the minimum limit of the axis
+            value1: Set the maximum limit of the axis"""
         pass
-    def getParam(self):
-        """Get the contraint position or euler angle of a generic 6DOF constraint
+
+    def getParam(self, axis):
+        # type: (int) -> float
+        """Get the contraint position or euler angle of a generic 6DOF constraint.
 
         Args:
-        axis (integer)
-
-        axis = 0..2 are linear constraint values
-        0: X axis position
-        1: Y axis position
-        2: Z axis position
+            axis (integer)
 
         Returns:
-        position
+            float: position or angle"""
+        pass
 
-        Return type:
-        float
-
-        axis = 3..5 are relative constraint (Euler) angles in radians
-        3: X axis angle
-        4: Y axis angle
-        5: Z axis angle
-
-        Returns:
-        angle
-
-        Return type:
-        float"""
-        return 0.0
-
-    pass
 
 class KX_FontObject(KX_GameObject):
     """A Font object."""
@@ -2767,32 +2767,62 @@ class KX_FontObject(KX_GameObject):
 
 
 class KX_GameActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.KX_GameActuator(SCA_IActuator)
-
-    The game actuator loads a new .blend file, restarts the current .blend file or quits the game."""
+    """The game actuator loads a new .blend file, restarts the current .blend file or quits the game."""
 
     def __init__(self):
-        self.fileName = 0
-        self.mode = 0
+        # type: () -> None
+        super().__init__()
+
+        self.fileName = ""  # type: str
+        """The new .blend file to load."""
+
+        self.mode = 0  # type: int
+        """The mode of this actuator.
+
+        Can be on of these constants:
+
+        - bge.logic.KX_GAME_LOAD = 1
+        - bge.logic.KX_GAME_START = 2
+        - bge.logic.KX_GAME_RESTART = 3
+        - bge.logic.KX_GAME_QUIT = 4
+        - bge.logic.KX_GAME_SAVECFG = 5
+        - bge.logic.KX_GAME_LOADCFG = 6"""
+
 
 class KX_IpoActuator(SCA_IActuator):
-    """base class - SCA_IActuator
-
-    class bge.KX_IpoActuator(SCA_IActuator)
-    IPO actuator activates an animation."""
+    """IPO actuator activates an animation."""
 
     def __init__(self):
-        self.frameStart = 0
-        self.frameEnd = 0
-        self.propName = 0
-        self.framePropName = 0
-        self.mode = 0
-        self.useIpoAsForce = 0
-        self.useIpoAdd = 0
-        self.useIpoLocal = 0
-        self.useChildren = 0
+        # type: () -> None
+        super().__init__()
+
+        self.frameStart = 0.0  # type: float
+        """Start frame."""
+
+        self.frameEnd = 0.0  # type: float
+        """End frame."""
+
+        self.propName = ""  # type: str
+        """Use this property to define the Ipo position."""
+
+        self.framePropName = ""  # type: str
+        """Assign this property this action current frame number."""
+
+        self.mode = 0  # type: int
+        """Play mode for the ipo. Can be on of these constants."""
+
+        self.useIpoAsForce = False  # type: bool
+        """Apply Ipo as a global or local force depending on the local option (dynamic objects only)."""
+
+        self.useIpoAdd = False  # type: bool
+        """Ipo is added to the current loc/rot/scale in global or local coordinate according to Local flag."""
+
+        self.useIpoLocal = False  # type: bool
+        """Let the ipo acts in local coordinates, used in Force and Add mode."""
+
+        self.useChildren = False  # type: bool
+        """Update IPO on all children Objects as well."""
+
 
 class KX_LibLoadStatus(PyObjectPlus):
     """An object providing information about a LibLoad() operation."""
@@ -2818,37 +2848,91 @@ class KX_LibLoadStatus(PyObjectPlus):
 
 
 class KX_LightObject(KX_GameObject):
-    """base class - KX_GameObject
-
-    class bge.KX_LightObject(KX_GameObject)
-
-    A Light object.
-
-    # Turn on a red alert light.
-    import bge
-
-    co = bge.logic.getCurrentController()
-    light = co.owner
-
-    light.energy = 1.0
-    light.color = [1.0, 0.0, 0.0]"""
+    """A Light object."""
 
     # Constants
     SPOT = 0  # type: int
+    """A spot light source. See attribute type"""
+
     SUN = 0  # type: int
+    """A point light source with no attenuation. See attribute type"""
+
     NORMAL = 0  # type: int
+    """A point light source. See attribute type"""
+
     HEMI = 0  # type: int
+    """A hemi light source. See attribute type"""
 
     def __init__(self):
+        # type: () -> None
+        super().__init__()
+
         self.type = 0  # type: int
+        """The type of light - must be SPOT, SUN or NORMAL."""
+
         self.layer = 0  # type: int
+        """The layer mask that this light affects object on."""
+
         self.energy = 0.0  # type: float
+        """The brightness of this light."""
+
+        self.shadowClipStart = 0.0  # type: float
+        """The shadowmap clip start, below which objects will not generate shadows."""
+
+        self.shadowClipEnd = 0.0  # type: float
+        """The shadowmap clip end, beyond which objects will not generate shadows."""
+
+        self.shadowFrustumSize = 0.0  # type: float
+        """Size of the frustum used for creating the shadowmap."""
+
+        self.shadowBindId = 0  # type: int
+        """The OpenGL shadow texture bind number/id."""
+
+        self.shadowMapType = 0  # type: int
+        """The shadow shadow map type (0 -> Simple; 1 -> Variance)"""
+
+        self.shadowBias = 0.0  # type: float
+        """The shadow buffer sampling bias."""
+
+        self.shadowBleedBias = 0.0  # type: float
+        """The bias for reducing light-bleed on variance shadow maps."""
+
+        self.useShadow = False  # type: bool
+        """Returns True if the light has Shadow option activated, else returns False."""
+
+        self.shadowColor = None  # type: _Color
+        """The color of this light shadows. Black = (0.0, 0.0, 0.0), White = (1.0, 1.0, 1.0)."""
+
+        self.shadowMatrix = None  # type: _Matrix
+
         self.distance = 0.0  # type: float
-        self.color = [1.0, 1.0, 1.0]
+        """The maximum distance this light can illuminate. (SPOT and NORMAL lights only)."""
+
+        self.color = [1.0, 1.0, 1.0]  # type: list[float]
+        """The color of this light. Black = [0.0, 0.0, 0.0], White = [1.0, 1.0, 1.0]."""
+
         self.lin_attenuation = 0.0  # type: float
+        """The linear component of this light's attenuation. (SPOT and NORMAL lights only)."""
+
         self.quad_attenuation = 0.0  # type: float
+        """The quadratic component of this light's attenuation (SPOT and NORMAL lights only)."""
+
         self.spotsize = 0.0  # type: float
+        """The cone angle of the spot light, in degrees (SPOT lights only)."""
+
         self.spotblend = 0.0  # type: float
+        """Specifies the intensity distribution of the spot light (SPOT lights only)."""
+
+        self.staticShadow = False  # type: bool
+        """Enables static shadows.
+        By default (staticShadow=False) the shadow cast by the lamp is recalculated every frame.
+        When this is not needed, set staticShadow=True.
+        In that case, call updateShadow() to request a shadow update."""
+
+    def updateShadow(self):
+        # type: () -> None
+        """Set the shadow to be updated next frame if the lamp uses a static shadow, see staticShadow."""
+        pass
 
 class KX_MeshProxy(SCA_IObject):
     """base class - SCA_IObject
@@ -3163,119 +3247,121 @@ class KX_ParentActuator(SCA_IActuator):
 
         Effective only if the shape is not added to the parent compound shape."""
 
+
 class KX_PolyProxy(SCA_IObject):
-    """base class - SCA_IObject
+    """A polygon holds the index of the vertex forming the poylgon.
 
-    class bge.KX_PolyProxy(SCA_IObject)
-
-    A polygon holds the index of the vertex forming the poylgon.
-
-    Note: The polygon attributes are read-only, you need to retrieve the vertex proxy if you want to change the vertex settings."""
+    Note:
+        The polygon attributes are read-only, you need to retrieve the vertex proxy if you want to change the vertex settings."""
 
     def __init__(self):
-        self.material_name = 0
-        self.material = 0
-        self.texture_name = 0
-        self.material_id = 0
-        self.v1 = 0
-        self.v2 = 0
-        self.v3 = 0
-        self.v4 = 0
-        self.visible = 0
-        self.collide = 0
+        # type: () -> None
+        super().__init__()
+
+        self.material_name = ""  # type: str
+        """The name of polygon material, empty if no material."""
+
+        self.material = None  # type: KX_BlenderMaterial
+        """The material of the polygon."""
+
+        self.texture_name = ""  # type: str
+        """The texture name of the polygon."""
+
+        self.material_id = 0  # type: int
+        """The material index of the polygon, use this to retrieve vertex proxy from mesh proxy."""
+
+        self.v1 = 0  # type: int
+        """vertex index of the first vertex of the polygon, use this to retrieve vertex proxy from mesh proxy."""
+
+        self.v2 = 0  # type: int
+        """vertex index of the second vertex of the polygon, use this to retrieve vertex proxy from mesh proxy."""
+
+        self.v3 = 0  # type: int
+        """vertex index of the third vertex of the polygon, use this to retrieve vertex proxy from mesh proxy."""
+
+        self.v4 = 0  # type: int
+        """Deprecated since version polygons: are triangles."""
+
+        self.visible = 0  # type: int
+        """visible state of the polygon: 1=visible, 0=invisible."""
+
+        self.collide = 0  # type: int
+        """collide state of the polygon: 1=receives collision, 0=collision free."""
+
+        self.vertices = []  # type: list[KX_VertexProxy]
+        """Returns the list of vertices of this polygon."""
 
     def getMaterialName(self):
-        """Returns the polygon material name with MA prefix
+        # type: () -> str
+        """Returns the polygon material name with MA prefix.
 
         Returns:
-        material name
-
-        Return type:
-        string"""
-        return "str"
+            str: material name"""
+        pass
 
     def getMaterial(self):
+        # type: () -> KX_BlenderMaterial
         """Returns:
-        The polygon material
-
-        Return type:
-        KX_BlenderMaterial"""
-        value = KX_BlenderMaterial
-        return value
+            KX_BlenderMaterial: The polygon material"""
+        pass
 
     def getTextureName(self):
+        # type: () -> str
         """Returns:
-        The texture name
-
-        Return type:
-        string"""
-        return "str"
+            str: The texture name"""
+        pass
 
     def getMaterialIndex(self):
-        """Returns the material bucket index of the polygon. This index and the ones returned by getVertexIndex() are needed to retrieve the vertex proxy from MeshProxy.
+        # type: () -> int
+        """Returns the material bucket index of the polygon.
+        This index and the ones returned by getVertexIndex() are needed to retrieve the vertex proxy from MeshProxy.
 
         Returns:
-        the material index in the mesh
-
-        Return type:
-        integer"""
-        return 0
+            int: the material index in the mesh"""
+        pass
 
     def getNumVertex(self):
+        # type: () -> int
         """Returns the number of vertex of the polygon.
 
         Returns:
-        number of vertex, 3 or 4.
-
-        Return type:
-        integer"""
-        return 0
+            int: number of vertex, 3 or 4."""
+        pass
 
     def isVisible(self):
+        # type: () -> bool
         """Returns whether the polygon is visible or not
 
         Returns:
-        0=invisible, 1=visible
-
-        Return type:
-        boolean"""
-        return 0
+            bool: 0=invisible, 1=visible"""
+        pass
 
     def isCollider(self):
+        # type: () -> int
         """Returns whether the polygon is receives collision or not
 
-        Returns: 0=collision free, 1=receives collision
+        Returns:
+            int: 0=collision free, 1=receives collision"""
+        pass
 
-        Return type:
-        integer"""
-        return 0
-
-    def getVertexIndex(self):
+    def getVertexIndex(self, vertex):
+        # type: (int) -> list[int]
         """Returns the mesh vertex index of a polygon vertex This index and the one returned by getMaterialIndex() are needed to retrieve the vertex proxy from MeshProxy.
 
         Args:
-        vertex - index of the vertex in the polygon: 0->3
-        vertex - integer
+            vertex: index of the vertex in the polygon (0-3)
 
         Returns:
-        mesh vertex index
-
-        Return type:
-        integer"""
-        return 0
+            int: mesh vertex index"""
+        pass
 
     def getMesh(self):
+        # type: () -> KX_MeshProxy
         """Returns a mesh proxy
 
         Returns:
-        mesh proxy
-
-        Return type:
-        MeshProxy"""
-        value = KX_MeshProxy
-        return value
-
-    pass
+            KX_MeshProxy: mesh proxy"""
+        pass
 
 
 class KX_RadarSensor(KX_NearSensor):
