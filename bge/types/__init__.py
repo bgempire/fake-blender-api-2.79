@@ -2269,79 +2269,101 @@ class KX_ArmatureSensor(SCA_ISensor):
         - The rotation error on CopyPose is always >= 0: it is the norm of the equivalent rotation vector between the bone and the target orientations.
         - The linear error on Distance can be positive if the distance between the bone and the target is greater than the desired distance, and negative if the distance is smaller."""
 
-class KX_BlenderMaterial(PyObjectPlus):
-    """base class - PyObjectPlus
 
-    class bge.KX_BlenderMaterial(PyObjectPlus)
-    This is the interface to materials in the game engine.
+class KX_BlenderMaterial(PyObjectPlus):
+    """This is the interface to materials in the game engine.
 
     Materials define the render state to be applied to mesh objects."""
 
     def __init__(self):
-        self.shader = 0
-        self.blending = 0
-        self.material_index = 0
-        self.alpha = 0
-        self.hardness = 0
-        self.emit = 0
-        self.specularIntensity = 0
-        self.diffuseIntensity = 0
-        self.specularColor = 0
-        self.diffuseColor = 0
+        # type: () -> None
+        super().__init__()
+
+        self.shader = None  # type: BL_Shader
+        """The material's shader."""
+
+        self.blending = (0, 0)  # type: tuple[int, int]
+        """Ints used for pixel blending, (src, dst), matching the setBlending method."""
+
+        self.material_index = 0  # type: int
+        """The material's index."""
+
+        self.alpha = 0.0  # type: float
+        """The material's alpha transparency."""
+
+        self.hardness = 0  # type: int
+        """How hard (sharp) the material's specular reflection is."""
+
+        self.emit = 0.0  # type: float
+        """Amount of light to emit."""
+
+        self.ambient = 0.0  # type: float
+        """Amount of ambient light on the material."""
+
+        self.specularAlpha = 0.0  # type: float
+        """Alpha transparency for specular areas."""
+
+        self.specularIntensity = 0.0  # type: float
+        """How intense (bright) the material's specular reflection is."""
+
+        self.diffuseIntensity = 0.0  # type: float
+        """The material's amount of diffuse reflection."""
+
+        self.specularColor = None  # type: _Color
+        """The material's specular color."""
+
+        self.diffuseColor = None  # type: _Color
+        """The material's diffuse color."""
+
+        self.textures = []  # type: list[BL_Texture]
+        """List of all material's textures."""
+
+    def getTextureBindcode(textureslot):
+        # type: (int) -> int
+        """Returns the material's texture OpenGL bind code/id/number/name.
+
+        Note:
+            Deprecated since version use: bge.types.BL_Texture.bindCode()"""
+        pass
 
     def getShader(self):
+        # type: () -> BL_Shader
         """Returns the material's shader.
 
         Returns:
-        the material's shader
+            BL_Shader: the material's shader"""
+        pass
 
-        Return type:
-        BL_Shader"""
-        value = BL_Shader
-        return value
-
-    def setBlending(self):
+    def setBlending(self, src, dest):
+        # type: (int, int) -> None
         """Set the pixel color arithmetic functions.
 
         Args:
-        src (int) -
-        Specifies how the red, green, blue, and alpha source blending factors are computed, one of...
-        GL_ZERO
-        GL_ONE
-        GL_SRC_COLOR
-        GL_ONE_MINUS_SRC_COLOR
-        GL_DST_COLOR
-        GL_ONE_MINUS_DST_COLOR
-        GL_SRC_ALPHA
-        GL_ONE_MINUS_SRC_ALPHA
-        GL_DST_ALPHA
-        GL_ONE_MINUS_DST_ALPHA
-        GL_SRC_ALPHA_SATURATE
+            src (int): Specifies how the red, green, blue, and alpha source blending factors are computed
+            dest (int): Specifies how the red, green, blue, and alpha destination blending factors are computed
 
-        dest (int) -
-        Specifies how the red, green, blue, and alpha destination blending factors are computed, one of...
-        GL_ZERO
-        GL_ONE
-        GL_SRC_COLOR
-        GL_ONE_MINUS_SRC_COLOR
-        GL_DST_COLOR
-        GL_ONE_MINUS_DST_COLOR
-        GL_SRC_ALPHA
-        GL_ONE_MINUS_SRC_ALPHA
-        GL_DST_ALPHA
-        GL_ONE_MINUS_DST_ALPHA
-        GL_SRC_ALPHA_SATURATE"""
+        Arguments can be one of:
+
+        - GL_ZERO
+        - GL_ONE
+        - GL_SRC_COLOR
+        - GL_ONE_MINUS_SRC_COLOR
+        - GL_DST_COLOR
+        - GL_ONE_MINUS_DST_COLOR
+        - GL_SRC_ALPHA
+        - GL_ONE_MINUS_SRC_ALPHA
+        - GL_DST_ALPHA
+        - GL_ONE_MINUS_DST_ALPHA
+        - GL_SRC_ALPHA_SATURATE"""
         pass
 
     def getMaterialIndex(self):
+        # type: () -> int
         """Returns the material's index.
 
         Returns:
-        the material's index
-
-        Return type:
-        integer"""
-        return 0
+            int: the material's index"""
+        pass
 
 
 class BL_Texture(CValue):
