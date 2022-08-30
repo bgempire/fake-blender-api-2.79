@@ -2241,6 +2241,9 @@ class KX_TouchSensor(SCA_ISensor):
         """The material of the object in the face hit by the ray. (read-only)."""
 
 
+KX_CollisionSensor = KX_TouchSensor
+
+
 class KX_ArmatureSensor(SCA_ISensor):
     """Armature sensor detect conditions on armatures."""
 
