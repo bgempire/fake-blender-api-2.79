@@ -5,7 +5,7 @@ with open("README.rst", "r") as fh:
 
 setup(
 	name = 'fake-blender-api-2.79',
-	version = '0.4.0',
+	version = '0.4.1',
 
 	packages = [
 		"aud",
