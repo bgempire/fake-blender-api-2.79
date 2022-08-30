@@ -3,3 +3,5 @@ __pycache__
 /dist
 .idea
 test*
+fake_blender_api_2.79.egg-info/*
+ex_*.*
