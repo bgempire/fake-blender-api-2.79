@@ -3978,152 +3978,159 @@ class KX_VehicleWrapper(PyObjectPlus):
     pass
 
 class KX_VertexProxy(SCA_IObject):
-    """base class - SCA_IObject
+    """A vertex holds position, UV, color and normal information.
 
-    class bge.KX_VertexProxy(SCA_IObject)
-
-    A vertex holds position, UV, color and normal information.
-
-    Note: The physics simulation is NOT currently updated - physics will not respond to changes in the vertex position."""
+    Note:
+        The physics simulation is NOT currently updated - physics will not respond to changes in the vertex position."""
 
     def __init__(self):
-        self.XYZ = 0
-        self.UV = 0
-        self.normal = 0
-        self.color = 0
-        self.x = 0
-        self.y = 0
-        self.z = 0
-        self.u = 0
-        self.v = 0
-        self.u2 = 0
-        self.v2 = 0
-        self.r = 0
-        self.g = 0
-        self.b = 0
-        self.a = 0
+        # type: () -> None
+        super().__init__()
+
+        self.XYZ = None  # type: _Vector
+        """The position of the vertex."""
+
+        self.UV = None  # type: _Vector
+        """The texture coordinates of the vertex."""
+
+        self.uvs = []  # type: list[_Vector]
+        """The texture coordinates list of the vertex."""
+
+        self.normal = None  # type: _Vector
+        """The normal of the vertex."""
+
+        self.color = None  # type: _Vector
+        """The color of the vertex."""
+
+        self.colors = []  # type: list[_Vector]
+        """The color list of the vertex."""
+
+        self.x = 0.0  # type: float
+        """The x coordinate of the vertex."""
+
+        self.y = 0.0  # type: float
+        """The y coordinate of the vertex."""
+
+        self.z = 0.0  # type: float
+        """The z coordinate of the vertex."""
+
+        self.u = 0.0  # type: float
+        """The u texture coordinate of the vertex."""
+
+        self.v = 0.0  # type: float
+        """The v texture coordinate of the vertex."""
+
+        self.u2 = 0.0  # type: float
+        """The second u texture coordinate of the vertex."""
+
+        self.v2 = 0.0  # type: float
+        """The second v texture coordinate of the vertex."""
+
+        self.r = 0.0  # type: float
+        """The red component of the vertex color. 0.0 <= r <= 1.0."""
+
+        self.g = 0.0  # type: float
+        """The green component of the vertex color. 0.0 <= g <= 1.0."""
+
+        self.b = 0.0  # type: float
+        """The blue component of the vertex color. 0.0 <= b <= 1.0."""
+
+        self.a = 0.0  # type: float
+        """The alpha component of the vertex color. 0.0 <= a <= 1.0."""
 
     def getXYZ(self):
+        # type: () -> _Vector
         """Gets the position of this vertex.
 
         Returns:
-        this vertexes position in local coordinates.
+            Vector: this vertexes position in local coordinates."""
+        pass
 
-        Return type:
-        Vector((x, y, z))"""
-        from mathutils import Vector
-        return Vector(None)
-
-    def setXYZ(self):
+    def setXYZ(self, pos):
+        # type: (_Vector) -> None
         """Sets the position of this vertex.
 
-        Type:
-        Vector((x, y, z))
-
         Args:
-        pos - the new position for this vertex in local coordinates."""
+            pos (Vector): the new position for this vertex in local coordinates."""
         pass
 
     def getUV(self):
+        # type: () -> _Vector
         """Gets the UV (texture) coordinates of this vertex.
 
         Returns:
-        this vertexes UV (texture) coordinates.
+            Vector: this vertexes UV (texture) coordinates."""
+        pass
 
-        Return type:
-        Vector((u, v))"""
-        from mathutils import Vector
-        return Vector(None)
-
-    def setUV(self):
+    def setUV(self, uv):
+        # type: (_Vector) -> None
         """Sets the UV (texture) coordinates of this vertex.
 
-        Type:
-        Vector((u, v))"""
+        Args:
+            uv (Vector): the new uv for this vertex."""
         pass
 
     def getUV2(self):
+        # type: () -> _Vector
         """Gets the 2nd UV (texture) coordinates of this vertex.
 
         Returns:
-        this vertexes UV (texture) coordinates.
+            Vector: this vertexes UV (texture) coordinates."""
+        pass
 
-        Return type:
-        Vector((u, v))"""
-        from mathutils import Vector
-        return Vector(None)
-
-    def setUV2(self):
+    def setUV2(self, uv, unit):
+        # type: (_Vector, int) -> None
         """Sets the 2nd UV (texture) coordinates of this vertex.
 
-        Type:
-        Vector((u, v))
-
         Args:
-        unit - optional argument, FLAT==1, SECOND_UV==2, defaults to SECOND_UV
-        unit - integer"""
+            uv (Vector): the new uv for this vertex.
+            unit (Vector): optional argument, FLAT==1, SECOND_UV==2, defaults to SECOND_UV"""
         pass
 
     def getRGBA(self):
+        # type: () -> int
         """Gets the color of this vertex.
 
         The color is represented as four bytes packed into an integer value. The color is packed as RGBA.
 
-        Since Python offers no way to get each byte without shifting, you must use the struct module to access color in an machine independent way.
+        Since Python offers no way to get each byte without shifting, you must use the struct module to access color
+        in an machine independent way.
 
         Because of this, it is suggested you use the r, g, b and a attributes or the color attribute instead.
 
-        import struct;
-        col = struct.unpack('4B', struct.pack('I', v.getRGBA()))
-        # col = (r, g, b, a)
-        # black = (  0, 0, 0, 255)
-        # white = (255, 255, 255, 255)
-
         Returns:
-        packed color. 4 byte integer with one byte per color channel in RGBA format.
+            int: 4 byte integer with one byte per color channel in RGBA format."""
+        pass
 
-        Return type:
-        integer"""
-        return 0
-
-    def setRGBA(self):
+    def setRGBA(self, col):
+        # type: (int | _Vector) -> None
         """Sets the color of this vertex.
 
-        See getRGBA() for the format of col, and its relevant problems. Use the r, g, b and a attributes or the color attribute instead.
+        See getRGBA() for the format of col, and its relevant problems. Use the r, g, b and a attributes or the color
+        attribute instead.
 
-        setRGBA() also accepts a four component list as argument col. The list represents the color as [r, g, b, a] with black = [0.0, 0.0, 0.0, 1.0] and white = [1.0, 1.0, 1.0, 1.0]
-
-        v.setRGBA(0xff0000ff) # Red
-        v.setRGBA(0xff00ff00) # Green on little endian, transparent purple on big endian
-        v.setRGBA([1.0, 0.0, 0.0, 1.0]) # Red
-        v.setRGBA([0.0, 1.0, 0.0, 1.0]) # Green on all platforms.
+        setRGBA() also accepts a four component list as argument col. The list represents the color as [r, g, b, a]
+        with black = [0.0, 0.0, 0.0, 1.0] and white = [1.0, 1.0, 1.0, 1.0]
 
         Args:
-        col (integer or list [r, g, b, a]): the new color of this vertex in packed RGBA format."""
+            col (integer or list [r, g, b, a]): the new color of this vertex in packed RGBA format."""
         pass
 
     def getNormal(self):
+        # type: () -> _Vector
         """Gets the normal vector of this vertex.
 
         Returns:
-        normalized normal vector.
-
-        Return type:
-        Vector((nx, ny, nz))"""
-        from mathutils import Vector
-        return Vector(None)
-
-    def setNormal(self):
-        """Sets the normal vector of this vertex.
-
-        Type:
-        sequence of floats [r, g, b]
-
-        Args:
-        normal - the new normal of this vertex."""
+            Vector: normalized normal vector."""
         pass
 
-    pass
+    def setNormal(self, normal):
+        # type: (_Vector) -> None
+        """Sets the normal vector of this vertex.
+
+        Args:
+            normal (Vector): the new normal of this vertex."""
+        pass
 
 
 class KX_VisibilityActuator(SCA_IActuator):
