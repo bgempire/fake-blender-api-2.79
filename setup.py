@@ -5,41 +5,41 @@ with open("README.rst", "r") as fh:
 
 setup(
 	name = 'fake-blender-api-2.79',
-	version = '0.3.1',
-	
+	version = '0.4.0',
+
 	packages = [
-		"aud", 
-		
-		"bge", 
-		"bge/app", 
-		"bge/constraints", 
-		"bge/events", 
-		"bge/logic", 
-		"bge/render", 
-		"bge/texture", 
+		"aud",
+
+		"bge",
+		"bge/app",
+		"bge/constraints",
+		"bge/events",
+		"bge/logic",
+		"bge/render",
+		"bge/texture",
 		"bge/types",
-		
-		"bgl", 
-		"blf", 
-		"bmesh", 
-		
-		"bpy", 
+
+		"bgl",
+		"blf",
+		"bmesh",
+
+		"bpy",
 		"bpy/app",
 		"bpy/ops",
 		"bpy/utils",
-		
+
 		"bpy_extras",
-		
-		"freestyle", 
-		"freestyle/utils", 
-		
-		"gpu", 
-		"idprop", 
-		
+
+		"freestyle",
+		"freestyle/utils",
+
+		"gpu",
+		"idprop",
+
 		"mathutils",
 		"mathutils/noise"
 	],
-	
+
 	license='GPLv3',
 	description = "Fake Blender 2.79 Python API for code completion, including BGE",
 	long_description=long_description,
@@ -48,24 +48,24 @@ setup(
 	author_email = 'joelgomes1994@hotmail.com',
 	url = 'https://github.com/bgempire/fake-blender-api-2.79',
 	download_url = 'https://github.com/bgempire/fake-blender-api-2.79/archive/0.3.tar.gz',
-	
+
 	keywords = [
-		'blender', 
-		'bge', 
-		'upbge', 
-		'api', 
-		'3d', 
-		'bpy', 
-		'mathutils', 
-		'code', 
-		'completion', 
+		'blender',
+		'bge',
+		'upbge',
+		'api',
+		'3d',
+		'bpy',
+		'mathutils',
+		'code',
+		'completion',
 		'autocomplete'
 	],
-	
+
 	install_requires = [
 		'typing'
 	],
-	
+
 	classifiers=[
 		'Development Status :: 3 - Alpha',
 		'Intended Audience :: Developers',
