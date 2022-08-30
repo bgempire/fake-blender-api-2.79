@@ -1982,199 +1982,208 @@ class BL_ArmatureObject(KX_GameObject):
 
         pass
 
+
 class BL_Shader(PyObjectPlus):
-    """base class - PyObjectPlus
+    """BL_Shader GLSL shaders."""
 
-    class bge.BL_Shader(PyObjectPlus)
-
-    BL_Shader GLSL shaders.
-
-    TODO - Description"""
-
-    def setUniformfv(self):
+    def setUniformfv(self, name, fList):
+        # type: (str, list[float]) -> None
         """Set a uniform with a list of float values
 
         Args:
-        name (string): the uniform name
-        fList (list[float]): a list (2, 3 or 4 elements) of float values"""
+            name (string): the uniform name
+            fList (list[float]): a list (2, 3 or 4 elements) of float values"""
         pass
 
     def delSource(self):
+        # type: () -> None
         """Clear the shader. Use this method before the source is changed with setSource."""
         pass
 
     def getFragmentProg(self):
+        # type: () -> str
         """Returns the fragment program.
 
-        Returns:	The fragment program.
-
-        Return type:
-        string"""
-        return "str"
+        Returns:
+            str: The fragment program."""
+        pass
 
     def getVertexProg(self):
+        # type: () -> str
         """Get the vertex program.
 
-        Returns: The vertex program.
-
-        Return type:
-        string"""
-        return "str"
+        Returns:
+            str: The vertex program."""
+        pass
 
     def isValid(self):
+        # type: () -> bool
         """Check if the shader is valid.
 
-        Returns: True if the shader is valid
+        Returns:
+            bool: True if the shader is valid"""
+        pass
 
-        Return type:
-        boolean"""
-        return True
-
-    def setAttrib(self):
+    def setAttrib(self, enum):
+        # type: (int) -> None
         """Set attribute location. (The parameter is ignored a.t.m. and the value of "tangent" is always used.)
 
         Args:
-        enum (integer): attribute location value"""
+            enum (int): attribute location value"""
         pass
 
-    def setNumberOfPasses(self):
+    def setNumberOfPasses(self, max_pass):
+        # type: (int) -> None
         """Set the maximum number of passes. Not used a.t.m.
 
         Args:
-        max_pass (integer): the maximum number of passes"""
+            max_pass (int): the maximum number of passes"""
         pass
 
-    def setSampler(self):
+    def setSampler(self, name, index):
+        # type: (str, int) -> None
         """Set uniform texture sample index.
 
         Args:
-        name (string): Uniform name
-        index (integer): Texture sample index."""
+            name (str): Uniform name
+            index (int): Texture sample index."""
         pass
 
-    def setSource(self):
+    def setSource(self, vertexProgram, fragmentProgram):
+        # type: (str, str) -> None
         """Set the vertex and fragment programs
 
         Args:
-        vertexProgram (string): Vertex program
-        fragmentProgram (string): Fragment program"""
+            vertexProgram (str): Vertex program
+            fragmentProgram (str): Fragment program"""
         pass
 
-    def setUniform1f(self):
+    def setUniform1f(self, name, fx):
+        # type: (str, float) -> None
         """Set a uniform with 1 float value.
 
         Args:
-        name (string): the uniform name
-        fx (float): Uniform value"""
+            name (str): the uniform name
+            fx (float): Uniform value"""
         pass
 
-    def setUniform1i(self):
+    def setUniform1i(self, name, fx):
+        # type: (str, int) -> None
         """Set a uniform with an integer value.
 
         Args:
-        name (string): the uniform name
-        ix (integer): the uniform value"""
+            name (str): the uniform name
+            ix (int): the uniform value"""
         pass
 
-    def setUniform2f(self):
+    def setUniform2f(self, name, fx, fy):
+        # type: (str, float, float) -> None
         """Set a uniform with 2 float values
 
         Args:
-        name (string): the uniform name
-        fx (float): first float value
-        fy (float): second float value"""
+            name (str): the uniform name
+            fx (float): first float value
+            fy (float): second float value"""
         pass
 
-    def setUniform2i(self):
+    def setUniform2i(self, name, ix, iy):
+        # type: (str, int, int) -> None
         """Set a uniform with 2 integer values
 
         Args:
-        name (string): the uniform name
-        ix (integer): first integer value
-        iy (integer): second integer value"""
+            name (str): the uniform name
+            ix (int): first integer value
+            iy (int): second integer value"""
         pass
 
-    def setUniform3f(self):
+    def setUniform3f(self, name, fx, fy, fz):
+        # type: (str, float, float, float) -> None
         """Set a uniform with 3 float values.
 
         Args:
-        name (string): the uniform name
-        fx (float): first float value
-        fy (float): second float value
-        fz (float): third float value"""
+            name (str): the uniform name
+            fx (float): first float value
+            fy (float): second float value
+            fz (float): third float value"""
         pass
 
-    def setUniform3i(self):
+    def setUniform3i(self, name, ix, iy, iz):
+        # type: (str, int, int, int) -> None
         """Set a uniform with 3 integer values
 
         Args:
-        name (string): the uniform name
-        ix (integer): first integer value
-        iy (integer): second integer value
-        iz (integer): third integer value"""
+            name (str): the uniform name
+            ix (int): first integer value
+            iy (int): second integer value
+            iz (int): third integer value"""
         pass
 
-    def setUniform4f(self):
+    def setUniform4f(self, name, fx, fy, fz, fw):
+        # type: (str, float, float, float, float) -> None
         """Set a uniform with 4 float values.
 
         Args:
-        name (string): the uniform name
-        fx (float): first float value
-        fy (float): second float value
-        fz (float): third float value
-        fw (float): fourth float value"""
+            name (string): the uniform name
+            fx (float): first float value
+            fy (float): second float value
+            fz (float): third float value
+            fw (float): fourth float value"""
         pass
 
-    def setUniform4i(self):
+    def setUniform4i(self, name, ix, iy, iz, iw):
+        # type: (str, int, int, int, int) -> None
         """Set a uniform with 4 integer values
 
         Args:
-        name (string): the uniform name
-        ix (integer): first integer value
-        iy (integer): second integer value
-        iz (integer): third integer value
-        iw (integer): fourth integer value"""
+            name (str): the uniform name
+            ix (int): first integer value
+            iy (int): second integer value
+            iz (int): third integer value
+            iw (int): fourth integer value"""
         pass
 
-    def setUniformDef(self):
+    def setUniformDef(self, name, type):
+        # type: (str, int) -> None
         """Define a new uniform
 
         Args:
-        name (string): the uniform name
-        type (UNI_NONE, UNI_INT, UNI_FLOAT, UNI_INT2, UNI_FLOAT2, UNI_INT3, UNI_FLOAT3, UNI_INT4, UNI_FLOAT4, UNI_MAT3, UNI_MAT4, UNI_MAX): uniform type"""
+            name (str): the uniform name
+            type (UNI_NONE, UNI_INT, UNI_FLOAT, UNI_INT2, UNI_FLOAT2, UNI_INT3, UNI_FLOAT3, UNI_INT4, UNI_FLOAT4, UNI_MAT3, UNI_MAT4, UNI_MAX): uniform type"""
         pass
 
-    def setUniformMatrix3(self):
+    def setUniformMatrix3(self, name, mat, transpose):
+        # type: (str, _Matrix, bool) -> None
         """Set a uniform with a 3x3 matrix value
 
         Args:
-        name (string): the uniform name
-        mat (3x3 matrix): A 3x3 matrix [[f, f, f], [f, f, f], [f, f, f]]
-        transpose (boolean): set to True to transpose the matrix"""
+            name (str): the uniform name
+            mat (3x3 matrix): A 3x3 matrix [[f, f, f], [f, f, f], [f, f, f]]
+            transpose (bool): set to True to transpose the matrix"""
         pass
 
-    def setUniformMatrix4(self):
+    def setUniformMatrix4(self, name, mat, transpose):
+        # type: (str, _Matrix, bool) -> None
         """Set a uniform with a 4x4 matrix value
 
         Args:
-        name (string): the uniform name
-        mat (4x4 matrix): A 4x4 matrix [[f, f, f, f], [f, f, f, f], [f, f, f, f], [f, f, f, f]]
-        transpose (boolean): set to True to transpose the matrix"""
+            name (str): the uniform name
+            mat (4x4 matrix): A 4x4 matrix [[f, f, f, f], [f, f, f, f], [f, f, f, f], [f, f, f, f]]
+            transpose (bool): set to True to transpose the matrix"""
         pass
 
-    def setUniformv(self):
+    def setUniformv(self, name, iList):
+        # type: (str, list[int]) -> None
         """Set a uniform with a list of integer values
 
         Args:
-        name (string): the uniform name
-        iList (list[integer]): a list (2, 3 or 4 elements) of integer values"""
+            name (str): the uniform name
+            iList (list[int]): a list (2, 3 or 4 elements) of integer values"""
         pass
 
     def validate(self):
+        # type: () -> None
         """Validate the shader object."""
         pass
-
-    pass
 
 
 class BL_ShapeActionActuator(SCA_IActuator):
@@ -3976,6 +3985,7 @@ class KX_VehicleWrapper(PyObjectPlus):
         pass
 
     pass
+
 
 class KX_VertexProxy(SCA_IObject):
     """A vertex holds position, UV, color and normal information.
