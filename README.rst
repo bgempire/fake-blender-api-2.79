@@ -2,12 +2,14 @@ Fake Blender 2.79 Python API
 =============================
 
 Fake Blender 2.79 Python API for code completion, including all modules documented on API.
+It's mainly focused on Blender Game Engine 2.7x and UPBGE 0.2.x use, so the game engine
+modules have more accurate type hints than editor modules.
 
-To use this API you just need a Python 3.x distribution and a text editor with advanced 
-code completion (PyCharm, PyScripter, Visual Studio Code with Python plugins, etc).
+To use this API you just need a Python 3.x distribution and a text editor with advanced
+code completion (PyCharm, Visual Studio Code with Python plugins, PyScripter, etc).
 
-This project is based on nutti's fake-bpy-module_, however it's not auto-generated as the 
-former. It also includes some missing modules of the fake-bpy-module such as bge and id_prop, 
+This project is based on nutti's fake-bpy-module_, however it's not auto-generated as the
+former. It also includes some missing modules of the fake-bpy-module such as bge and id_prop,
 and it aims to be more accurate in the data types.
 
 Installation

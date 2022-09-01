@@ -41,7 +41,7 @@ setup(
 	],
 
 	license='GPLv3',
-	description = "Fake Blender 2.79 Python API for code completion, including BGE",
+	description = "Fake Blender 2.79 Python API for code completion focused on BGE 2.7x and UPBGE 0.2.x",
 	long_description=long_description,
 	long_description_content_type="text/x-rst",
 	author = 'Joel Gomes da Silva',
