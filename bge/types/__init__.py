@@ -1,7 +1,7 @@
 """This module contains the classes that appear as instances in the Game Engine. A script must interact with these classes if it is to affect the behaviour of objects in a game."""
 
 from ...mathutils import Vector as _Vector, Matrix as _Matrix, Color as _Color
-from typing import Callable as _Callable
+from typing import Callable as _Callable, Any as _Any
 
 
 class PyObjectPlus:
@@ -16,6 +16,14 @@ class PyObjectPlus:
         Normally this is not a problem but when storing game engine data in the GameLogic module, KX_Scenes or other KX_GameObjects its possible to hold a reference to invalid data. Calling an attribute or method on an invalid object will raise a SystemError.
 
         The invalid attribute allows testing for this case without exception handling."""
+
+        self.__customAttributes = {}  # type: dict[str, _Any]
+
+    def __setitem__(self, key: str, value: _Any) -> None:
+        self.__customAttributes[key] = value
+
+    def __getitem__(self, key: str) -> _Any:
+        return self.__customAttributes.get(key)
 
 
 class CValue(PyObjectPlus):
